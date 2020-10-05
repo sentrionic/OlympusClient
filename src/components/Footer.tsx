@@ -17,21 +17,22 @@ type FooterLinkProps = {
 };
 
 export const Footer: React.FC<FooterLinkProps> = ({}) => {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode } = useColorMode();
   const isDark = colorMode === 'dark';
 
   return (
     <Flex
       bottom={0}
-      p={4}
-      boxShadow='md'
-      justify='center'
-      align='center'
+      boxShadow="md"
+      mt={5}
+      justify="center"
+      align="center"
       bg={isDark ? 'gray.800' : 'white'}
+      borderWidth="1px"
+      p={5}
     >
-      <Divider />
-      <Box as='footer' mt={12} textAlign='center'>
-        <Text fontSize='sm'>
+      <Box as="footer" textAlign="center">
+        <Text fontSize="xl">
           <span>OlympusBlog</span>
         </Text>
       </Box>
