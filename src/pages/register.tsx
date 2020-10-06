@@ -14,12 +14,12 @@ import {
   FormErrorMessage,
 } from '@chakra-ui/core';
 import { Form, Formik } from 'formik';
-import { login } from '../api';
+import { login, register } from '../api';
 import { NavBar } from '../components/NavBar';
 import { mutate } from 'swr';
 import { useRouter } from 'next/router';
 
-const Login = () => {
+const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
@@ -37,14 +37,14 @@ const Login = () => {
           boxShadow="lg"
         >
           <Box textAlign="center">
-            <Heading>Login</Heading>
+            <Heading>Register Account</Heading>
           </Box>
           <Box my={4} textAlign="left">
             <Formik
-              initialValues={{ email: '', password: '' }}
+              initialValues={{ email: '', username: '', password: '' }}
               onSubmit={async (values, { setErrors }) => {
                 try {
-                  const { data } = await login(values);
+                  const { data } = await register(values);
 
                   if (data?.user) {
                     window.localStorage.setItem(
@@ -65,7 +65,19 @@ const Login = () => {
             >
               {({ isSubmitting, handleChange, errors, touched }) => (
                 <Form>
-                  <FormControl isInvalid={errors.email && touched.email}>
+                  <FormControl isInvalid={errors.username && touched.username}>
+                    <FormLabel>Username</FormLabel>
+                    <Input
+                      placeholder="Username"
+                      size="lg"
+                      name="username"
+                      autoComplete="username"
+                      onChange={handleChange}
+                    />
+                    <FormErrorMessage>{errors.username}</FormErrorMessage>
+                  </FormControl>
+
+                  <FormControl mt={6} isInvalid={errors.email && touched.email}>
                     <FormLabel>Email</FormLabel>
                     <Input
                       type="email"
@@ -116,7 +128,7 @@ const Login = () => {
                     mt={4}
                     isLoading={isSubmitting}
                   >
-                    Sign In
+                    Sign Up
                   </Button>
                 </Form>
               )}
@@ -128,4 +140,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

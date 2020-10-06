@@ -24,14 +24,15 @@ export const Footer: React.FC<FooterLinkProps> = ({}) => {
     <Flex
       bottom={0}
       boxShadow="md"
-      mt={5}
+      mt={12}
       justify="center"
       align="center"
       bg={isDark ? 'gray.800' : 'white'}
       borderWidth="1px"
       p={5}
+      as="footer"
     >
-      <Box as="footer" textAlign="center">
+      <Box textAlign="center">
         <Text fontSize="xl">
           <span>OlympusBlog</span>
         </Text>
