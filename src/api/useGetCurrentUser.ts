@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 
-export const useGetMe = () => {
-  const { data, error } = useSWR(`/api/user/`);
+export const useGetCurrentUser = () => {
+  const { data, error } = useSWR('user');
   return {
     user: data,
     isLoading: !error && !data,

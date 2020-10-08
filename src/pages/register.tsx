@@ -14,7 +14,7 @@ import {
   FormErrorMessage,
 } from '@chakra-ui/core';
 import { Form, Formik } from 'formik';
-import { login, register } from '../api';
+import { register } from '../api';
 import { NavBar } from '../components/NavBar';
 import { mutate } from 'swr';
 import { useRouter } from 'next/router';
@@ -47,11 +47,7 @@ const Register = () => {
                   const { data } = await register(values);
 
                   if (data?.user) {
-                    window.localStorage.setItem(
-                      'user',
-                      JSON.stringify(data.user)
-                    );
-                    mutate('user', data?.user);
+                    mutate('/user', data?.user);
                     await router.push('/');
                   }
                 } catch (err) {

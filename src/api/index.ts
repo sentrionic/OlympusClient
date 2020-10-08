@@ -1,5 +1,4 @@
 import Axios from 'axios';
-import { BASE_URL } from '../utils/constants';
 import {
   LoginDTO,
   ResponseData,
@@ -14,18 +13,12 @@ import {
 } from './models';
 
 const request = Axios.create({
-  baseURL: BASE_URL,
+  baseURL: process.env.NEXT_PUBLIC_BACKEND,
+  withCredentials: true,
 });
 
-export const setToken = (token?: string) => {
-  if (!token) {
-    localStorage.removeItem('access_token');
-    request.defaults.headers.common['Authorization'] = undefined;
-  }
-  if (token) {
-    localStorage.setItem('access_token', token);
-    request.defaults.headers.common['Authorization'] = `Token ${token}`;
-  }
+export const setCookie = (cookie?: string) => {
+  request.defaults.headers.cookie = cookie || null;
 };
 
 // auth
@@ -99,6 +92,11 @@ export const getArticlesByTag = (
   ResponseData<'articles', ArticleResponse[]> &
     ResponseData<'articlesCount', number>
 > => request.get(`/articles?tag=${tag}&${paginate(5, page)}`);
+
+export const getArticleBySlug = (
+  slug: string
+): Promise<ResponseData<'article', ArticleResponse>> =>
+  request.get(`/articles/${slug}`);
 
 export const createArticle = (
   body: ArticleDTO

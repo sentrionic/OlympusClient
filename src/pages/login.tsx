@@ -47,11 +47,7 @@ const Login = () => {
                   const { data } = await login(values);
 
                   if (data?.user) {
-                    window.localStorage.setItem(
-                      'user',
-                      JSON.stringify(data.user)
-                    );
-                    mutate('user', data?.user);
+                    mutate('/user', data?.user);
                     await router.push('/');
                   }
                 } catch (err) {

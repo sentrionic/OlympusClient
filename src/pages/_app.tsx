@@ -7,7 +7,7 @@ import fetcher from '../utils/fetcher';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <SWRConfig value={{ fetcher }}>
+    <SWRConfig value={{ fetcher, revalidateOnFocus: false }}>
       <ThemeProvider theme={theme}>
         <ColorModeProvider value="light">
           <CSSReset />

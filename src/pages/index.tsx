@@ -1,10 +1,15 @@
 import React from 'react';
 import { Layout } from '../components/Layout';
-import { GetServerSideProps } from 'next';
-import { BASE_URL } from '../utils/constants';
-import useSWR from 'swr';
+import { GetServerSideProps, NextPageContext } from 'next';
+import useSWR, { mutate } from 'swr';
 import NextLink from 'next/link';
-import { getAllArticles } from '../api';
+import {
+  favoriteArticle,
+  getAllArticles,
+  getArticleBySlug,
+  setCookie,
+  unfavoriteArticle,
+} from '../api';
 import {
   Box,
   Flex,
@@ -25,12 +30,30 @@ interface IndexProps {
 }
 
 const Index = (indexProps: IndexProps) => {
-  const { data, error } = useSWR(`${BASE_URL}/articles`, {
+  const { data, error } = useSWR('/articles', {
     dedupingInterval: 60000,
     initialData: indexProps,
   });
 
   if (!error && !data) return null;
+
+  const handleFavorite = ({ slug, favorited }: ArticleResponse) => {
+    mutate('/articles', async (articles: IndexProps) => {
+      const { data: articleData } = await getArticleBySlug(slug);
+      const { article } = articleData;
+      article.favorited = !article.favorited;
+      article.favoritesCount += favorited ? -1 : 1;
+      return {
+        articles: data.articles,
+        articleCount: data.articleCount,
+      };
+    });
+    if (favorited) {
+      unfavoriteArticle(slug);
+    } else {
+      favoriteArticle(slug);
+    }
+  };
 
   return (
     <Layout>
@@ -87,6 +110,8 @@ const Index = (indexProps: IndexProps) => {
                       aria-label="Favorite Article"
                       icon="star"
                       size="sm"
+                      variantColor={a.favorited ? 'yellow' : undefined}
+                      onClick={() => handleFavorite(a)}
                     />
                     <Text pl="2" fontSize="sm">
                       {a.favoritesCount}
@@ -110,7 +135,9 @@ const Index = (indexProps: IndexProps) => {
 
 export default Index;
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  setCookie(ctx?.req?.headers?.cookie);
+
   const { data } = await getAllArticles();
   const { articles, articlesCount } = data;
   return { props: { articles, articlesCount } };
