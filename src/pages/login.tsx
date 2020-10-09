@@ -45,9 +45,8 @@ const Login = () => {
               onSubmit={async (values, { setErrors }) => {
                 try {
                   const { data } = await login(values);
-
-                  if (data?.user) {
-                    mutate('/user', data?.user);
+                  if (data) {
+                    mutate('/user', data);
                     await router.push('/');
                   }
                 } catch (err) {

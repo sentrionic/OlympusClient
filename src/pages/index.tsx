@@ -39,8 +39,7 @@ const Index = (indexProps: IndexProps) => {
 
   const handleFavorite = ({ slug, favorited }: ArticleResponse) => {
     mutate('/articles', async (articles: IndexProps) => {
-      const { data: articleData } = await getArticleBySlug(slug);
-      const { article } = articleData;
+      const article = await getArticleBySlug(slug);
       article.favorited = !article.favorited;
       article.favoritesCount += favorited ? -1 : 1;
       return {
@@ -57,6 +56,14 @@ const Index = (indexProps: IndexProps) => {
 
   return (
     <Layout>
+      { data?.articles?.length === 0 ?     
+      <Flex height="80vh">
+        <Box shadow="md" borderWidth="1px" m="auto" p="10">
+          <Heading>No articles here yet.</Heading>
+          <Text>Be the first one</Text>
+        </Box>
+      </Flex>
+      :
       <Stack spacing={8}>
         {data?.articles?.map((a) =>
           !a ? null : (
@@ -129,6 +136,7 @@ const Index = (indexProps: IndexProps) => {
           )
         )}
       </Stack>
+      }
     </Layout>
   );
 };

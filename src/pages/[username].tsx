@@ -17,9 +17,15 @@ import {
 } from '@chakra-ui/core';
 import { GetServerSideProps } from 'next';
 import React from 'react';
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 import NextLink from 'next/link';
-import { getArticlesByAuthor, getUser, setCookie } from '../api';
+import {
+  followUser,
+  getArticlesByAuthor,
+  getProfile,
+  setCookie,
+  unfollowUser,
+} from '../api';
 import { ArticleResponse, ProfileResponse } from '../api/models';
 import { Layout } from '../components/Layout';
 import { getTime } from '../utils/getTime';
@@ -29,8 +35,27 @@ interface ProfileProps {
   articles: ArticleResponse[];
 }
 
+const NoProfileFound = () => (
+  <Layout>
+    <Flex height="80vh">
+      <Box shadow="md" borderWidth="1px" m="auto" p="10">
+        <Heading>No Profile Found</Heading>
+        <NextLink href="/">
+          <Link>
+            Go back <a>Home</a>
+          </Link>
+        </NextLink>
+      </Box>
+    </Flex>
+  </Layout>
+);
+
 const Index = (profileProps: ProfileProps) => {
-  const { data, error } = useSWR(`/profile/${profileProps.profile.username}`, {
+  if (!profileProps.profile) {
+    return <NoProfileFound />;
+  }
+
+  const { data, error } = useSWR(`/profiles/${profileProps.profile.username}`, {
     dedupingInterval: 60000,
     initialData: profileProps.profile,
   });
@@ -43,30 +68,49 @@ const Index = (profileProps: ProfileProps) => {
   );
 
   if (error || !data) {
-    return <Box>No Profile Found</Box>;
+    return <NoProfileFound />;
   }
 
-  const profile = data;
+  const toggleFollow = (profile: ProfileResponse) => {
+    mutate(`/profiles/${profile.username}`, {
+      ...profile, following: !profile.following 
+    }, false);
+    if (profile.following) {
+      unfollowUser(profile.username);
+    } else {
+      followUser(profile.username);
+    }
+  };
 
   return (
     <Layout>
-      <Box mx='6' p={4}>
-        <Box display={{ md: 'flex' }} justifyContent='space-between'>
+      <Box mx="6" p={4}>
+        <Box display={{ md: 'flex' }} justifyContent="space-between">
           <Box mt={{ base: 4, md: 0 }}>
-            <Flex align='center'>
-              <Text fontWeight='bold' fontSize='3xl'>
-                {profile.username}
+            <Flex align="center">
+              <Text fontWeight="bold" fontSize="3xl">
+                {data.username}
               </Text>
-              <Button variant='outline' size='xs' rounded='true' ml='6'>
-                {profile.following ? 'Unfollow' : 'Follow'}
+              <Button
+                variant="outline"
+                size="xs"
+                rounded="true"
+                ml="6"
+                onClick={() => toggleFollow(data)}
+              >
+                {data.following ? 'Unfollow' : 'Follow'}
               </Button>
             </Flex>
-            <Text color='gray.500'>{profile.bio}</Text>
+            <Text color="gray.500">{data.bio}</Text>
+            <Flex align="center">
+              <Text fontSize="sm" color="gray.500" fontWeight="semibold">{data.followee} Following</Text>
+              <Text fontSize="sm" color="gray.500" fontWeight="semibold" ml="5">{data.followers} Followers</Text>
+            </Flex>
           </Box>
-          <Avatar size='2xl' name={profile.username} src={profile.image} />
+          <Avatar size="2xl" name={data.username} src={data.image} />
         </Box>
 
-        <Tabs mt='2' size='sm' variantColor='black'>
+        <Tabs mt="2" size="sm" variantColor="black">
           <TabList>
             <Tab>Profile</Tab>
             <Tab>Favorited</Tab>
@@ -74,7 +118,7 @@ const Index = (profileProps: ProfileProps) => {
 
           <TabPanels>
             <TabPanel>
-              <Text fontWeight='bold' fontSize='xl' my='6'>
+              <Text fontWeight="bold" fontSize="xl" my="6">
                 Latest
               </Text>
               <Stack spacing={8}>
@@ -83,46 +127,46 @@ const Index = (profileProps: ProfileProps) => {
                     <Flex
                       key={a.id}
                       p={5}
-                      shadow='md'
-                      borderWidth='1px'
-                      m='auto'
+                      shadow="md"
+                      borderWidth="1px"
+                      m="auto"
                     >
                       <Box flex={1}>
-                        <Stack isInline mb='5'>
+                        <Stack isInline mb="5">
                           <Avatar
                             name={a.author.username}
                             src={a.author.image}
                           />
                           <Box>
-                            <Text fontWeight='bold' color='blue.600'>
+                            <Text fontWeight="bold" color="blue.600">
                               {a.author.username}
                             </Text>
                             <Text>{getTime(a.createdAt)}</Text>
                           </Box>
                         </Stack>
                         <Image
-                          maxW='lg'
-                          borderWidth='1px'
-                          rounded='lg'
-                          overflow='hidden'
+                          maxW="lg"
+                          borderWidth="1px"
+                          rounded="lg"
+                          overflow="hidden"
                           src={a.image}
                           alt={a.title}
-                          objectFit='contain'
+                          objectFit="contain"
                         />
                         <NextLink
-                          href='/[username]/[slug]'
+                          href="/[username]/[slug]"
                           as={`/${a.author.username}/${a.slug}`}
                         >
                           <Link>
-                            <Heading fontSize='xl' pt='6'>
+                            <Heading fontSize="xl" pt="6">
                               {a.title}
                             </Heading>
                           </Link>
                         </NextLink>
 
-                        <Flex align='center'>
+                        <Flex align="center">
                           <NextLink
-                            href='/[username]/[slug]'
+                            href="/[username]/[slug]"
                             as={`/${a.author.username}/${a.slug}`}
                           >
                             <Link>
@@ -130,24 +174,24 @@ const Index = (profileProps: ProfileProps) => {
                             </Link>
                           </NextLink>
                         </Flex>
-                        <Flex pt='4' justify='space-between'>
+                        <Flex pt="4" justify="space-between">
                           <Flex>
                             <IconButton
-                              variant='outline'
-                              aria-label='Favorite Article'
-                              icon='star'
-                              size='sm'
+                              variant="outline"
+                              aria-label="Favorite Article"
+                              icon="star"
+                              size="sm"
                               variantColor={a.favorited ? 'yellow' : undefined}
                             />
-                            <Text pl='2' fontSize='sm'>
+                            <Text pl="2" fontSize="sm">
                               {a.favoritesCount}
                             </Text>
                           </Flex>
                           <IconButton
-                            variant='outline'
-                            aria-label='Favorite Article'
-                            icon='chat'
-                            size='sm'
+                            variant="outline"
+                            aria-label="Favorite Article"
+                            icon="chat"
+                            size="sm"
                           />
                         </Flex>
                       </Box>
@@ -157,7 +201,7 @@ const Index = (profileProps: ProfileProps) => {
               </Stack>
             </TabPanel>
             <TabPanel>
-              <Text fontWeight='bold' fontSize='xl'>
+              <Text fontWeight="bold" fontSize="xl">
                 Favorited
               </Text>
             </TabPanel>
@@ -174,9 +218,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   setCookie(ctx?.req?.headers?.cookie);
   const username = ctx?.query.username as string;
 
-  const { data } = await getUser(username);
-  const { data: authorArticles } = await getArticlesByAuthor(username);
-  const { profile } = data;
-  const { articles } = authorArticles;
-  return { props: { profile, articles } };
+  try {
+    const { data: profile } = await getProfile(username);
+    const { data } = await getArticlesByAuthor(username);
+    const { articles } = data;
+    return { props: { profile, articles } };
+  } catch (err) {
+    return { props: { profile: null, articles: null } };
+  }
 };

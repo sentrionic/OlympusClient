@@ -13,6 +13,7 @@ function MyApp({ Component, pageProps }) {
           <CSSReset />
           <Head>
             <title>OlympusBlog</title>
+            <link rel="shortcut icon" href="/favicon.ico" />
           </Head>
           <Component {...pageProps} />
         </ColorModeProvider>

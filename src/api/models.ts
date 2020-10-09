@@ -41,7 +41,9 @@ export interface AuthResponse extends UserResponse {
 }
 
 export interface ProfileResponse extends UserResponse {
-  following: boolean | null;
+  following: boolean;
+  followers: number;
+  followee: number;
 }
 
 export type ArticleDTO = Partial<{

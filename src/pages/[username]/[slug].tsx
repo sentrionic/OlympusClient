@@ -3,7 +3,7 @@ import { Layout } from '../../components/Layout';
 import { Heading, Box } from '@chakra-ui/core';
 
 const Article = ({}) => {
-  return <div>Article</div>;
+  return <Layout>Article</Layout>;
 };
 
 export default Article;
