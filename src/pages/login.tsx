@@ -47,7 +47,12 @@ const Login = () => {
                   const { data } = await login(values);
                   if (data) {
                     mutate('/user', data);
-                    await router.push('/');
+                    if (typeof router.query.next === 'string') {
+                      await router.push(router.query.next);
+                    } else {
+                      // worked
+                      await router.push('/');
+                    }
                   }
                 } catch (err) {
                   if (err?.response?.data?.errors) {

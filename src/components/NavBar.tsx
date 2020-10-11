@@ -7,14 +7,25 @@ import {
   Heading,
   IconButton,
   useColorMode,
+  Avatar,
+  PseudoBox,
+  MenuButton,
+  Menu,
+  MenuList,
+  MenuItem,
+  MenuDivider,
 } from '@chakra-ui/core';
 import NextLink from 'next/link';
 import { useGetCurrentUser } from '../api/useGetCurrentUser';
+import { logout } from '../api';
+import { useRouter } from 'next/router';
+import { cache } from 'swr';
 
 interface NavBarProps {}
 
 export const NavBar: React.FC<NavBarProps> = ({}) => {
   const { user, isLoading } = useGetCurrentUser();
+  const router = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
   const isDark = colorMode === 'dark';
 
@@ -24,11 +35,29 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   } else if (user) {
     body = (
       <>
-        <NextLink href="/account">
-          <Button variantColor="blue" variant="outline" mr={2} size="sm">
-            Account
-          </Button>
-        </NextLink>
+        <Menu>
+          <PseudoBox as={MenuButton}  _hover={{ cursor: "pointer" }} _focus={{ boxShadow: "none" }}>
+              <Avatar src={user.image} />
+            </PseudoBox>
+          <MenuList>
+            <NextLink href={`/${user.username}`}>
+              <MenuItem>Your Profile</MenuItem>
+            </NextLink>
+            <NextLink href="/account">
+              <MenuItem>Account</MenuItem>
+            </NextLink>
+          <MenuDivider />
+          <MenuItem onClick={async () => {
+            await logout();
+            cache.clear();
+            if (router.pathname === '/') {
+              router.reload();
+            }
+            await router.push('/');
+          }}>
+            Logout</MenuItem>
+          </MenuList>
+          </Menu>
       </>
     );
   } else {
@@ -66,7 +95,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
           </Link>
         </NextLink>
       </Box>
-      <Box>
+      <Flex align="center">
         {body}{' '}
         <IconButton
           size="md"
@@ -74,11 +103,11 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
           aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
           variant="ghost"
           color="current"
-          mr="2"
+          mx="2"
           onClick={toggleColorMode}
           icon={isDark ? 'sun' : 'moon'}
         />
-      </Box>
+      </Flex>
     </Flex>
   );
 };

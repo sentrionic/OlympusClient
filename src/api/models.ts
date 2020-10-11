@@ -25,7 +25,7 @@ export interface RegisterDTO extends LoginDTO {
 
 export type UserDTO = Partial<{
   email: string;
-  image: string;
+  image: any;
   bio: string;
 }>;
 

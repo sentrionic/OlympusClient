@@ -21,14 +21,15 @@ import useSWR, { mutate } from 'swr';
 import NextLink from 'next/link';
 import {
   followUser,
-  getArticlesByAuthor,
+  getAuthorFavorites,
   getProfile,
   setCookie,
   unfollowUser,
-} from '../api';
-import { ArticleResponse, ProfileResponse } from '../api/models';
-import { Layout } from '../components/Layout';
-import { getTime } from '../utils/getTime';
+} from '../../api';
+import { ArticleResponse, ProfileResponse } from '../../api/models';
+import { Layout } from '../../components/Layout';
+import { getTime } from '../../utils/getTime';
+import { useRouter } from 'next/router';
 
 interface ProfileProps {
   profile: ProfileResponse;
@@ -50,7 +51,7 @@ const NoProfileFound = () => (
   </Layout>
 );
 
-const Profile = (profileProps: ProfileProps) => {
+const Favorited = (profileProps: ProfileProps) => {
   if (!profileProps.profile) {
     return <NoProfileFound />;
   }
@@ -66,6 +67,8 @@ const Profile = (profileProps: ProfileProps) => {
       initialData: profileProps.articles,
     }
   );
+
+  const router = useRouter();
 
   if (error || !data) {
     return <NoProfileFound />;
@@ -110,7 +113,7 @@ const Profile = (profileProps: ProfileProps) => {
           <Avatar size="2xl" name={data.username} src={data.image} />
         </Box>
 
-        <Tabs mt="2" size="sm" variantColor="black">
+        <Tabs mt="2" size="sm" variantColor="black" defaultIndex={1}>
           <TabList>   
             <Tab>
               <NextLink href={`/${data.username}`}>
@@ -126,12 +129,17 @@ const Profile = (profileProps: ProfileProps) => {
 
           <TabPanels>
             <TabPanel>
+            <Text fontWeight="bold" fontSize="xl">
+              Latest
+            </Text>
+            </TabPanel>
+            <TabPanel>
               <Text fontWeight="bold" fontSize="xl" my="6">
-                Latest
+                Favorited
               </Text>
               { profileArticles?.length === 0 ?     
                   <Box height="80vh" m="auto">
-                    <Text fontWeight="semibold">This user has not posted an article yet.</Text>
+                    <Text fontWeight="semibold">This user has not liked any articles yet.</Text>
                   </Box>
                 :
               <Stack spacing={8}>
@@ -221,7 +229,7 @@ const Profile = (profileProps: ProfileProps) => {
   );
 };
 
-export default Profile;
+export default Favorited;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   setCookie(ctx?.req?.headers?.cookie);
@@ -229,7 +237,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   try {
     const { data: profile } = await getProfile(username);
-    const { data } = await getArticlesByAuthor(username);
+    const { data } = await getAuthorFavorites(username);
     const { articles } = data;
     return { props: { profile, articles } };
   } catch (err) {

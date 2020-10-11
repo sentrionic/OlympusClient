@@ -1,7 +1,14 @@
 import useSWR from 'swr';
+import { ProfileResponse, UserResponse } from './models';
 
-export const useGetCurrentUser = () => {
-  const { data, error } = useSWR('user', { refreshInterval: 1000000 });
+interface User {
+  user: ProfileResponse;
+  isLoading: boolean;
+  isError: boolean;
+}
+
+export const useGetCurrentUser = (): User => {
+  const { data, error } = useSWR('/user', { refreshInterval: 1000000 });
   return {
     user: data,
     isLoading: !error && !data,

@@ -31,13 +31,18 @@ export const register = (
   body: RegisterDTO
 ): Promise<AxiosResponse<AuthResponse>> => request.post('/users', body);
 
+export const logout = (): Promise<AxiosResponse<boolean>> =>
+  request.post('/users/logout');
+
 // user
 export const getCurrentUser = (): Promise<AxiosResponse<ProfileResponse>> =>
   request.get('/user');
 
 export const updateUser = (
-  body: UserDTO
-): Promise<ProfileResponse> => request.put('/user', body);
+  body: FormData
+): Promise<AxiosResponse<ProfileResponse>> => request.put('/user', body, { headers: {
+  'Content-Type': 'multipart/form-data'
+} });
 
 // profiles
 export const getProfile = (
@@ -85,6 +90,14 @@ export const getArticlesByAuthor = (
     ResponseData<'articlesCount', number>
 > => request.get(`/articles?author=${username}&${paginate(5, page)}`);
 
+export const getAuthorFavorites = (
+  username: string,
+  page?: number
+): Promise<
+  ResponseData<'articles', ArticleResponse[]> &
+    ResponseData<'articlesCount', number>
+> => request.get(`/articles?favorited=${username}&${paginate(5, page)}`);
+
 export const getArticlesByTag = (
   tag: string,
   page?: number
@@ -95,7 +108,7 @@ export const getArticlesByTag = (
 
 export const getArticleBySlug = (
   slug: string
-): Promise<ArticleResponse> =>
+): Promise<AxiosResponse<ArticleResponse>> =>
   request.get(`/articles/${slug}`);
 
 export const createArticle = (

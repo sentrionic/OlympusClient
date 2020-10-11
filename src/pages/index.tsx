@@ -39,7 +39,7 @@ const Index = (indexProps: IndexProps) => {
 
   const handleFavorite = ({ slug, favorited }: ArticleResponse) => {
     mutate('/articles', async (articles: IndexProps) => {
-      const article = await getArticleBySlug(slug);
+      const { data: article } = await getArticleBySlug(slug);
       article.favorited = !article.favorited;
       article.favoritesCount += favorited ? -1 : 1;
       return {
