@@ -1,3 +1,7 @@
+import React from 'react';
+import useSWR, { mutate } from 'swr';
+import NextLink from 'next/link';
+import { GetServerSideProps } from 'next';
 import {
   Box,
   Button,
@@ -15,10 +19,7 @@ import {
   Heading,
   IconButton,
 } from '@chakra-ui/core';
-import { GetServerSideProps } from 'next';
-import React from 'react';
-import useSWR, { mutate } from 'swr';
-import NextLink from 'next/link';
+
 import {
   followUser,
   getArticlesByAuthor,

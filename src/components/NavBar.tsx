@@ -1,4 +1,7 @@
 import React from 'react';
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import { cache } from 'swr';
 import {
   Box,
   Link,
@@ -15,11 +18,9 @@ import {
   MenuItem,
   MenuDivider,
 } from '@chakra-ui/core';
-import NextLink from 'next/link';
-import { useGetCurrentUser } from '../api/useGetCurrentUser';
+
 import { logout } from '../api';
-import { useRouter } from 'next/router';
-import { cache } from 'swr';
+import { useGetCurrentUser } from '../api/useGetCurrentUser';
 
 interface NavBarProps {}
 

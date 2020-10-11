@@ -1,5 +1,9 @@
 import React from 'react';
-import { Layout } from '../../components/Layout';
+import NextLink from 'next/link';
+import { GetServerSideProps } from 'next';
+import useSWR from 'swr';
+import ReactMarkdown from 'react-markdown';
+import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
 import {
   Heading,
   Box,
@@ -15,11 +19,10 @@ import {
   IconButton,
   Divider,
 } from '@chakra-ui/core';
-import { GetServerSideProps } from 'next';
+
+import { Layout } from '../../components/Layout';
 import { getArticleBySlug, setCookie } from '../../api';
 import { ArticleResponse } from '../../api/models';
-import useSWR from 'swr';
-import NextLink from 'next/link';
 import { getTime } from '../../utils/getTime';
 
 interface ArticleProps {
@@ -92,9 +95,13 @@ const Article = ({ article }: ArticleProps) => {
             objectFit="contain"
           />
         </Flex>
-        <Text fontSize="18px" mt="10">
-          {data.body}
-        </Text>
+        <Box mt="10">
+          <ReactMarkdown
+            renderers={ChakraUIRenderer()}
+            source={data.body}
+            escapeHtml={false}
+          />
+        </Box>
         <Flex mt="5">
           {data.tagList.map((t) => (
             <PseudoBox _hover={{ cursor: 'pointer' }} mr="4">

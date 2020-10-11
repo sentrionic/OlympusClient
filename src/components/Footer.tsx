@@ -1,14 +1,5 @@
-import {
-  Box,
-  Stack,
-  Text,
-  Link,
-  Icon,
-  Flex,
-  useColorMode,
-  Divider,
-} from '@chakra-ui/core';
 import React from 'react';
+import { Box, Flex, Text, useColorMode } from '@chakra-ui/core';
 
 type FooterLinkProps = {
   icon?: string;

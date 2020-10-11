@@ -1,9 +1,9 @@
 import Axios, { AxiosResponse } from 'axios';
+
 import {
   LoginDTO,
   ResponseData,
   AuthResponse,
-  UserDTO,
   RegisterDTO,
   ProfileResponse,
   CommentDTO,

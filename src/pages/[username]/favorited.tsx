@@ -1,3 +1,8 @@
+import React from 'react';
+import useSWR, { mutate } from 'swr';
+import NextLink from 'next/link';
+import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import {
   Box,
   Button,
@@ -15,10 +20,7 @@ import {
   Heading,
   IconButton,
 } from '@chakra-ui/core';
-import { GetServerSideProps } from 'next';
-import React from 'react';
-import useSWR, { mutate } from 'swr';
-import NextLink from 'next/link';
+
 import {
   followUser,
   getAuthorFavorites,
@@ -29,7 +31,6 @@ import {
 import { ArticleResponse, ProfileResponse } from '../../api/models';
 import { Layout } from '../../components/Layout';
 import { getTime } from '../../utils/getTime';
-import { useRouter } from 'next/router';
 
 interface ProfileProps {
   profile: ProfileResponse;

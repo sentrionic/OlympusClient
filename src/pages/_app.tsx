@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import { ThemeProvider, CSSReset, ColorModeProvider } from '@chakra-ui/core';
+import { SWRConfig } from 'swr';
 
 import theme from '../theme';
-import { SWRConfig } from 'swr';
 import fetcher from '../utils/fetcher';
 
 function MyApp({ Component, pageProps }) {

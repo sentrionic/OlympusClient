@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+
 import { useGetCurrentUser } from '../api/useGetCurrentUser';
 
 export const useIsAuth = () => {
-  const { user, isLoading, isError } = useGetCurrentUser();
+  const { user, isLoading } = useGetCurrentUser();
   const router = useRouter();
   useEffect(() => {
     if (!isLoading && !user) {

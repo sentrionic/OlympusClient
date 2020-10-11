@@ -1,15 +1,7 @@
 import React from 'react';
-import { Layout } from '../components/Layout';
-import { GetServerSideProps, NextPageContext } from 'next';
+import { GetServerSideProps } from 'next';
 import useSWR, { mutate } from 'swr';
 import NextLink from 'next/link';
-import {
-  favoriteArticle,
-  getAllArticles,
-  getArticleBySlug,
-  setCookie,
-  unfavoriteArticle,
-} from '../api';
 import {
   Box,
   Flex,
@@ -21,6 +13,15 @@ import {
   Avatar,
   IconButton,
 } from '@chakra-ui/core';
+
+import {
+  favoriteArticle,
+  getAllArticles,
+  getArticleBySlug,
+  setCookie,
+  unfavoriteArticle,
+} from '../api';
+import { Layout } from '../components/Layout';
 import { ArticleResponse } from '../api/models';
 import { getTime } from '../utils/getTime';
 

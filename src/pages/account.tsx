@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-
+import React, { useRef, useState } from 'react';
+import { Form, Formik } from 'formik';
+import { mutate } from 'swr';
 import {
   Box,
   Flex,
@@ -15,12 +16,11 @@ import {
   PseudoBox,
   useToast,
 } from '@chakra-ui/core';
-import { Form, Formik } from 'formik';
+
 import { updateUser } from '../api';
 import { NavBar } from '../components/NavBar';
 import { useGetCurrentUser } from '../api/useGetCurrentUser';
 import { useIsAuth } from '../utils/useIsAuth';
-import { mutate } from 'swr';
 
 const Account = () => {
   useIsAuth();

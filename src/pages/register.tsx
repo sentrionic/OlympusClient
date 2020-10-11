@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-
+import { Form, Formik } from 'formik';
+import { mutate } from 'swr';
+import { useRouter } from 'next/router';
 import {
   Box,
   Flex,
@@ -13,11 +15,9 @@ import {
   Icon,
   FormErrorMessage,
 } from '@chakra-ui/core';
-import { Form, Formik } from 'formik';
+
 import { register } from '../api';
 import { NavBar } from '../components/NavBar';
-import { mutate } from 'swr';
-import { useRouter } from 'next/router';
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -51,8 +51,9 @@ const Register = () => {
                   }
                 } catch (err) {
                   if (err?.response?.data?.errors) {
-                    setErrors({
-                      email: 'Invalid Credentials',
+                    const errors = err?.response?.data?.errors;
+                    Object.keys(errors).map((key) => {
+                      setErrors({ [key]: errors[key] });
                     });
                   }
                 }
