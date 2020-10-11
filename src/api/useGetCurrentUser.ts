@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import { ProfileResponse, UserResponse } from './models';
+import { ProfileResponse } from './models';
 
 interface User {
   user: ProfileResponse;

@@ -75,9 +75,14 @@ const Favorited = (profileProps: ProfileProps) => {
   }
 
   const toggleFollow = (profile: ProfileResponse) => {
-    mutate(`/profiles/${profile.username}`, {
-      ...profile, following: !profile.following 
-    }, false);
+    mutate(
+      `/profiles/${profile.username}`,
+      {
+        ...profile,
+        following: !profile.following,
+      },
+      false
+    );
     if (profile.following) {
       unfollowUser(profile.username);
     } else {
@@ -106,19 +111,21 @@ const Favorited = (profileProps: ProfileProps) => {
             </Flex>
             <Text color="gray.500">{data.bio}</Text>
             <Flex align="center">
-              <Text fontSize="sm" color="gray.500" fontWeight="semibold">{data.followee} Following</Text>
-              <Text fontSize="sm" color="gray.500" fontWeight="semibold" ml="5">{data.followers} Followers</Text>
+              <Text fontSize="sm" color="gray.500" fontWeight="semibold">
+                {data.followee} Following
+              </Text>
+              <Text fontSize="sm" color="gray.500" fontWeight="semibold" ml="5">
+                {data.followers} Followers
+              </Text>
             </Flex>
           </Box>
           <Avatar size="2xl" name={data.username} src={data.image} />
         </Box>
 
         <Tabs mt="2" size="sm" variantColor="black" defaultIndex={1}>
-          <TabList>   
+          <TabList>
             <Tab>
-              <NextLink href={`/${data.username}`}>
-                Profile
-              </NextLink>
+              <NextLink href={`/${data.username}`}>Profile</NextLink>
             </Tab>
             <Tab>
               <NextLink href={`/${data.username}/favorited`}>
@@ -129,98 +136,102 @@ const Favorited = (profileProps: ProfileProps) => {
 
           <TabPanels>
             <TabPanel>
-            <Text fontWeight="bold" fontSize="xl">
-              Latest
-            </Text>
+              <Text fontWeight="bold" fontSize="xl">
+                Latest
+              </Text>
             </TabPanel>
             <TabPanel>
               <Text fontWeight="bold" fontSize="xl" my="6">
                 Favorited
               </Text>
-              { profileArticles?.length === 0 ?     
-                  <Box height="80vh" m="auto">
-                    <Text fontWeight="semibold">This user has not liked any articles yet.</Text>
-                  </Box>
-                :
-              <Stack spacing={8}>
-                {profileArticles.map((a) =>
-                  !a ? null : (
-                    <Flex
-                      key={a.id}
-                      p={5}
-                      shadow="md"
-                      borderWidth="1px"
-                      m="auto"
-                    >
-                      <Box flex={1}>
-                        <Stack isInline mb="5">
-                          <Avatar
-                            name={a.author.username}
-                            src={a.author.image}
+              {profileArticles?.length === 0 ? (
+                <Box height="80vh" m="auto">
+                  <Text fontWeight="semibold">
+                    This user has not liked any articles yet.
+                  </Text>
+                </Box>
+              ) : (
+                <Stack spacing={8}>
+                  {profileArticles.map((a) =>
+                    !a ? null : (
+                      <Flex
+                        key={a.id}
+                        p={5}
+                        shadow="md"
+                        borderWidth="1px"
+                        m="auto"
+                      >
+                        <Box flex={1}>
+                          <Stack isInline mb="5">
+                            <Avatar
+                              name={a.author.username}
+                              src={a.author.image}
+                            />
+                            <Box>
+                              <Text fontWeight="bold" color="blue.600">
+                                {a.author.username}
+                              </Text>
+                              <Text>{getTime(a.createdAt)}</Text>
+                            </Box>
+                          </Stack>
+                          <Image
+                            maxW="lg"
+                            borderWidth="1px"
+                            rounded="lg"
+                            overflow="hidden"
+                            src={a.image}
+                            alt={a.title}
+                            objectFit="contain"
                           />
-                          <Box>
-                            <Text fontWeight="bold" color="blue.600">
-                              {a.author.username}
-                            </Text>
-                            <Text>{getTime(a.createdAt)}</Text>
-                          </Box>
-                        </Stack>
-                        <Image
-                          maxW="lg"
-                          borderWidth="1px"
-                          rounded="lg"
-                          overflow="hidden"
-                          src={a.image}
-                          alt={a.title}
-                          objectFit="contain"
-                        />
-                        <NextLink
-                          href="/[username]/[slug]"
-                          as={`/${a.author.username}/${a.slug}`}
-                        >
-                          <Link>
-                            <Heading fontSize="xl" pt="6">
-                              {a.title}
-                            </Heading>
-                          </Link>
-                        </NextLink>
-
-                        <Flex align="center">
                           <NextLink
                             href="/[username]/[slug]"
                             as={`/${a.author.username}/${a.slug}`}
                           >
                             <Link>
-                              <Text>{a.description}</Text>
+                              <Heading fontSize="xl" pt="6">
+                                {a.title}
+                              </Heading>
                             </Link>
                           </NextLink>
-                        </Flex>
-                        <Flex pt="4" justify="space-between">
-                          <Flex>
+
+                          <Flex align="center">
+                            <NextLink
+                              href="/[username]/[slug]"
+                              as={`/${a.author.username}/${a.slug}`}
+                            >
+                              <Link>
+                                <Text>{a.description}</Text>
+                              </Link>
+                            </NextLink>
+                          </Flex>
+                          <Flex pt="4" justify="space-between">
+                            <Flex>
+                              <IconButton
+                                variant="outline"
+                                aria-label="Favorite Article"
+                                icon="star"
+                                size="sm"
+                                variantColor={
+                                  a.favorited ? 'yellow' : undefined
+                                }
+                              />
+                              <Text pl="2" fontSize="sm">
+                                {a.favoritesCount}
+                              </Text>
+                            </Flex>
                             <IconButton
                               variant="outline"
                               aria-label="Favorite Article"
-                              icon="star"
+                              icon="chat"
                               size="sm"
-                              variantColor={a.favorited ? 'yellow' : undefined}
                             />
-                            <Text pl="2" fontSize="sm">
-                              {a.favoritesCount}
-                            </Text>
                           </Flex>
-                          <IconButton
-                            variant="outline"
-                            aria-label="Favorite Article"
-                            icon="chat"
-                            size="sm"
-                          />
-                        </Flex>
-                      </Box>
-                    </Flex>
-                  )
-                )}
-              </Stack>
-              }
+                        </Box>
+                      </Flex>
+                    )
+                  )}
+                </Stack>
+              )}
             </TabPanel>
           </TabPanels>
         </Tabs>

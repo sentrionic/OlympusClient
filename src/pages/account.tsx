@@ -28,11 +28,11 @@ const Account = () => {
   const { user, isLoading } = useGetCurrentUser();
   const inputFile = useRef(null);
   const [imageUrl, setImageUrl] = useState(user?.image);
-  
+
   if (isLoading || !user) {
     return null;
   }
-  
+
   return (
     <>
       <NavBar />
@@ -49,24 +49,32 @@ const Account = () => {
           </Box>
           <Box my={4} textAlign="left">
             <Formik
-              initialValues={{ email: user.email, username: user.username, bio: user.bio, image: null }}
-              onSubmit={ async (values, { setErrors }) => {
+              initialValues={{
+                email: user.email,
+                username: user.username,
+                bio: user.bio,
+                image: null,
+              }}
+              onSubmit={async (values, { setErrors }) => {
                 try {
                   const formData = new FormData();
-                  formData.append('email', values.email); 
-                  formData.append('bio', values.bio); 
-                  formData.append('username', values.username); 
-                  formData.append('image', values.image ? values.image : imageUrl); 
+                  formData.append('email', values.email);
+                  formData.append('bio', values.bio);
+                  formData.append('username', values.username);
+                  formData.append(
+                    'image',
+                    values.image ? values.image : imageUrl
+                  );
                   const { data } = await updateUser(formData);
                   if (data) {
                     mutate('/users', data);
                     toast({
-                      title: "Account updated.",
-                      description: "Successfully updated your account",
-                      status: "success",
+                      title: 'Account updated.',
+                      description: 'Successfully updated your account',
+                      status: 'success',
                       duration: 9000,
                       isClosable: true,
-                    })
+                    });
                   }
                 } catch (err) {
                   if (err?.response?.data?.errors) {
@@ -78,19 +86,37 @@ const Account = () => {
                 }
               }}
             >
-              {({ isSubmitting, handleChange, errors, touched, values, setFieldValue }) => (
+              {({
+                isSubmitting,
+                handleChange,
+                errors,
+                touched,
+                values,
+                setFieldValue,
+              }) => (
                 <Form>
                   <Flex align="center" justify="center" mb="4">
-                    <PseudoBox _hover={{ cursor: "pointer", opacity: 0.5 }}>
-                      <Avatar src={imageUrl || user.image} size="2xl" onClick={() => inputFile.current.click()} />
+                    <PseudoBox _hover={{ cursor: 'pointer', opacity: 0.5 }}>
+                      <Avatar
+                        src={imageUrl || user.image}
+                        size="2xl"
+                        onClick={() => inputFile.current.click()}
+                      />
                     </PseudoBox>
-                    <input type="file" name="image" accept="image/*" ref={ inputFile }
+                    <input
+                      type="file"
+                      name="image"
+                      accept="image/*"
+                      ref={inputFile}
                       hidden
-                      onChange={ async (e) => {
+                      onChange={async (e) => {
                         if (!e.currentTarget.files) return;
                         setFieldValue('image', e.currentTarget.files[0]);
-                        setImageUrl(URL.createObjectURL(e.currentTarget.files[0]));
-                      } } />
+                        setImageUrl(
+                          URL.createObjectURL(e.currentTarget.files[0])
+                        );
+                      }}
+                    />
                   </Flex>
                   <FormControl isInvalid={errors.email && touched.email}>
                     <FormLabel>Email</FormLabel>
@@ -106,7 +132,10 @@ const Account = () => {
                     <FormErrorMessage>{errors.email}</FormErrorMessage>
                   </FormControl>
 
-                  <FormControl mt={6} isInvalid={errors.username && touched.username}>
+                  <FormControl
+                    mt={6}
+                    isInvalid={errors.username && touched.username}
+                  >
                     <FormLabel>Username</FormLabel>
                     <Input
                       value={values.username}
@@ -119,10 +148,7 @@ const Account = () => {
                     <FormErrorMessage>{errors.email}</FormErrorMessage>
                   </FormControl>
 
-                  <FormControl
-                    mt={6}
-                    isInvalid={errors.bio && touched.bio}
-                  >
+                  <FormControl mt={6} isInvalid={errors.bio && touched.bio}>
                     <FormLabel>Biography</FormLabel>
                     <InputGroup>
                       <Textarea

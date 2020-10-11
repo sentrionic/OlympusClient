@@ -36,9 +36,13 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
     body = (
       <>
         <Menu>
-          <PseudoBox as={MenuButton}  _hover={{ cursor: "pointer" }} _focus={{ boxShadow: "none" }}>
-              <Avatar src={user.image} />
-            </PseudoBox>
+          <PseudoBox
+            as={MenuButton}
+            _hover={{ cursor: 'pointer' }}
+            _focus={{ boxShadow: 'none' }}
+          >
+            <Avatar src={user.image} />
+          </PseudoBox>
           <MenuList>
             <NextLink href={`/${user.username}`}>
               <MenuItem>Your Profile</MenuItem>
@@ -46,18 +50,21 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             <NextLink href="/account">
               <MenuItem>Account</MenuItem>
             </NextLink>
-          <MenuDivider />
-          <MenuItem onClick={async () => {
-            await logout();
-            cache.clear();
-            if (router.pathname === '/') {
-              router.reload();
-            }
-            await router.push('/');
-          }}>
-            Logout</MenuItem>
+            <MenuDivider />
+            <MenuItem
+              onClick={async () => {
+                await logout();
+                cache.clear();
+                if (router.pathname === '/') {
+                  router.reload();
+                }
+                await router.push('/');
+              }}
+            >
+              Logout
+            </MenuItem>
           </MenuList>
-          </Menu>
+        </Menu>
       </>
     );
   } else {
