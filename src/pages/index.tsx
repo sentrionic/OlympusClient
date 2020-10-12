@@ -12,6 +12,10 @@ import {
   Text,
   Avatar,
   IconButton,
+  Menu,
+  MenuList,
+  MenuItem,
+  MenuButton,
 } from '@chakra-ui/core';
 
 import {
@@ -21,7 +25,7 @@ import {
   setCookie,
   unfavoriteArticle,
 } from '../api';
-import { Layout } from '../components/Layout';
+import { Layout } from '../components/layout/Layout';
 import { ArticleResponse } from '../api/models';
 import { getTime } from '../utils/getTime';
 
@@ -70,15 +74,34 @@ const Index = (indexProps: IndexProps) => {
             !a ? null : (
               <Flex key={a.id} p={5} shadow="md" borderWidth="1px" m="auto">
                 <Box flex={1}>
-                  <Stack isInline mb="5">
-                    <Avatar name={a.author.username} src={a.author.image} />
-                    <Box>
-                      <Text fontWeight="bold" color="blue.600">
-                        {a.author.username}
-                      </Text>
-                      <Text>{getTime(a.createdAt)}</Text>
-                    </Box>
-                  </Stack>
+                  <Flex mb="5" justify="space-between">
+                    <Stack isInline>
+                      <Avatar name={a.author.username} src={a.author.image} />
+                      <Box>
+                        <Text fontWeight="bold" color="blue.600">
+                          {a.author.username}
+                        </Text>
+                        <Text>{getTime(a.createdAt)}</Text>
+                      </Box>
+                    </Stack>
+                    <Menu>
+                      <IconButton
+                        as={MenuButton}
+                        variant="outline"
+                        aria-label="Settings Menu"
+                        icon="chevron-down"
+                        size="sm"
+                      />
+                      <MenuList>
+                        <NextLink href={`/${a.slug}/edit`}>
+                          <MenuItem>Edit</MenuItem>
+                        </NextLink>
+                        <NextLink href={`/${a.slug}/delete`}>
+                          <MenuItem>Delete</MenuItem>
+                        </NextLink>
+                      </MenuList>
+                    </Menu>
+                  </Flex>
                   <Image
                     maxW="lg"
                     borderWidth="1px"

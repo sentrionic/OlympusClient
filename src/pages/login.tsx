@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/core';
 
 import { login } from '../api';
-import { NavBar } from '../components/NavBar';
+import { NavBar } from '../components/layout/NavBar';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);

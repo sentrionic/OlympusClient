@@ -20,7 +20,7 @@ import {
   Divider,
 } from '@chakra-ui/core';
 
-import { Layout } from '../../components/Layout';
+import { Layout } from '../../components/layout/Layout';
 import { getArticleBySlug, setCookie } from '../../api';
 import { ArticleResponse } from '../../api/models';
 import { getTime } from '../../utils/getTime';
@@ -65,7 +65,7 @@ const Article = ({ article }: ArticleProps) => {
           <Avatar name={data.author.username} src={data.author.image} />
           <Box>
             <Flex>
-              <NextLink href={`${data.author.username}`}>
+              <NextLink href={'/[username]'} as={`/${data.author.username}`}>
                 <Link fontWeight="semibold">{data.author.username}</Link>
               </NextLink>
               <Button
@@ -97,6 +97,7 @@ const Article = ({ article }: ArticleProps) => {
         </Flex>
         <Box mt="10">
           <ReactMarkdown
+            className="markdown-body"
             renderers={ChakraUIRenderer()}
             source={data.body}
             escapeHtml={false}
@@ -104,8 +105,8 @@ const Article = ({ article }: ArticleProps) => {
         </Box>
         <Flex mt="5">
           {data.tagList.map((t) => (
-            <PseudoBox _hover={{ cursor: 'pointer' }} mr="4">
-              <Badge key={t} p="2" rounded="md">
+            <PseudoBox key={t} _hover={{ cursor: 'pointer' }} mr="4">
+              <Badge p="2" rounded="md">
                 {t}
               </Badge>
             </PseudoBox>
@@ -150,7 +151,7 @@ const Article = ({ article }: ArticleProps) => {
               Written by
             </Text>
             <Flex justify="space-between">
-              <NextLink href={`${data.author.username}`}>
+              <NextLink href={'/[username]'} as={`/${data.author.username}`}>
                 <Link>
                   <Heading as="h3" size="lg">
                     {data.author.username}

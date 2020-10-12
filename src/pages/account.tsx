@@ -18,7 +18,7 @@ import {
 } from '@chakra-ui/core';
 
 import { updateUser } from '../api';
-import { NavBar } from '../components/NavBar';
+import { NavBar } from '../components/layout/NavBar';
 import { useGetCurrentUser } from '../api/useGetCurrentUser';
 import { useIsAuth } from '../utils/useIsAuth';
 

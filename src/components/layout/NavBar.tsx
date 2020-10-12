@@ -19,8 +19,8 @@ import {
   MenuDivider,
 } from '@chakra-ui/core';
 
-import { logout } from '../api';
-import { useGetCurrentUser } from '../api/useGetCurrentUser';
+import { logout } from '../../api';
+import { useGetCurrentUser } from '../../api/useGetCurrentUser';
 
 interface NavBarProps {}
 

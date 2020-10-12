@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { ThemeProvider, CSSReset, ColorModeProvider } from '@chakra-ui/core';
 import { SWRConfig } from 'swr';
+import '../styles.css';
 
 import theme from '../theme';
 import fetcher from '../utils/fetcher';
