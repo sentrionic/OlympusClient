@@ -1,11 +1,23 @@
-import { Box, Button, Flex, Heading, Stack, Text } from '@chakra-ui/core';
+import {
+  Box,
+  Flex,
+  Heading,
+  Spinner,
+  Stack,
+  TabPanel,
+  TabPanels,
+  Text,
+} from '@chakra-ui/core';
 import { GetServerSideProps } from 'next';
 import React, { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import useSWR, { mutate } from 'swr';
+
 import { getAllArticles, setCookie } from '../api';
 import { ArticleResponse } from '../api/models';
 import { ArticlePreview } from '../components/article/ArticlePreview';
+import { HomeTabs } from '../components/home/HomeTabs';
+import { LoadingSpinner } from '../components/home/LoadingSpinner';
 import { Layout } from '../components/layout/Layout';
 
 interface IndexProps {
@@ -33,38 +45,47 @@ const Index = (indexProps: IndexProps) => {
 
   return (
     <Layout>
-      {articles?.length === 0 ? (
-        <Flex height="80vh">
-          <Box shadow="md" borderWidth="1px" m="auto" p="10">
-            <Heading>No articles here yet.</Heading>
-            <Text>Be the first one</Text>
-          </Box>
-        </Flex>
-      ) : (
-        <InfiniteScroll
-          dataLength={articles.length}
-          next={fetchMore}
-          hasMore={hasMore}
-          loader={<h4>Loading...</h4>}
-          endMessage={
-            <Flex align="center" justify="center" mt="10">
-              <Box shadow="md" borderWidth="1px" m="auto" p="4">
-                <Text>No More Articles</Text>
-              </Box>
-            </Flex>
-          }
-        >
-          <Stack spacing={8}>
-            {articles?.map((a) =>
-              !a ? null : (
-                <Flex key={a.id}>
-                  <ArticlePreview article={a} />
-                </Flex>
-              )
+      <HomeTabs>
+        <TabPanels>
+          <TabPanel my='6'>
+            {articles?.length === 0 ? (
+              <Flex height='80vh'>
+                <Box shadow='md' borderWidth='1px' m='auto' p='10'>
+                  <Heading>No articles here yet.</Heading>
+                  <Text>Be the first one</Text>
+                </Box>
+              </Flex>
+            ) : (
+              <InfiniteScroll
+                dataLength={articles.length}
+                next={fetchMore}
+                hasMore={hasMore}
+                loader={<h4>Loading...</h4>}
+                endMessage={
+                  <Flex align='center' justify='center' mt='10'>
+                    <Box shadow='md' borderWidth='1px' m='auto' p='4'>
+                      <Text>No More Articles</Text>
+                    </Box>
+                  </Flex>
+                }
+              >
+                <Stack spacing={8}>
+                  {articles?.map((a) =>
+                    !a ? null : (
+                      <Flex key={a.id}>
+                        <ArticlePreview article={a} />
+                      </Flex>
+                    )
+                  )}
+                </Stack>
+              </InfiniteScroll>
             )}
-          </Stack>
-        </InfiniteScroll>
-      )}
+          </TabPanel>
+          <TabPanel>
+            <LoadingSpinner />
+          </TabPanel>
+        </TabPanels>
+      </HomeTabs>
     </Layout>
   );
 };

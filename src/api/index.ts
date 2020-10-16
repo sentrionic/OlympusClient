@@ -100,7 +100,7 @@ export const getArticleBySlug = (
   slug: string
 ): Promise<AxiosResponse<ArticleResponse>> => request.get(`/articles/${slug}`);
 
-export const createArticle = (body: ArticleDTO): Promise<ArticleResponse> =>
+export const createArticle = (body: ArticleDTO): Promise<AxiosResponse<ArticleResponse>> =>
   request.post('/articles', body);
 
 export const updateArticle = (

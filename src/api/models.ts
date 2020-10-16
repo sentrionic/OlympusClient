@@ -50,6 +50,7 @@ export type ArticleDTO = Partial<{
   title: string;
   body: string;
   description: string;
+  image?: any;
   tagList: string[];
 }>;
 

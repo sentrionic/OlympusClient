@@ -1,33 +1,107 @@
-import { Box, Button, Flex, Heading, Stack, Text } from '@chakra-ui/core';
-import { GetServerSideProps } from 'next';
-import React, { useState } from 'react';
+import React from 'react';
+import useSWR from 'swr';
+import {
+  Box,
+  Flex,
+  Heading,
+  Spinner,
+  Stack,
+  TabPanel,
+  TabPanels,
+  Text,
+} from '@chakra-ui/core';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import useSWR, { mutate, useSWRInfinite } from 'swr';
-import { getAllArticles, setCookie } from '../api';
-import { ArticleResponse } from '../api/models';
+
+import { getAllArticles } from '../api';
 import { ArticlePreview } from '../components/article/ArticlePreview';
 import { Layout } from '../components/layout/Layout';
 import { useIsAuth } from '../utils/useIsAuth';
-
-const getKey = (pageIndex, previousPageData) => {
-  // reached the end
-  if (previousPageData && !previousPageData.data) return null;
-  // first page, we don't have `previousPageData`
-  if (pageIndex === 0) return '/articles/feed';
-  // add the cursor to the API endpoint
-  console.log(previousPageData);
-  return `/articles/feed?cursor=${previousPageData.nextCursor}&limit=10`;
-};
+import { HomeTabs } from '../components/home/HomeTabs';
+import { LoadingSpinner } from '../components/home/LoadingSpinner';
 
 const Feed = () => {
   useIsAuth();
-  const { data, error } = useSWRInfinite(getKey);
+  const { data, error, mutate } = useSWR('/articles/feed', {
+    dedupingInterval: 60000,
+  });
 
-  if (!error && !data) return null;
+  if (!error && !data)
+    return (
+      <Layout>
+        <LoadingSpinner />
+      </Layout>
+    );
 
-  console.log(data);
+  if (error) {
+    return (
+      <Layout>
+        <Flex mt='20' justify='center' h='80vh'>
+          <Text>
+            Something went wrong, please refresh the page or try again later
+          </Text>
+          <Text>Error: {error}</Text>
+        </Flex>
+      </Layout>
+    );
+  }
 
-  return <Layout></Layout>;
+  const fetchMore = async () => {
+    const cursor = data.articles[data.articles.length - 1].createdAt;
+    const { data: newArticles } = await getAllArticles(cursor);
+    mutate(
+      {
+        articles: [...data.articles, ...newArticles.articles],
+        hasMore: newArticles.hasMore,
+      },
+      false
+    );
+  };
+
+  return (
+    <Layout>
+      <HomeTabs tabIndex={1}>
+        <TabPanels>
+          <TabPanel>
+            <LoadingSpinner />
+          </TabPanel>
+          <TabPanel my='6'>
+            {data.articles?.length === 0 ? (
+              <Flex height='80vh'>
+                <Box shadow='md' borderWidth='1px' m='auto' p='10'>
+                  <Heading>No articles here yet.</Heading>
+                  <Text>Be the first one</Text>
+                </Box>
+              </Flex>
+            ) : (
+              <InfiniteScroll
+                dataLength={data.articles.length}
+                next={fetchMore}
+                hasMore={data.hasMore}
+                loader={<h4>Loading...</h4>}
+                endMessage={
+                  <Flex align='center' justify='center' mt='10'>
+                    <Box shadow='md' borderWidth='1px' m='auto' p='4'>
+                      <Text>No More Articles</Text>
+                    </Box>
+                  </Flex>
+                }
+              >
+                <Stack spacing={8}>
+                  {data.articles?.map((a) =>
+                    !a ? null : (
+                      <Flex key={a.id}>
+                        <ArticlePreview article={a} />
+                      </Flex>
+                    )
+                  )}
+                </Stack>
+              </InfiniteScroll>
+            )}
+          </TabPanel>
+        </TabPanels>
+      </HomeTabs>
+    </Layout>
+  );
 };
 
 export default Feed;
