@@ -21,6 +21,7 @@ import { updateUser } from '../api';
 import { NavBar } from '../components/layout/NavBar';
 import { useGetCurrentUser } from '../api/useGetCurrentUser';
 import { useIsAuth } from '../utils/useIsAuth';
+import { InputField } from '../components/common/InputField';
 
 const Account = () => {
   useIsAuth();
@@ -36,18 +37,18 @@ const Account = () => {
   return (
     <>
       <NavBar />
-      <Flex width="full" align="center" justifyContent="center" mt="10">
+      <Flex width='full' align='center' justifyContent='center' mt='10'>
         <Box
           p={8}
-          maxWidth="500px"
+          maxWidth='500px'
           borderWidth={1}
           borderRadius={8}
-          boxShadow="lg"
+          boxShadow='lg'
         >
-          <Box textAlign="center">
+          <Box textAlign='center'>
             <Heading>Account Settings</Heading>
           </Box>
-          <Box my={4} textAlign="left">
+          <Box my={4} textAlign='left'>
             <Formik
               initialValues={{
                 email: user.email,
@@ -95,18 +96,18 @@ const Account = () => {
                 setFieldValue,
               }) => (
                 <Form>
-                  <Flex align="center" justify="center" mb="4">
+                  <Flex align='center' justify='center' mb='4'>
                     <PseudoBox _hover={{ cursor: 'pointer', opacity: 0.5 }}>
                       <Avatar
                         src={imageUrl || user.image}
-                        size="2xl"
+                        size='2xl'
                         onClick={() => inputFile.current.click()}
                       />
                     </PseudoBox>
                     <input
-                      type="file"
-                      name="image"
-                      accept="image/*"
+                      type='file'
+                      name='image'
+                      accept='image/*'
                       ref={inputFile}
                       hidden
                       onChange={async (e) => {
@@ -118,53 +119,41 @@ const Account = () => {
                       }}
                     />
                   </Flex>
-                  <FormControl isInvalid={errors.email && touched.email}>
-                    <FormLabel>Email</FormLabel>
-                    <Input
-                      value={values.email}
-                      type="email"
-                      placeholder="Email"
-                      size="lg"
-                      name="email"
-                      autoComplete="email"
-                      onChange={handleChange}
-                    />
-                    <FormErrorMessage>{errors.email}</FormErrorMessage>
-                  </FormControl>
 
-                  <FormControl
-                    mt={6}
-                    isInvalid={errors.username && touched.username}
-                  >
-                    <FormLabel>Username</FormLabel>
-                    <Input
-                      value={values.username}
-                      placeholder="Username"
-                      size="lg"
-                      name="username"
-                      autoComplete="username"
-                      onChange={handleChange}
-                    />
-                    <FormErrorMessage>{errors.email}</FormErrorMessage>
-                  </FormControl>
+                  <InputField
+                    value={values.email}
+                    type='email'
+                    placeholder='Email'
+                    label='Email'
+                    name='email'
+                    autoComplete='email'
+                  />
+
+                  <InputField
+                    value={values.username}
+                    placeholder='Username'
+                    label='Username'
+                    name='username'
+                    autoComplete='username'
+                  />
 
                   <FormControl mt={6} isInvalid={errors.bio && touched.bio}>
                     <FormLabel>Biography</FormLabel>
                     <InputGroup>
                       <Textarea
                         value={values.bio}
-                        placeholder="Tell us about yourself..."
-                        name="bio"
+                        placeholder='Tell us about yourself...'
+                        name='bio'
                         onChange={handleChange}
                       />
                     </InputGroup>
                     <FormErrorMessage>{errors.bio}</FormErrorMessage>
                   </FormControl>
                   <Button
-                    variantColor="blue"
-                    variant="outline"
-                    type="submit"
-                    width="full"
+                    variantColor='blue'
+                    variant='outline'
+                    type='submit'
+                    width='full'
                     mt={6}
                     isLoading={isSubmitting}
                   >

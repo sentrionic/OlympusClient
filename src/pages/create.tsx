@@ -1,36 +1,37 @@
-import React, { useState } from 'react';
-import { Form, Formik } from 'formik';
-import { mutate } from 'swr';
-import { useRouter } from 'next/router';
 import {
   Box,
-  Flex,
-  Heading,
   Button,
+  Flex,
   FormControl,
-  FormLabel,
-  Input,
-  InputRightElement,
-  InputGroup,
-  Icon,
   FormErrorMessage,
+  FormLabel,
+  Heading,
+  Image,
+  InputGroup,
+  Switch,
+  Textarea,
+  Text,
 } from '@chakra-ui/core';
-
-import { createArticle, login } from '../api';
-import { NavBar } from '../components/layout/NavBar';
-import { useIsAuth } from '../utils/useIsAuth';
+import { Form, Formik } from 'formik';
+import ReactMarkdown from 'react-markdown';
+import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
+import { useRouter } from 'next/router';
+import React, { useRef, useState } from 'react';
+import { createArticle } from '../api';
+import { InputField } from '../components/common/InputField';
 import { Layout } from '../components/layout/Layout';
+import { useIsAuth } from '../utils/useIsAuth';
 
-const Login = () => {
+const Create = () => {
   useIsAuth();
-  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
-
-  const handlePasswordVisibility = () => setShowPassword(!showPassword);
+  const inputFile = useRef(null);
+  const [imageUrl, setImageUrl] = useState('');
+  const [isPreview, togglePreview] = useState(false);
 
   return (
     <Layout variant='regular'>
-      <Box p={8} borderWidth={1} borderRadius={8} boxShadow='lg'>
+      <Box p={8} borderWidth={1} borderRadius={8} boxShadow='lg' minH='100vh'>
         <Box textAlign='center'>
           <Heading>Create Article</Heading>
         </Box>
@@ -38,17 +39,21 @@ const Login = () => {
           <Formik
             initialValues={{
               title: '',
-              caption: '',
+              description: '',
               body: '',
               tagList: '',
               image: null,
             }}
             onSubmit={async (values, { setErrors }) => {
               try {
-                const { data } = await createArticle({
-                  ...values,
-                  tagList: values.tagList.split(','),
-                });
+                const formData = new FormData();
+                formData.append('title', values.title);
+                formData.append('description', values.description);
+                formData.append('body', values.body);
+                formData.append('image', values.image);
+                const tags = values.tagList.split(',');
+                tags.map((tag, i) => formData.append(`tagList[${i}]`, tag));
+                const { data } = await createArticle(formData);
                 if (data) {
                   await router.push('/');
                 }
@@ -62,81 +67,104 @@ const Login = () => {
               }
             }}
           >
-            {({ isSubmitting, handleChange, errors, touched }) => (
+            {({
+              isSubmitting,
+              setFieldValue,
+              values,
+              errors,
+              touched,
+              handleChange,
+            }) => (
               <Form>
+                <input
+                  type='file'
+                  name='image'
+                  accept='image/*'
+                  ref={inputFile}
+                  hidden
+                  onChange={async (e) => {
+                    if (!e.currentTarget.files) return;
+                    setFieldValue('image', e.currentTarget.files[0]);
+                    setImageUrl(URL.createObjectURL(e.currentTarget.files[0]));
+                  }}
+                />
+                {imageUrl && (
+                  <Flex justify='center' mb='6'>
+                    <Image
+                      maxW='lg'
+                      borderWidth='1px'
+                      rounded='lg'
+                      overflow='hidden'
+                      src={imageUrl}
+                      alt={'Article Image'}
+                      objectFit='contain'
+                    />
+                  </Flex>
+                )}
                 <Button
                   leftIcon='plus-square'
                   variantColor='blue'
                   variant='outline'
+                  onClick={() => inputFile.current.click()}
                 >
                   Choose Optional Splash Image
                 </Button>
-                <FormControl mt={6} isInvalid={errors.title && touched.title}>
-                  <FormLabel>Title</FormLabel>
-                  <Input
-                    placeholder='Title'
-                    size='lg'
-                    name='title'
-                    onChange={handleChange}
-                  />
-                  <FormErrorMessage>{errors.title}</FormErrorMessage>
-                </FormControl>
-
-                <FormControl
-                  mt={6}
-                  isInvalid={errors.caption && touched.caption}
-                >
-                  <FormLabel>Caption</FormLabel>
-                  <InputGroup>
-                    <Input
-                      placeholder='Caption'
-                      size='lg'
-                      name='caption'
-                      onChange={handleChange}
-                    />
-                  </InputGroup>
-                  <FormErrorMessage>{errors.caption}</FormErrorMessage>
-                </FormControl>
-                <FormControl
-                  mt={6}
-                  isInvalid={errors.caption && touched.caption}
-                >
-                  <FormLabel>Body</FormLabel>
-                  <InputGroup>
-                    <Input
-                      placeholder='Insert your article here...'
-                      size='lg'
-                      name='body'
-                      onChange={handleChange}
-                    />
-                  </InputGroup>
-                  <FormErrorMessage>{errors.body}</FormErrorMessage>
-                </FormControl>
-                <FormControl
-                  mt={6}
-                  isInvalid={errors.tagList && touched.tagList}
-                >
-                  <FormLabel>Tags</FormLabel>
-                  <InputGroup>
-                    <Input
-                      placeholder='A list of tags, seperated by commas'
-                      size='lg'
-                      name='tagList'
-                      onChange={handleChange}
-                    />
-                  </InputGroup>
-                  <FormErrorMessage>{errors.tagList}</FormErrorMessage>
-                </FormControl>
-                <Button
-                  variantColor='blue'
-                  variant='outline'
-                  type='submit'
-                  width='full'
-                  mt={4}
-                  isLoading={isSubmitting}
-                >
-                  Submit Article
-                </Button>
+                <InputField placeholder='Title' label='Title' name='title' />
+                <InputField
+                  placeholder="What's this article about"
+                  label='Description'
+                  name='description'
+                />
+                <Box mt='6'>
+                  <FormControl mt={6} isInvalid={errors.body && touched.body}>
+                    <Flex align='center' justify='space-between'>
+                      <FormLabel>Body</FormLabel>
+                      <Flex align='center'>
+                        <Switch
+                          id='preview'
+                          onChange={() => togglePreview(!isPreview)}
+                        />
+                        <Text ml='2'>Preview</Text>
+                      </Flex>
+                    </Flex>
+                    <InputGroup>
+                      {isPreview ? (
+                        <ReactMarkdown
+                          className='markdown-body'
+                          renderers={ChakraUIRenderer()}
+                          source={values.body}
+                          escapeHtml={false}
+                        />
+                      ) : (
+                        <Textarea
+                          value={values.body}
+                          placeholder='Write your article (in markdown)'
+                          name='body'
+                          resize='vertical'
+                          onChange={handleChange}
+                          h='40vh'
+                        />
+                      )}
+                    </InputGroup>
+                    <FormErrorMessage>{errors.body}</FormErrorMessage>
+                  </FormControl>
+                </Box>
+                <InputField
+                  placeholder='A list of tags, seperated by commas'
+                  label='Tags'
+                  name='tagList'
+                />
+                <Flex justify='flex-end'>
+                  <Button
+                    variantColor='blue'
+                    variant='outline'
+                    type='submit'
+                    mt={4}
+                    isLoading={isSubmitting}
+                  >
+                    Publish Article
+                  </Button>
+                </Flex>
               </Form>
             )}
           </Formik>
@@ -146,4 +174,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Create;

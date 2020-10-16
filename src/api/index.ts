@@ -100,8 +100,15 @@ export const getArticleBySlug = (
   slug: string
 ): Promise<AxiosResponse<ArticleResponse>> => request.get(`/articles/${slug}`);
 
-export const createArticle = (body: ArticleDTO): Promise<AxiosResponse<ArticleResponse>> =>
-  request.post('/articles', body);
+
+export const createArticle = (
+  body: FormData
+): Promise<AxiosResponse<ArticleResponse>> =>
+  request.post('/articles', body, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 
 export const updateArticle = (
   slug: string,
