@@ -1,7 +1,7 @@
 import React from 'react';
 import NextLink from 'next/link';
 import { GetServerSideProps } from 'next';
-import useSWR from 'swr';
+import useSWR, { mutate, trigger } from 'swr';
 import ReactMarkdown from 'react-markdown';
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
 import {
@@ -21,9 +21,17 @@ import {
 } from '@chakra-ui/core';
 
 import { Layout } from '../../components/layout/Layout';
-import { getArticleBySlug, setCookie } from '../../api';
+import {
+  getArticleBySlug,
+  setCookie,
+  unfavoriteArticle,
+  favoriteArticle,
+  getCurrentUser,
+} from '../../api';
 import { ArticleResponse } from '../../api/models';
 import { getTime } from '../../utils/getTime';
+import { useGetCurrentUser } from '../../api/useGetCurrentUser';
+import { useRouter } from 'next/router';
 
 interface ArticleProps {
   article: ArticleResponse;
@@ -53,9 +61,38 @@ const Article = ({ article }: ArticleProps) => {
     initialData: article,
   });
 
+  const router = useRouter();
+  const { user } = useGetCurrentUser();
+
   if (!data || error) {
     return null;
   }
+
+  const toggleFavorite = () => {
+    if (!user) {
+      return router.replace(
+        '/login?next=' + router.query.username + '/' + router.query.slug
+      );
+    }
+
+    const favorited = data.favorited;
+    const favoritesCount = (data.favoritesCount += favorited ? -1 : 1);
+    mutate(
+      `/articles/${article.slug}`,
+      {
+        ...data,
+        favorited: !favorited,
+        favoritesCount,
+      },
+      false
+    );
+
+    if (favorited) {
+      unfavoriteArticle(data.slug);
+    } else {
+      favoriteArticle(data.slug);
+    }
+  };
 
   return (
     <Layout>
@@ -120,7 +157,9 @@ const Article = ({ article }: ArticleProps) => {
               icon="star"
               size="sm"
               variantColor={data.favorited ? 'yellow' : undefined}
-              onClick={() => {}}
+              onClick={() => {
+                toggleFavorite();
+              }}
             />
             <Text pl="2" fontSize="sm">
               {data.favoritesCount}
@@ -173,7 +212,7 @@ const Article = ({ article }: ArticleProps) => {
             </Text>
           </Box>
         </Stack>
-        <Divider my="5" />
+        <Divider my="5" id={'comments'} />
       </Flex>
     </Layout>
   );

@@ -1,40 +1,21 @@
-import React from 'react';
+import { Box, Button, Flex, Heading, Stack, Text } from '@chakra-ui/core';
 import { GetServerSideProps } from 'next';
+import React, { useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import useSWR, { mutate } from 'swr';
-import NextLink from 'next/link';
-import {
-  Box,
-  Flex,
-  Heading,
-  Image,
-  Link,
-  Stack,
-  Text,
-  Avatar,
-  IconButton,
-  Menu,
-  MenuList,
-  MenuItem,
-  MenuButton,
-} from '@chakra-ui/core';
-
-import {
-  favoriteArticle,
-  getAllArticles,
-  getArticleBySlug,
-  setCookie,
-  unfavoriteArticle,
-} from '../api';
-import { Layout } from '../components/layout/Layout';
+import { getAllArticles, setCookie } from '../api';
 import { ArticleResponse } from '../api/models';
-import { getTime } from '../utils/getTime';
+import { ArticlePreview } from '../components/article/ArticlePreview';
+import { Layout } from '../components/layout/Layout';
 
 interface IndexProps {
   articles: ArticleResponse[];
-  articleCount: number;
+  hasMore: boolean;
 }
 
 const Index = (indexProps: IndexProps) => {
+  const [articles, setArticles] = useState(indexProps.articles);
+  const [hasMore, setHasMore] = useState(indexProps.hasMore);
   const { data, error } = useSWR('/articles', {
     dedupingInterval: 60000,
     initialData: indexProps,
@@ -42,26 +23,17 @@ const Index = (indexProps: IndexProps) => {
 
   if (!error && !data) return null;
 
-  const handleFavorite = ({ slug, favorited }: ArticleResponse) => {
-    mutate('/articles', async (articles: IndexProps) => {
-      const { data: article } = await getArticleBySlug(slug);
-      article.favorited = !article.favorited;
-      article.favoritesCount += favorited ? -1 : 1;
-      return {
-        articles: data.articles,
-        articleCount: data.articleCount,
-      };
-    });
-    if (favorited) {
-      unfavoriteArticle(slug);
-    } else {
-      favoriteArticle(slug);
-    }
+  const fetchMore = async () => {
+    const cursor = articles[articles.length - 1].createdAt;
+    const { data: newArticles } = await getAllArticles(cursor);
+    setArticles([...articles, ...newArticles.articles]);
+    setHasMore(newArticles.hasMore);
+    mutate('articles', { articles });
   };
 
   return (
     <Layout>
-      {data?.articles?.length === 0 ? (
+      {articles?.length === 0 ? (
         <Flex height="80vh">
           <Box shadow="md" borderWidth="1px" m="auto" p="10">
             <Heading>No articles here yet.</Heading>
@@ -69,97 +41,29 @@ const Index = (indexProps: IndexProps) => {
           </Box>
         </Flex>
       ) : (
-        <Stack spacing={8}>
-          {data?.articles?.map((a) =>
-            !a ? null : (
-              <Flex key={a.id} p={5} shadow="md" borderWidth="1px" m="auto">
-                <Box flex={1}>
-                  <Flex mb="5" justify="space-between">
-                    <Stack isInline>
-                      <Avatar name={a.author.username} src={a.author.image} />
-                      <Box>
-                        <Text fontWeight="bold" color="blue.600">
-                          {a.author.username}
-                        </Text>
-                        <Text>{getTime(a.createdAt)}</Text>
-                      </Box>
-                    </Stack>
-                    <Menu>
-                      <IconButton
-                        as={MenuButton}
-                        variant="outline"
-                        aria-label="Settings Menu"
-                        icon="chevron-down"
-                        size="sm"
-                      />
-                      <MenuList>
-                        <NextLink href={`/${a.slug}/edit`}>
-                          <MenuItem>Edit</MenuItem>
-                        </NextLink>
-                        <NextLink href={`/${a.slug}/delete`}>
-                          <MenuItem>Delete</MenuItem>
-                        </NextLink>
-                      </MenuList>
-                    </Menu>
-                  </Flex>
-                  <Image
-                    maxW="lg"
-                    borderWidth="1px"
-                    rounded="lg"
-                    overflow="hidden"
-                    src={a.image}
-                    alt={a.title}
-                    objectFit="contain"
-                  />
-                  <NextLink
-                    href="/[username]/[slug]"
-                    as={`/${a.author.username}/${a.slug}`}
-                  >
-                    <Link>
-                      <Heading fontSize="xl" pt="6">
-                        {a.title}
-                      </Heading>
-                    </Link>
-                  </NextLink>
-                  <Text>{a.description}</Text>
-                  <Flex align="center">
-                    <NextLink
-                      href="/[username]/[slug]"
-                      as={`/${a.author.username}/${a.slug}`}
-                    >
-                      <Link>
-                        <Text fontSize="s" pt="6">
-                          Read more...
-                        </Text>
-                      </Link>
-                    </NextLink>
-                  </Flex>
-                  <Flex pt="4" justify="space-between">
-                    <Flex>
-                      <IconButton
-                        variant="outline"
-                        aria-label="Favorite Article"
-                        icon="star"
-                        size="sm"
-                        variantColor={a.favorited ? 'yellow' : undefined}
-                        onClick={() => handleFavorite(a)}
-                      />
-                      <Text pl="2" fontSize="sm">
-                        {a.favoritesCount}
-                      </Text>
-                    </Flex>
-                    <IconButton
-                      variant="outline"
-                      aria-label="Favorite Article"
-                      icon="chat"
-                      size="sm"
-                    />
-                  </Flex>
-                </Box>
-              </Flex>
-            )
-          )}
-        </Stack>
+        <InfiniteScroll
+          dataLength={articles.length}
+          next={fetchMore}
+          hasMore={hasMore}
+          loader={<h4>Loading...</h4>}
+          endMessage={
+            <Flex align="center" justify="center" mt="10">
+              <Box shadow="md" borderWidth="1px" m="auto" p="4">
+                <Text>No More Articles</Text>
+              </Box>
+            </Flex>
+          }
+        >
+          <Stack spacing={8}>
+            {articles?.map((a) =>
+              !a ? null : (
+                <Flex key={a.id}>
+                  <ArticlePreview article={a} />
+                </Flex>
+              )
+            )}
+          </Stack>
+        </InfiniteScroll>
       )}
     </Layout>
   );
@@ -171,6 +75,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   setCookie(ctx?.req?.headers?.cookie);
 
   const { data } = await getAllArticles();
-  const { articles, articlesCount } = data;
-  return { props: { articles, articlesCount } };
+  const { articles, hasMore } = data;
+  return { props: { articles, hasMore } };
 };

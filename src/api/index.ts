@@ -10,6 +10,7 @@ import {
   CommentResponse,
   ArticleResponse,
   ArticleDTO,
+  PaginatedArticles,
 } from './models';
 
 const request = Axios.create({
@@ -22,9 +23,7 @@ export const setCookie = (cookie?: string) => {
 };
 
 // auth
-export const login = (
-  body: LoginDTO
-): Promise<AxiosResponse<AuthResponse>> =>
+export const login = (body: LoginDTO): Promise<AxiosResponse<AuthResponse>> =>
   request.post('/users/login', body);
 
 export const register = (
@@ -40,9 +39,12 @@ export const getCurrentUser = (): Promise<AxiosResponse<ProfileResponse>> =>
 
 export const updateUser = (
   body: FormData
-): Promise<AxiosResponse<ProfileResponse>> => request.put('/user', body, { headers: {
-  'Content-Type': 'multipart/form-data'
-} });
+): Promise<AxiosResponse<ProfileResponse>> =>
+  request.put('/user', body, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 
 // profiles
 export const getProfile = (
@@ -57,90 +59,66 @@ export const followUser = (
 
 export const unfollowUser = (
   username: string
-  ): Promise<AxiosResponse<ProfileResponse>> =>
+): Promise<AxiosResponse<ProfileResponse>> =>
   request.delete(`/profiles/${username}/follow`);
 
 // articles
-const paginate = (count: number, page?: number) =>
-  `limit=${count}&offset=${page ? page * count : 0}`;
+const paginate = (count: number, cursor?: string) =>
+  `limit=${count}${cursor ? `&cursor=${cursor}` : ''}`;
 
 export const getAllArticles = (
-  page?: number
-): Promise<
-  ResponseData<'articles', ArticleResponse[]> &
-    ResponseData<'articlesCount', number>
-> => {
-  return request.get(`/articles?${paginate(10, page)}`);
+  cursor?: string
+): Promise<AxiosResponse<PaginatedArticles>> => {
+  return request.get(`/articles?${paginate(10, cursor)}`);
 };
 
 export const getFeed = (
-  page?: number
-): Promise<
-  ResponseData<'articles', ArticleResponse[]> &
-    ResponseData<'articlesCount', number>
-> => {
-  return request.get(`/articles/feed?${paginate(10, page)}`);
+  cursor?: string
+): Promise<AxiosResponse<PaginatedArticles>> => {
+  return request.get(`/articles/feed?${paginate(10, cursor)}`);
 };
 
 export const getArticlesByAuthor = (
   username: string,
-  page?: number
-): Promise<
-  ResponseData<'articles', ArticleResponse[]> &
-    ResponseData<'articlesCount', number>
-> => request.get(`/articles?author=${username}&${paginate(5, page)}`);
+  cursor?: string
+): Promise<AxiosResponse<PaginatedArticles>> =>
+  request.get(`/articles?author=${username}&${paginate(5, cursor)}`);
 
 export const getAuthorFavorites = (
   username: string,
-  page?: number
-): Promise<
-  ResponseData<'articles', ArticleResponse[]> &
-    ResponseData<'articlesCount', number>
-> => request.get(`/articles?favorited=${username}&${paginate(5, page)}`);
+  cursor?: string
+): Promise<AxiosResponse<PaginatedArticles>> =>
+  request.get(`/articles?favorited=${username}&${paginate(5, cursor)}`);
 
 export const getArticlesByTag = (
   tag: string,
-  page?: number
-): Promise<
-  ResponseData<'articles', ArticleResponse[]> &
-    ResponseData<'articlesCount', number>
-> => request.get(`/articles?tag=${tag}&${paginate(5, page)}`);
+  cursor?: string
+): Promise<AxiosResponse<PaginatedArticles>> =>
+  request.get(`/articles?tag=${tag}&${paginate(5, cursor)}`);
 
 export const getArticleBySlug = (
   slug: string
-): Promise<AxiosResponse<ArticleResponse>> =>
-  request.get(`/articles/${slug}`);
+): Promise<AxiosResponse<ArticleResponse>> => request.get(`/articles/${slug}`);
 
-export const createArticle = (
-  body: ArticleDTO
-  ): Promise<ArticleResponse> =>
+export const createArticle = (body: ArticleDTO): Promise<ArticleResponse> =>
   request.post('/articles', body);
 
 export const updateArticle = (
   slug: string,
   body: ArticleDTO
-  ): Promise<ArticleResponse> =>
-  request.put(`/articles/${slug}`, body);
+): Promise<ArticleResponse> => request.put(`/articles/${slug}`, body);
 
-export const deleteArticle = (
-  slug: string
-  ): Promise<ArticleResponse> =>
+export const deleteArticle = (slug: string): Promise<ArticleResponse> =>
   request.put(`/articles/${slug}`);
 
-export const favoriteArticle = (
-  slug: string
-  ): Promise<ArticleResponse> =>
+export const favoriteArticle = (slug: string): Promise<ArticleResponse> =>
   request.post(`/articles/${slug}/favorite`);
 
-export const unfavoriteArticle = (
-  slug: string
-  ): Promise<ArticleResponse> =>
+export const unfavoriteArticle = (slug: string): Promise<ArticleResponse> =>
   request.delete(`/articles/${slug}/favorite`);
 
 // comments
-export const getArticlesComments = (
-  slug: string
-): Promise<CommentResponse[]> =>
+export const getArticlesComments = (slug: string): Promise<CommentResponse[]> =>
   request.get(`/articles/${slug}/comments`);
 
 export const createComment = (
@@ -156,5 +134,4 @@ export const deleteComment = (
   request.delete(`/articles/${slug}/comments/${id}`);
 
 // tags
-export const getTags = (): Promise<string[]> =>
-  request.get('/tags');
+export const getTags = (): Promise<string[]> => request.get('/tags');

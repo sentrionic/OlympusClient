@@ -65,6 +65,11 @@ export type ArticleAllQuery = Partial<{
 }> &
   ArticleFeedQuery;
 
+export interface PaginatedArticles {
+  articles: ArticleResponse[];
+  hasMore: boolean;
+}
+
 export interface ArticleResponse {
   id: number;
   slug: string;
