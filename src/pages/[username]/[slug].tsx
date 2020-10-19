@@ -85,23 +85,23 @@ const Article = ({ article }: ArticleProps) => {
 
   return (
     <Layout>
-      <Flex direction='column' justify='center'>
-        <Flex align='center'>
-          <Heading mr='10'>{data.title}</Heading>
+      <Flex direction="column" justify="center">
+        <Flex align="center">
+          <Heading mr="10">{data.title}</Heading>
           <ArticleMenu article={data} />
         </Flex>
-        <Stack isInline my='5'>
+        <Stack isInline my="5">
           <Avatar name={data.author.username} src={data.author.image} />
           <Box>
             <Flex>
               <NextLink href={'/[username]'} as={`/${data.author.username}`}>
-                <Link fontWeight='semibold'>{data.author.username}</Link>
+                <Link fontWeight="semibold">{data.author.username}</Link>
               </NextLink>
               <Button
-                variant='outline'
-                size='xs'
-                rounded='true'
-                ml='3'
+                variant="outline"
+                size="xs"
+                rounded="true"
+                ml="3"
                 onClick={() => {}}
               >
                 {data.author.following ? 'Unfollow' : 'Follow'}
@@ -110,105 +110,94 @@ const Article = ({ article }: ArticleProps) => {
             <Text>{getTime(data.createdAt)}</Text>
           </Box>
         </Stack>
-        <Text fontWeight='semibold' fontSize='18px' mb='5'>
+        <Text fontWeight="semibold" fontSize="18px" mb="5">
           {data.description}
         </Text>
-        <Flex align='center' justify='center'>
+        <Flex align="center" justify="center">
           <Image
-            maxW='lg'
-            borderWidth='1px'
-            rounded='lg'
-            overflow='hidden'
+            maxW="lg"
+            borderWidth="1px"
+            rounded="lg"
+            overflow="hidden"
             src={data.image}
             alt={data.title}
-            objectFit='contain'
+            objectFit="contain"
           />
         </Flex>
-        <Box mt='10'>
+        <Box mt="10">
           <ReactMarkdown
-            className='markdown-body'
+            className="markdown-body"
             renderers={ChakraUIRenderer()}
             source={data.body}
             escapeHtml={false}
           />
         </Box>
-        <Flex mt='5'>
+        <Flex mt="5">
           {data.tagList.map((t) => (
-            <PseudoBox key={t} _hover={{ cursor: 'pointer' }} mr='4'>
-              <Badge p='2' rounded='md'>
+            <PseudoBox key={t} _hover={{ cursor: 'pointer' }} mr="4">
+              <Badge p="2" rounded="md">
                 {t}
               </Badge>
             </PseudoBox>
           ))}
         </Flex>
-        <Flex mt='10'>
+        <Flex mt="10">
           <Flex>
             <IconButton
-              variant='outline'
-              aria-label='Favorite Article'
-              icon='star'
-              size='sm'
+              variant="outline"
+              aria-label="Favorite Article"
+              icon="star"
+              size="sm"
               variantColor={data.favorited ? 'yellow' : undefined}
               onClick={() => {
                 toggleFavorite();
               }}
             />
-            <Text pl='2' fontSize='sm'>
+            <Text pl="2" fontSize="sm">
               {data.favoritesCount}
             </Text>
             <IconButton
-              variant='outline'
-              aria-label='Favorite Article'
-              icon='chat'
-              size='sm'
-              ml='4'
+              variant="outline"
+              aria-label="Favorite Article"
+              icon="chat"
+              size="sm"
+              ml="4"
               onClick={() => handleToggle()}
             />
-            <Text pl='2' fontSize='sm'>
+            <Text pl="2" fontSize="sm">
               View Comments
             </Text>
           </Flex>
         </Flex>
-        <Divider my='5' />
+        <Divider my="5" />
         <Stack isInline>
           <Avatar
             name={data.author.username}
             src={data.author.image}
-            size='lg'
+            size="lg"
           />
           <Box>
             <Text
-              textTransform='uppercase'
-              fontSize='sm'
-              letterSpacing='wide'
-              color='gray.500'
+              textTransform="uppercase"
+              fontSize="sm"
+              letterSpacing="wide"
+              color="gray.500"
             >
               Written by
             </Text>
-            <Flex justify='space-between'>
-              <NextLink href={'/[username]'} as={`/${data.author.username}`}>
-                <Link>
-                  <Heading as='h3' size='lg'>
-                    {data.author.username}
-                  </Heading>
-                </Link>
-              </NextLink>
-              <Button
-                variant='outline'
-                size='xs'
-                rounded='true'
-                ml='3'
-                onClick={() => {}}
-              >
-                {data.author.following ? 'Unfollow' : 'Follow'}
-              </Button>
-            </Flex>
-            <Text mt='4' color='gray.700'>
+            <NextLink href={'/[username]'} as={`/${data.author.username}`}>
+              <Link>
+                <Heading as="h3" size="lg">
+                  {data.author.username}
+                </Heading>
+              </Link>
+            </NextLink>
+            <Text mt="2" color="gray.700">
               {data.author.bio}
             </Text>
           </Box>
         </Stack>
-        <Divider my='5' />
+        <Divider my="5" />
         <Collapse mt={4} isOpen={show} id={'comments'}>
           <CommentSection article={data} isShown={show} />
         </Collapse>

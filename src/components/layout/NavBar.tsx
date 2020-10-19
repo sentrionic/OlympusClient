@@ -38,12 +38,12 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
       <>
         <NextLink href={'/create'}>
           <Button
-            variantColor='blue'
-            variant='outline'
+            variantColor="blue"
+            variant="outline"
             mr={10}
-            size='sm'
-            leftIcon='edit'
-            color='blue'
+            size="sm"
+            leftIcon="edit"
+            color="blue"
           >
             Create Article
           </Button>
@@ -57,10 +57,10 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             <Avatar src={user.image} />
           </PseudoBox>
           <MenuList>
-            <NextLink href='/[username]' as={`/${user.username}`}>
+            <NextLink href="/[username]" as={`/${user.username}`}>
               <MenuItem>Your Profile</MenuItem>
             </NextLink>
-            <NextLink href='/account'>
+            <NextLink href="/account">
               <MenuItem>Account</MenuItem>
             </NextLink>
             <MenuDivider />
@@ -83,13 +83,13 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   } else {
     body = (
       <>
-        <NextLink href='/login'>
-          <Button variantColor='blue' variant='outline' mr={2} size='sm'>
+        <NextLink href="/login">
+          <Button variantColor="blue" variant="outline" mr={2} size="sm">
             Login
           </Button>
         </NextLink>
-        <NextLink href='/register'>
-          <Button variantColor='blue' variant='solid' mr={2} size='sm'>
+        <NextLink href="/register">
+          <Button variantColor="blue" variant="solid" mr={2} size="sm">
             Register
           </Button>
         </NextLink>
@@ -99,31 +99,31 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
 
   return (
     <Flex
-      zIndex={1}
-      position='sticky'
+      zIndex={4}
+      position="sticky"
       top={0}
       p={4}
-      boxShadow='md'
-      justify='space-between'
-      align='center'
+      boxShadow="md"
+      justify="space-between"
+      align="center"
       bg={isDark ? 'gray.800' : 'white'}
     >
-      <Box ml='4'>
-        <NextLink href='/'>
+      <Box ml="4">
+        <NextLink href="/">
           <Link>
             <Heading>OlympusBlog</Heading>
           </Link>
         </NextLink>
       </Box>
-      <Flex align='center'>
+      <Flex align="center">
         {body}{' '}
         <IconButton
-          size='md'
-          fontSize='lg'
+          size="md"
+          fontSize="lg"
           aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
-          variant='ghost'
-          color='current'
-          mx='2'
+          variant="ghost"
+          color="current"
+          mx="2"
           onClick={toggleColorMode}
           icon={isDark ? 'sun' : 'moon'}
         />
