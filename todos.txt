@@ -1,0 +1,5 @@
+- Follow for slug page
+- Search Function -> Tag, Author, Content, Sort ASC/DESC
+- Fix Comment Delete
+- Clean Up
+- Add Grid to Index

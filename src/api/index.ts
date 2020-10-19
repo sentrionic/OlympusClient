@@ -138,7 +138,7 @@ export const createComment = (
 
 export const deleteComment = (
   slug: string,
-  id: string
+  id: number
 ): Promise<AxiosResponse<CommentResponse>> =>
   request.delete(`/articles/${slug}/comments/${id}`);
 
