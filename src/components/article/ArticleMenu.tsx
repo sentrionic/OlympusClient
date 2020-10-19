@@ -1,13 +1,26 @@
 import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogCloseButton,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  Button,
   IconButton,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
+  Scale,
   Text,
+  useDisclosure,
 } from '@chakra-ui/core';
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
+import { mutate } from 'swr';
+import { deleteArticle } from '../../api';
 import { ArticleResponse } from '../../api/models';
 
 interface ArticleMenuProps {
@@ -15,29 +28,64 @@ interface ArticleMenuProps {
 }
 
 export const ArticleMenu: React.FC<ArticleMenuProps> = ({ article }) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const router = useRouter();
+  const cancelRef = React.useRef();
+
+  const onClose = async () => {
+    setIsOpen(false);
+    const { data } = await deleteArticle(article.slug);
+    if (data) {
+      mutate('/articles');
+      await router.push('/');
+    }
+  };
+
   return (
-    <Menu>
-      <IconButton
-        as={MenuButton}
-        variant="outline"
-        aria-label="Settings Menu"
-        icon="chevron-down"
-        size="sm"
-      />
-      <MenuList>
-        <NextLink
-          href={'/[username]/[slug]/edit'}
-          as={`/${article.author.username}/${article.slug}/edit`}
-        >
-          <MenuItem>Edit</MenuItem>
-        </NextLink>
-        <NextLink
-          href={'/[username]/[slug]/delete'}
-          as={`/${article.author.username}/${article.slug}/delete`}
-        >
-          <MenuItem>Delete</MenuItem>
-        </NextLink>
-      </MenuList>
-    </Menu>
+    <>
+      <Menu>
+        <IconButton
+          as={MenuButton}
+          variant="outline"
+          aria-label="Settings Menu"
+          icon="chevron-down"
+          size="sm"
+        />
+        <MenuList>
+          <NextLink
+            href={'/[username]/[slug]/edit'}
+            as={`/${article.author.username}/${article.slug}/edit`}
+          >
+            <MenuItem>Edit</MenuItem>
+          </NextLink>
+          <MenuItem onClick={() => setIsOpen(true)}>Delete</MenuItem>
+        </MenuList>
+      </Menu>
+      <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={() => setIsOpen(false)}
+      >
+        <AlertDialogOverlay />
+        <AlertDialogContent>
+          <AlertDialogHeader fontSize="lg" fontWeight="bold">
+            Delete Article
+          </AlertDialogHeader>
+
+          <AlertDialogBody>
+            Are you sure? You can't undo this action afterwards.
+          </AlertDialogBody>
+
+          <AlertDialogFooter>
+            <Button ref={cancelRef} onClick={() => setIsOpen(false)}>
+              Cancel
+            </Button>
+            <Button variantColor="red" onClick={onClose} ml={3}>
+              Delete
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 };

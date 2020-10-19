@@ -3,7 +3,7 @@ import { mutate } from 'swr';
 import { Avatar, Box, Button, Flex, Text } from '@chakra-ui/core';
 
 import { ProfileResponse } from '../../api/models';
-import { unfollowUser } from '../../api';
+import { followUser, unfollowUser } from '../../api';
 
 type ProfileBoxProps = {
   profile: ProfileResponse;
@@ -22,7 +22,7 @@ export const ProfileBox: React.FC<ProfileBoxProps> = ({ profile }) => {
     if (profile.following) {
       unfollowUser(profile.username);
     } else {
-      unfollowUser(profile.username);
+      followUser(profile.username);
     }
   };
 

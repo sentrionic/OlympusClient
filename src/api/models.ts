@@ -89,7 +89,7 @@ export interface CommentDTO {
   body: string;
 }
 
-export interface CommentResponse {
+export interface CommentResponse extends BaseEntity {
   body: string;
   author: ProfileResponse;
 }

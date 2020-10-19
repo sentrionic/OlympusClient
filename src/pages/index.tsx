@@ -26,9 +26,7 @@ interface IndexProps {
 }
 
 const Index = (indexProps: IndexProps) => {
-  const [articles, setArticles] = useState(indexProps.articles);
-  const [hasMore, setHasMore] = useState(indexProps.hasMore);
-  const { data, error } = useSWR('/articles', {
+  const { data, error, mutate } = useSWR('/articles', {
     dedupingInterval: 60000,
     initialData: indexProps,
   });
@@ -36,41 +34,45 @@ const Index = (indexProps: IndexProps) => {
   if (!error && !data) return null;
 
   const fetchMore = async () => {
-    const cursor = articles[articles.length - 1].createdAt;
+    const cursor = data.articles[data.articles.length - 1].createdAt;
     const { data: newArticles } = await getAllArticles(cursor);
-    setArticles([...articles, ...newArticles.articles]);
-    setHasMore(newArticles.hasMore);
-    mutate('articles', { articles });
+    mutate(
+      {
+        articles: [...data.articles, ...newArticles.articles],
+        hasMore: newArticles.hasMore,
+      },
+      false
+    );
   };
 
   return (
     <Layout>
       <HomeTabs>
         <TabPanels>
-          <TabPanel my='6'>
-            {articles?.length === 0 ? (
-              <Flex height='80vh'>
-                <Box shadow='md' borderWidth='1px' m='auto' p='10'>
+          <TabPanel my="6">
+            {data.articles?.length === 0 ? (
+              <Flex height="80vh">
+                <Box shadow="md" borderWidth="1px" m="auto" p="10">
                   <Heading>No articles here yet.</Heading>
                   <Text>Be the first one</Text>
                 </Box>
               </Flex>
             ) : (
               <InfiniteScroll
-                dataLength={articles.length}
+                dataLength={data.articles.length}
                 next={fetchMore}
-                hasMore={hasMore}
+                hasMore={data.hasMore}
                 loader={<h4>Loading...</h4>}
                 endMessage={
-                  <Flex align='center' justify='center' mt='10'>
-                    <Box shadow='md' borderWidth='1px' m='auto' p='4'>
+                  <Flex align="center" justify="center" mt="10">
+                    <Box shadow="md" borderWidth="1px" m="auto" p="4">
                       <Text>No More Articles</Text>
                     </Box>
                   </Flex>
                 }
               >
                 <Stack spacing={8}>
-                  {articles?.map((a) =>
+                  {data.articles?.map((a) =>
                     !a ? null : (
                       <Flex key={a.id}>
                         <ArticlePreview article={a} />

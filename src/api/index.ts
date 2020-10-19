@@ -100,7 +100,6 @@ export const getArticleBySlug = (
   slug: string
 ): Promise<AxiosResponse<ArticleResponse>> => request.get(`/articles/${slug}`);
 
-
 export const createArticle = (
   body: FormData
 ): Promise<AxiosResponse<ArticleResponse>> =>
@@ -112,11 +111,14 @@ export const createArticle = (
 
 export const updateArticle = (
   slug: string,
-  body: ArticleDTO
-): Promise<ArticleResponse> => request.put(`/articles/${slug}`, body);
+  body: FormData
+): Promise<AxiosResponse<ArticleResponse>> =>
+  request.put(`/articles/${slug}`, body);
 
-export const deleteArticle = (slug: string): Promise<ArticleResponse> =>
-  request.put(`/articles/${slug}`);
+export const deleteArticle = (
+  slug: string
+): Promise<AxiosResponse<ArticleResponse>> =>
+  request.delete(`/articles/${slug}`);
 
 export const favoriteArticle = (slug: string): Promise<ArticleResponse> =>
   request.post(`/articles/${slug}/favorite`);
@@ -131,13 +133,13 @@ export const getArticlesComments = (slug: string): Promise<CommentResponse[]> =>
 export const createComment = (
   slug: string,
   comment: CommentDTO
-): Promise<CommentResponse> =>
+): Promise<AxiosResponse<CommentResponse>> =>
   request.post(`/articles/${slug}/comments`, comment);
 
 export const deleteComment = (
   slug: string,
   id: string
-): Promise<CommentResponse> =>
+): Promise<AxiosResponse<CommentResponse>> =>
   request.delete(`/articles/${slug}/comments/${id}`);
 
 // tags
