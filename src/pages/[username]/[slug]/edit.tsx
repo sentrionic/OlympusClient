@@ -26,6 +26,7 @@ import { ArticleResponse } from '../../../api/models';
 import { updateArticle } from '../../../api';
 import { InputField } from '../../../components/common/InputField';
 import { useGetCurrentUser } from '../../../api/useGetCurrentUser';
+import { UpdateArticleSchema } from '../../../utils/schemas/article.schema';
 
 const Edit = () => {
   useIsAuth();
@@ -74,6 +75,7 @@ const Edit = () => {
               tagList: data.tagList,
               image: data.image,
             }}
+            validationSchema={UpdateArticleSchema}
             onSubmit={async (values, { setErrors }) => {
               try {
                 const formData = new FormData();

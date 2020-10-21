@@ -2,14 +2,12 @@ import Axios, { AxiosResponse } from 'axios';
 
 import {
   LoginDTO,
-  ResponseData,
   AuthResponse,
   RegisterDTO,
   ProfileResponse,
   CommentDTO,
   CommentResponse,
   ArticleResponse,
-  ArticleDTO,
   PaginatedArticles,
 } from './models';
 
@@ -143,4 +141,5 @@ export const deleteComment = (
   request.delete(`/articles/${slug}/comments/${id}`);
 
 // tags
-export const getTags = (): Promise<string[]> => request.get('/tags');
+export const getTags = (): Promise<AxiosResponse<string[]>> =>
+  request.get('/articles/tags');

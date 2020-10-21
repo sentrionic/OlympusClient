@@ -18,6 +18,7 @@ import {
 
 import { login } from '../api';
 import { NavBar } from '../components/layout/NavBar';
+import { LoginSchema } from '../utils/schemas/user.schema';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,20 +29,21 @@ const Login = () => {
   return (
     <>
       <NavBar />
-      <Flex width='full' align='center' justifyContent='center' mt='10'>
+      <Flex width="full" align="center" justifyContent="center" mt="10">
         <Box
           p={8}
-          maxWidth='500px'
+          maxWidth="500px"
           borderWidth={1}
           borderRadius={8}
-          boxShadow='lg'
+          boxShadow="lg"
         >
-          <Box textAlign='center'>
+          <Box textAlign="center">
             <Heading>Login</Heading>
           </Box>
-          <Box my={4} textAlign='left'>
+          <Box my={4} textAlign="left">
             <Formik
               initialValues={{ email: '', password: '' }}
+              validationSchema={LoginSchema}
               onSubmit={async (values, { setErrors }) => {
                 try {
                   const { data } = await login(values);
@@ -69,11 +71,11 @@ const Login = () => {
                   <FormControl isInvalid={errors.email && touched.email}>
                     <FormLabel>Email</FormLabel>
                     <Input
-                      type='email'
-                      placeholder='Email'
-                      size='lg'
-                      name='email'
-                      autoComplete='email'
+                      type="email"
+                      placeholder="Email"
+                      size="lg"
+                      name="email"
+                      autoComplete="email"
                       onChange={handleChange}
                     />
                     <FormErrorMessage>{errors.email}</FormErrorMessage>
@@ -87,22 +89,22 @@ const Login = () => {
                     <InputGroup>
                       <Input
                         type={showPassword ? 'text' : 'password'}
-                        placeholder='*******'
-                        size='lg'
-                        name='password'
-                        autoComplete='current-password'
+                        placeholder="*******"
+                        size="lg"
+                        name="password"
+                        autoComplete="current-password"
                         onChange={handleChange}
                       />
-                      <InputRightElement width='3rem'>
+                      <InputRightElement width="3rem">
                         <Button
-                          h='1.5rem'
-                          size='sm'
+                          h="1.5rem"
+                          size="sm"
                           onClick={handlePasswordVisibility}
                         >
                           {showPassword ? (
-                            <Icon name='view-off' />
+                            <Icon name="view-off" />
                           ) : (
-                            <Icon name='view' />
+                            <Icon name="view" />
                           )}
                         </Button>
                       </InputRightElement>
@@ -110,10 +112,10 @@ const Login = () => {
                     <FormErrorMessage>{errors.password}</FormErrorMessage>
                   </FormControl>
                   <Button
-                    variantColor='blue'
-                    variant='outline'
-                    type='submit'
-                    width='full'
+                    variantColor="blue"
+                    variant="outline"
+                    type="submit"
+                    width="full"
                     mt={4}
                     isLoading={isSubmitting}
                   >

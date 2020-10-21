@@ -65,12 +65,12 @@ export const ProfileArticle: React.FC<ProfileArticleProps> = ({ article }) => {
           </NextLink>
         </Flex>
         <Flex pt="4" justify="space-between">
-          <Flex>
+          <Flex align="center">
             <IconButton
-              variant="outline"
+              variant="ghost"
               aria-label="Favorite Article"
               icon="star"
-              size="sm"
+              size="md"
               variantColor={article.favorited ? 'yellow' : undefined}
             />
             <Text pl="2" fontSize="sm">
@@ -78,10 +78,10 @@ export const ProfileArticle: React.FC<ProfileArticleProps> = ({ article }) => {
             </Text>
           </Flex>
           <IconButton
-            variant="outline"
+            variant="ghost"
             aria-label="Favorite Article"
             icon="chat"
-            size="sm"
+            size="md"
           />
         </Flex>
       </Box>

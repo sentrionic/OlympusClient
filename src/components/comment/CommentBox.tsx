@@ -10,6 +10,7 @@ import React from 'react';
 import { createComment } from '../../api';
 import { ArticleResponse } from '../../api/models';
 import { useGetCurrentUser } from '../../api/useGetCurrentUser';
+import { CommentSchema } from '../../utils/schemas/article.schema';
 
 interface CommentBoxProps {
   article: ArticleResponse;
@@ -22,11 +23,12 @@ export const CommentBox: React.FC<CommentBoxProps> = ({
 }) => {
   const { user } = useGetCurrentUser();
   return (
-    <Flex align='flex-end'>
+    <Flex align="flex-end">
       <Formik
         initialValues={{
           body: '',
         }}
+        validationSchema={CommentSchema}
         onSubmit={async (values, { setErrors, resetForm }) => {
           try {
             const { data: newComment } = await createComment(
@@ -57,10 +59,10 @@ export const CommentBox: React.FC<CommentBoxProps> = ({
           handleSubmit,
         }) => (
           <>
-            <FormControl isInvalid={errors.body && touched.body} w='full'>
+            <FormControl isInvalid={errors.body && touched.body} w="full">
               <Textarea
                 value={values.body}
-                name='body'
+                name="body"
                 onChange={handleChange}
                 placeholder={`What are your thoughts?${
                   !user ? '\nSign in to comment.' : ''
@@ -70,11 +72,11 @@ export const CommentBox: React.FC<CommentBoxProps> = ({
             </FormControl>
 
             <Button
-              variantColor='blue'
-              variant='outline'
+              variantColor="blue"
+              variant="outline"
               ml={4}
-              size='sm'
-              color='blue'
+              size="sm"
+              color="blue"
               isLoading={isSubmitting}
               isDisabled={!user}
               onClick={handleSubmit}

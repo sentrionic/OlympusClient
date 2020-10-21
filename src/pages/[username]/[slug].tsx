@@ -23,9 +23,11 @@ import ReactMarkdown from 'react-markdown';
 import useSWR, { mutate } from 'swr';
 import {
   favoriteArticle,
+  followUser,
   getArticleBySlug,
   setCookie,
   unfavoriteArticle,
+  unfollowUser,
 } from '../../api';
 import { ArticleResponse } from '../../api/models';
 import { useGetCurrentUser } from '../../api/useGetCurrentUser';
@@ -83,12 +85,37 @@ const Article = ({ article }: ArticleProps) => {
     }
   };
 
+  const toggleFollow = () => {
+    if (!user) {
+      return router.replace(
+        '/login?next=' + router.query.username + '/' + router.query.slug
+      );
+    }
+
+    const isFollowing = article.author.following;
+
+    mutate(
+      `/articles/${article.slug}`,
+      {
+        ...article,
+        author: { ...article.author, following: !isFollowing },
+      },
+      false
+    );
+
+    if (isFollowing) {
+      unfollowUser(article.author.username);
+    } else {
+      followUser(article.author.username);
+    }
+  };
+
   return (
     <Layout>
       <Flex direction="column" justify="center">
         <Flex align="center">
           <Heading mr="10">{data.title}</Heading>
-          <ArticleMenu article={data} />
+          {user?.id === article.author.id && <ArticleMenu article={data} />}
         </Flex>
         <Stack isInline my="5">
           <Avatar name={data.author.username} src={data.author.image} />
@@ -102,7 +129,7 @@ const Article = ({ article }: ArticleProps) => {
                 size="xs"
                 rounded="true"
                 ml="3"
-                onClick={() => {}}
+                onClick={() => toggleFollow()}
               >
                 {data.author.following ? 'Unfollow' : 'Follow'}
               </Button>
@@ -134,20 +161,25 @@ const Article = ({ article }: ArticleProps) => {
         </Box>
         <Flex mt="5">
           {data.tagList.map((t) => (
-            <PseudoBox key={t} _hover={{ cursor: 'pointer' }} mr="4">
-              <Badge p="2" rounded="md">
-                {t}
-              </Badge>
-            </PseudoBox>
+            <NextLink
+              key={t}
+              href={{ pathname: '/search', query: { tag: [t] } }}
+            >
+              <PseudoBox key={t} _hover={{ cursor: 'pointer' }} mr="4">
+                <Badge p="2" rounded="md">
+                  {t}
+                </Badge>
+              </PseudoBox>
+            </NextLink>
           ))}
         </Flex>
         <Flex mt="10">
-          <Flex>
+          <Flex align="center">
             <IconButton
-              variant="outline"
+              variant="ghost"
               aria-label="Favorite Article"
               icon="star"
-              size="sm"
+              size="md"
               variantColor={data.favorited ? 'yellow' : undefined}
               onClick={() => {
                 toggleFavorite();
@@ -156,17 +188,18 @@ const Article = ({ article }: ArticleProps) => {
             <Text pl="2" fontSize="sm">
               {data.favoritesCount}
             </Text>
-            <IconButton
-              variant="outline"
+            <Button
+              variant="ghost"
               aria-label="Favorite Article"
-              icon="chat"
-              size="sm"
+              leftIcon="chat"
+              size="md"
               ml="4"
               onClick={() => handleToggle()}
-            />
-            <Text pl="2" fontSize="sm">
-              View Comments
-            </Text>
+            >
+              <Text pl="2" fontSize="sm">
+                View Comments
+              </Text>
+            </Button>
           </Flex>
         </Flex>
         <Divider my="5" />

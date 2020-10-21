@@ -6,14 +6,6 @@ interface BaseEntity {
   updatedAt: string;
 }
 
-type Body<K extends string, T> = {
-  [S in K]: T;
-};
-
-export type ResponseData<K extends string, T> = AxiosResponse<
-  Body<K, T & BaseEntity>
->;
-
 export interface LoginDTO {
   email: string;
   password: string;
@@ -30,6 +22,7 @@ export type UserDTO = Partial<{
 }>;
 
 export interface UserResponse {
+  id: number;
   email: string;
   username?: string;
   bio: string;

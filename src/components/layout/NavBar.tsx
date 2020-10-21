@@ -1,26 +1,26 @@
-import React from 'react';
-import NextLink from 'next/link';
-import { useRouter } from 'next/router';
-import { cache } from 'swr';
 import {
+  Avatar,
   Box,
-  Link,
-  Flex,
   Button,
+  Flex,
   Heading,
   IconButton,
-  useColorMode,
-  Avatar,
-  PseudoBox,
-  MenuButton,
+  Link,
   Menu,
-  MenuList,
-  MenuItem,
+  MenuButton,
   MenuDivider,
+  MenuItem,
+  MenuList,
+  PseudoBox,
+  useColorMode,
 } from '@chakra-ui/core';
-
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { cache } from 'swr';
 import { logout } from '../../api';
 import { useGetCurrentUser } from '../../api/useGetCurrentUser';
+import { NavBarSearch } from './NavBarSearch';
 
 interface NavBarProps {}
 
@@ -115,6 +115,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
           </Link>
         </NextLink>
       </Box>
+      <NavBarSearch />
       <Flex align="center">
         {body}{' '}
         <IconButton

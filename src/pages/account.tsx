@@ -22,6 +22,7 @@ import { NavBar } from '../components/layout/NavBar';
 import { useGetCurrentUser } from '../api/useGetCurrentUser';
 import { useIsAuth } from '../utils/useIsAuth';
 import { InputField } from '../components/common/InputField';
+import { UserSchema } from '../utils/schemas/user.schema';
 
 const Account = () => {
   useIsAuth();
@@ -56,6 +57,7 @@ const Account = () => {
                 bio: user.bio,
                 image: null,
               }}
+              validationSchema={UserSchema}
               onSubmit={async (values, { setErrors }) => {
                 try {
                   const formData = new FormData();
