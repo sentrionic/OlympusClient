@@ -1,28 +1,21 @@
-import React, { useRef, useState } from 'react';
-import { Form, Formik } from 'formik';
-import { mutate } from 'swr';
 import {
+  Avatar,
   Box,
+  Button,
   Flex,
   Heading,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  InputGroup,
-  FormErrorMessage,
-  Avatar,
-  Textarea,
   PseudoBox,
   useToast,
 } from '@chakra-ui/core';
-
+import { Form, Formik } from 'formik';
+import React, { useRef, useState } from 'react';
+import { mutate } from 'swr';
 import { updateUser } from '../api';
-import { NavBar } from '../components/layout/NavBar';
 import { useGetCurrentUser } from '../api/useGetCurrentUser';
-import { useIsAuth } from '../utils/useIsAuth';
 import { InputField } from '../components/common/InputField';
+import { NavBar } from '../components/layout/NavBar';
 import { UserSchema } from '../utils/schemas/user.schema';
+import { useIsAuth } from '../utils/useIsAuth';
 
 const Account = () => {
   useIsAuth();

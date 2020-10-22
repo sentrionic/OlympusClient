@@ -1,5 +1,3 @@
-import { AxiosResponse } from 'axios';
-
 interface BaseEntity {
   id: number;
   createdAt: string;

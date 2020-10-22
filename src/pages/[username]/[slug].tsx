@@ -1,41 +1,33 @@
 import {
   Avatar,
-  Badge,
   Box,
   Button,
   Collapse,
   Divider,
   Flex,
   Heading,
-  IconButton,
-  Image,
   Link,
-  PseudoBox,
   Stack,
   Text,
 } from '@chakra-ui/core';
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
 import { GetServerSideProps } from 'next';
 import NextLink from 'next/link';
-import { useRouter } from 'next/router';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import useSWR, { mutate } from 'swr';
-import {
-  favoriteArticle,
-  followUser,
-  getArticleBySlug,
-  setCookie,
-  unfavoriteArticle,
-  unfollowUser,
-} from '../../api';
+import useSWR from 'swr';
+import { getArticleBySlug, setCookie } from '../../api';
 import { ArticleResponse } from '../../api/models';
 import { useGetCurrentUser } from '../../api/useGetCurrentUser';
+import { ArticleFavoriteButton } from '../../components/article/ArticleFavoriteButton';
+import { ArticleFollowButton } from '../../components/article/ArticleFollowButtont';
+import { ArticleImage } from '../../components/article/ArticleImage';
 import { ArticleMenu } from '../../components/article/ArticleMenu';
+import { ArticleTagList } from '../../components/article/ArticleTagList';
+import { ArticleTime } from '../../components/article/ArticleTime';
 import { NoArticleFound } from '../../components/article/NoArticleFound';
 import { CommentSection } from '../../components/comment/CommentSection';
 import { Layout } from '../../components/layout/Layout';
-import { getTime } from '../../utils/getTime';
 
 interface ArticleProps {
   article: ArticleResponse;
@@ -46,69 +38,17 @@ const Article = ({ article }: ArticleProps) => {
     return <NoArticleFound />;
   }
 
-  const router = useRouter();
   const { user } = useGetCurrentUser();
   const [show, setShow] = React.useState(false);
   const handleToggle = () => setShow(!show);
 
-  const { data, error } = useSWR(`/articles/${article.slug}`, {
+  const { data, error, mutate } = useSWR(`/articles/${article.slug}`, {
     initialData: article,
   });
 
   if (!data || error) {
-    return null;
+    return <NoArticleFound />;
   }
-
-  const toggleFavorite = () => {
-    if (!user) {
-      return router.replace(
-        '/login?next=' + router.query.username + '/' + router.query.slug
-      );
-    }
-
-    const favorited = data.favorited;
-    const favoritesCount = (data.favoritesCount += favorited ? -1 : 1);
-    mutate(
-      `/articles/${article.slug}`,
-      {
-        ...data,
-        favorited: !favorited,
-        favoritesCount,
-      },
-      false
-    );
-
-    if (favorited) {
-      unfavoriteArticle(data.slug);
-    } else {
-      favoriteArticle(data.slug);
-    }
-  };
-
-  const toggleFollow = () => {
-    if (!user) {
-      return router.replace(
-        '/login?next=' + router.query.username + '/' + router.query.slug
-      );
-    }
-
-    const isFollowing = article.author.following;
-
-    mutate(
-      `/articles/${article.slug}`,
-      {
-        ...article,
-        author: { ...article.author, following: !isFollowing },
-      },
-      false
-    );
-
-    if (isFollowing) {
-      unfollowUser(article.author.username);
-    } else {
-      followUser(article.author.username);
-    }
-  };
 
   return (
     <Layout>
@@ -120,37 +60,19 @@ const Article = ({ article }: ArticleProps) => {
         <Stack isInline my="5">
           <Avatar name={data.author.username} src={data.author.image} />
           <Box>
-            <Flex>
+            <Flex justify="space-between" align="center">
               <NextLink href={'/[username]'} as={`/${data.author.username}`}>
                 <Link fontWeight="semibold">{data.author.username}</Link>
               </NextLink>
-              <Button
-                variant="outline"
-                size="xs"
-                rounded="true"
-                ml="3"
-                onClick={() => toggleFollow()}
-              >
-                {data.author.following ? 'Unfollow' : 'Follow'}
-              </Button>
+              <ArticleFollowButton article={data} mutate={mutate} />
             </Flex>
-            <Text>{getTime(data.createdAt)}</Text>
+            <ArticleTime createdAt={data.createdAt} />
           </Box>
         </Stack>
         <Text fontWeight="semibold" fontSize="18px" mb="5">
           {data.description}
         </Text>
-        <Flex align="center" justify="center">
-          <Image
-            maxW="lg"
-            borderWidth="1px"
-            rounded="lg"
-            overflow="hidden"
-            src={data.image}
-            alt={data.title}
-            objectFit="contain"
-          />
-        </Flex>
+        <ArticleImage article={article} />
         <Box mt="10">
           <ReactMarkdown
             className="markdown-body"
@@ -159,48 +81,21 @@ const Article = ({ article }: ArticleProps) => {
             escapeHtml={false}
           />
         </Box>
-        <Flex mt="5">
-          {data.tagList.map((t) => (
-            <NextLink
-              key={t}
-              href={{ pathname: '/search', query: { tag: [t] } }}
-            >
-              <PseudoBox key={t} _hover={{ cursor: 'pointer' }} mr="4">
-                <Badge p="2" rounded="md">
-                  {t}
-                </Badge>
-              </PseudoBox>
-            </NextLink>
-          ))}
-        </Flex>
-        <Flex mt="10">
-          <Flex align="center">
-            <IconButton
-              variant="ghost"
-              aria-label="Favorite Article"
-              icon="star"
-              size="md"
-              variantColor={data.favorited ? 'yellow' : undefined}
-              onClick={() => {
-                toggleFavorite();
-              }}
-            />
+        <ArticleTagList tagList={data.tagList} />
+        <Flex mt="10" align="center">
+          <ArticleFavoriteButton article={data} mutate={mutate} />
+          <Button
+            variant="ghost"
+            aria-label="Favorite Article"
+            leftIcon="chat"
+            size="md"
+            ml="4"
+            onClick={() => handleToggle()}
+          >
             <Text pl="2" fontSize="sm">
-              {data.favoritesCount}
+              View Comments
             </Text>
-            <Button
-              variant="ghost"
-              aria-label="Favorite Article"
-              leftIcon="chat"
-              size="md"
-              ml="4"
-              onClick={() => handleToggle()}
-            >
-              <Text pl="2" fontSize="sm">
-                View Comments
-              </Text>
-            </Button>
-          </Flex>
+          </Button>
         </Flex>
         <Divider my="5" />
         <Stack isInline>
@@ -218,13 +113,16 @@ const Article = ({ article }: ArticleProps) => {
             >
               Written by
             </Text>
-            <NextLink href={'/[username]'} as={`/${data.author.username}`}>
-              <Link>
-                <Heading as="h3" size="lg">
-                  {data.author.username}
-                </Heading>
-              </Link>
-            </NextLink>
+            <Flex justify="space-between" align="center">
+              <NextLink href={'/[username]'} as={`/${data.author.username}`}>
+                <Link>
+                  <Heading as="h3" size="lg">
+                    {data.author.username}
+                  </Heading>
+                </Link>
+              </NextLink>
+              <ArticleFollowButton article={data} mutate={mutate} />
+            </Flex>
             <Text mt="2" color="gray.700">
               {data.author.bio}
             </Text>

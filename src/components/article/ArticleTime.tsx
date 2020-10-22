@@ -1,19 +1,5 @@
-import {
-  Avatar,
-  Box,
-  Flex,
-  IconButton,
-  Link,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Stack,
-  Text,
-} from '@chakra-ui/core';
+import { Text } from '@chakra-ui/core';
 import React from 'react';
-import NextLink from 'next/link';
-import { ArticleResponse } from '../../api/models';
 import { getTime } from '../../utils/getTime';
 
 interface ArticleTimeProps {

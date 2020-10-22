@@ -53,7 +53,7 @@ const Create = () => {
                 formData.append('description', values.description);
                 formData.append('body', values.body);
                 formData.append('image', values.image);
-                const tags = values.tagList.split(',');
+                const tags = values.tagList.replace(' ', '').split(',');
                 tags.map((tag, i) => formData.append(`tagList[${i}]`, tag));
                 const { data } = await createArticle(formData);
                 if (data) {

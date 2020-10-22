@@ -11,7 +11,7 @@ interface User {
 export const useGetCurrentUser = (): User => {
   const { data, error } = useSWR('/user', {
     refreshInterval: 1000000,
-    onErrorRetry: (error, key, option, revalidate, { retryCount }) => {
+    onErrorRetry: (error) => {
       if (error.status === 403) return;
     },
   });

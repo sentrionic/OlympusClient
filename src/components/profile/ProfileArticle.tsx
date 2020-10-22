@@ -1,55 +1,29 @@
-import {
-  Avatar,
-  Box,
-  Flex,
-  Heading,
-  IconButton,
-  Image,
-  Link,
-  Stack,
-  Text,
-} from '@chakra-ui/core';
+import { Box, Flex, Heading, Link, Text } from '@chakra-ui/core';
 import NextLink from 'next/link';
-import React from 'react';
-
+import React, { useState } from 'react';
 import { ArticleResponse } from '../../api/models';
-import { getTime } from '../../utils/getTime';
+import { ArticleAction } from '../article/ArticleActions';
+import { ArticleHeader } from '../article/ArticleHeader';
+import { ArticleImage } from '../article/ArticleImage';
 
 interface ProfileArticleProps {
   article: ArticleResponse;
 }
 
 export const ProfileArticle: React.FC<ProfileArticleProps> = ({ article }) => {
+  const [preview, setPreview] = useState(article);
   return (
     <Flex p={5} shadow="md" borderWidth="1px" m="auto">
       <Box flex={1}>
-        <Stack isInline mb="5">
-          <Avatar name={article.author.username} src={article.author.image} />
-          <Box>
-            <Text fontWeight="bold" color="blue.600">
-              {article.author.username}
-            </Text>
-            <Text>{getTime(article.createdAt)}</Text>
-          </Box>
-        </Stack>
-        <Flex justify="center">
-          <Image
-            maxW="lg"
-            borderWidth="1px"
-            rounded="lg"
-            overflow="hidden"
-            src={article.image}
-            alt={article.title}
-            objectFit="contain"
-          />
-        </Flex>
+        <ArticleHeader article={article} />
+        <ArticleImage article={preview} />
         <NextLink
           href="/[username]/[slug]"
-          as={`/${article.author.username}/${article.slug}`}
+          as={`/${preview.author.username}/${preview.slug}`}
         >
           <Link>
             <Heading fontSize="xl" pt="6">
-              {article.title}
+              {preview.title}
             </Heading>
           </Link>
         </NextLink>
@@ -57,33 +31,14 @@ export const ProfileArticle: React.FC<ProfileArticleProps> = ({ article }) => {
         <Flex align="center">
           <NextLink
             href="/[username]/[slug]"
-            as={`/${article.author.username}/${article.slug}`}
+            as={`/${preview.author.username}/${preview.slug}`}
           >
             <Link>
-              <Text>{article.description}</Text>
+              <Text>{preview.description}</Text>
             </Link>
           </NextLink>
         </Flex>
-        <Flex pt="4" justify="space-between">
-          <Flex align="center">
-            <IconButton
-              variant="ghost"
-              aria-label="Favorite Article"
-              icon="star"
-              size="md"
-              variantColor={article.favorited ? 'yellow' : undefined}
-            />
-            <Text pl="2" fontSize="sm">
-              {article.favoritesCount}
-            </Text>
-          </Flex>
-          <IconButton
-            variant="ghost"
-            aria-label="Favorite Article"
-            icon="chat"
-            size="md"
-          />
-        </Flex>
+        <ArticleAction article={preview} setPreview={setPreview} />
       </Box>
     </Flex>
   );

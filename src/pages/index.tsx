@@ -2,17 +2,15 @@ import {
   Box,
   Flex,
   Heading,
-  Spinner,
   Stack,
   TabPanel,
   TabPanels,
   Text,
 } from '@chakra-ui/core';
 import { GetServerSideProps } from 'next';
-import React, { useState } from 'react';
+import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import useSWR, { mutate } from 'swr';
-
+import useSWR from 'swr';
 import { getAllArticles, setCookie } from '../api';
 import { ArticleResponse } from '../api/models';
 import { ArticlePreview } from '../components/article/ArticlePreview';

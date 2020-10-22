@@ -4,12 +4,15 @@ import { Avatar, Box, Button, Flex, Text } from '@chakra-ui/core';
 
 import { ProfileResponse } from '../../api/models';
 import { followUser, unfollowUser } from '../../api';
+import { useGetCurrentUser } from '../../api/useGetCurrentUser';
 
 type ProfileBoxProps = {
   profile: ProfileResponse;
 };
 
 export const ProfileBox: React.FC<ProfileBoxProps> = ({ profile }) => {
+  const { user } = useGetCurrentUser();
+
   const toggleFollow = (profile: ProfileResponse) => {
     mutate(
       `/profiles/${profile.username}`,
@@ -33,15 +36,17 @@ export const ProfileBox: React.FC<ProfileBoxProps> = ({ profile }) => {
           <Text fontWeight="bold" fontSize="3xl">
             {profile.username}
           </Text>
-          <Button
-            variant="outline"
-            size="xs"
-            rounded="true"
-            ml="6"
-            onClick={() => toggleFollow(profile)}
-          >
-            {profile.following ? 'Unfollow' : 'Follow'}
-          </Button>
+          {user.id === profile.id ? null : (
+            <Button
+              variant="outline"
+              size="xs"
+              rounded="true"
+              ml="6"
+              onClick={() => toggleFollow(profile)}
+            >
+              {profile.following ? 'Unfollow' : 'Follow'}
+            </Button>
+          )}
         </Flex>
         <Text color="gray.500">{profile.bio}</Text>
         <Flex align="center">

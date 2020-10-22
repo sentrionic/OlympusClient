@@ -41,7 +41,7 @@ const Edit = () => {
 
   if (!data && !error) return null;
 
-  if (user.username !== data.author.username) {
+  if (user.id !== data.author.id) {
     return (
       <Layout>
         <Flex height="80vh">
@@ -50,9 +50,7 @@ const Edit = () => {
               You do not have the permission to edit this article
             </Heading>
             <NextLink href="/">
-              <Link mt="10">
-                Go back <a>Home</a>
-              </Link>
+              <Link mt="10">Go back Home</Link>
             </NextLink>
           </Box>
         </Flex>
@@ -61,7 +59,7 @@ const Edit = () => {
   }
 
   return (
-    <Layout variant="regular">
+    <Layout>
       <Box p={8} borderWidth={1} borderRadius={8} boxShadow="lg" minH="100vh">
         <Box textAlign="center">
           <Heading>Edit Article</Heading>
