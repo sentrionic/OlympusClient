@@ -106,18 +106,19 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
       boxShadow="md"
       justify="space-between"
       align="center"
+      wrap="wrap"
       bg={isDark ? 'gray.800' : 'white'}
     >
-      <Box ml="4">
+      <Flex ml="4">
         <NextLink href="/">
           <Link>
             <Heading>OlympusBlog</Heading>
           </Link>
         </NextLink>
-      </Box>
+      </Flex>
       <NavBarSearch />
       <Flex align="center">
-        {body}{' '}
+        {body}
         <IconButton
           size="md"
           fontSize="lg"

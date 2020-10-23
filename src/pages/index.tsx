@@ -49,7 +49,13 @@ const Index = (indexProps: IndexProps) => {
     <>
       <NavBar />
       <Flex>
-        <Box mt={8} maxW="600px" w="75%" ml="auto">
+        <Box
+          mt={8}
+          maxW="600px"
+          w="auto"
+          ml="auto"
+          mr={['auto', 'auto', '0', '0']}
+        >
           <HomeTabs>
             <TabPanels>
               <TabPanel my="6">

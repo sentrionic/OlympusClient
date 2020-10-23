@@ -10,7 +10,14 @@ export const SideBar: React.FC<SideBarProps> = ({}) => {
   const { user } = useGetCurrentUser();
 
   return (
-    <Box w="25%" mr="auto" mt={100} ml="5" h="50%">
+    <Box
+      w="25%"
+      mr="auto"
+      mt={100}
+      ml="10"
+      h="50%"
+      display={['none', 'none', 'block', 'block']}
+    >
       <Box shadow="md" borderWidth="1px" p="5">
         <Image rounded="md" src="https://bit.ly/2Z4KKcF" />
         <Flex justify="center" mt={2}>

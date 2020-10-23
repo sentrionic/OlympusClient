@@ -28,7 +28,7 @@ export const NavBarSearch: React.FC<NavBarSearchProps> = ({}) => {
   };
 
   return (
-    <InputGroup w={'25%'} mx={10}>
+    <InputGroup w={['50%', '25%']} mx={10}>
       <Input
         placeholder="Search"
         value={search}
