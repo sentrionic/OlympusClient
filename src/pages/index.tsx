@@ -16,7 +16,9 @@ import { ArticleResponse } from '../api/models';
 import { ArticlePreview } from '../components/article/ArticlePreview';
 import { HomeTabs } from '../components/home/HomeTabs';
 import { LoadingSpinner } from '../components/home/LoadingSpinner';
-import { Layout } from '../components/layout/Layout';
+import { SideBar } from '../components/home/SideBar';
+import { Footer } from '../components/layout/Footer';
+import { NavBar } from '../components/layout/NavBar';
 
 interface IndexProps {
   articles: ArticleResponse[];
@@ -44,49 +46,56 @@ const Index = (indexProps: IndexProps) => {
   };
 
   return (
-    <Layout>
-      <HomeTabs>
-        <TabPanels>
-          <TabPanel my="6">
-            {data.articles?.length === 0 ? (
-              <Flex height="80vh">
-                <Box shadow="md" borderWidth="1px" m="auto" p="10">
-                  <Heading>No articles here yet.</Heading>
-                  <Text>Be the first one</Text>
-                </Box>
-              </Flex>
-            ) : (
-              <InfiniteScroll
-                dataLength={data.articles.length}
-                next={fetchMore}
-                hasMore={data.hasMore}
-                loader={<h4>Loading...</h4>}
-                endMessage={
-                  <Flex align="center" justify="center" mt="10">
-                    <Box shadow="md" borderWidth="1px" m="auto" p="4">
-                      <Text>No More Articles</Text>
+    <>
+      <NavBar />
+      <Flex>
+        <Box mt={8} maxW="600px" w="75%" ml="auto">
+          <HomeTabs>
+            <TabPanels>
+              <TabPanel my="6">
+                {data.articles?.length === 0 ? (
+                  <Flex height="80vh">
+                    <Box shadow="md" borderWidth="1px" m="auto" p="10">
+                      <Heading>No articles here yet.</Heading>
+                      <Text>Be the first one</Text>
                     </Box>
                   </Flex>
-                }
-              >
-                <Stack spacing={8}>
-                  {data.articles?.map((a) =>
-                    !a ? null : (
-                      <Flex key={a.id}>
-                        <ArticlePreview article={a} />
+                ) : (
+                  <InfiniteScroll
+                    dataLength={data.articles.length}
+                    next={fetchMore}
+                    hasMore={data.hasMore}
+                    loader={<h4>Loading...</h4>}
+                    endMessage={
+                      <Flex align="center" justify="center" mt="10">
+                        <Box shadow="md" borderWidth="1px" m="auto" p="4">
+                          <Text>No More Articles</Text>
+                        </Box>
                       </Flex>
-                    )
-                  )}
-                </Stack>
-              </InfiniteScroll>
-            )}
-          </TabPanel>
-          <TabPanel>
-            <LoadingSpinner />
-          </TabPanel>
-        </TabPanels>
-      </HomeTabs>
-    </Layout>
+                    }
+                  >
+                    <Stack spacing={8}>
+                      {data.articles?.map((a) =>
+                        !a ? null : (
+                          <Flex key={a.id}>
+                            <ArticlePreview article={a} />
+                          </Flex>
+                        )
+                      )}
+                    </Stack>
+                  </InfiniteScroll>
+                )}
+              </TabPanel>
+              <TabPanel>
+                <LoadingSpinner />
+              </TabPanel>
+            </TabPanels>
+          </HomeTabs>
+        </Box>
+        <SideBar />
+      </Flex>
+      <Footer />
+    </>
   );
 };
 

@@ -23,7 +23,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
         onChange={(e: any) => setSearch(e.target.value)}
       />
       <Select
-        placeholder="Order"
+        defaultValue="DESC"
         variant="flushed"
         focusBorderColor="black"
         size="lg"
@@ -34,6 +34,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
       >
         <option value="DESC">Newest</option>
         <option value="ASC">Oldest</option>
+        <option value="TOP">Top</option>
       </Select>
     </Flex>
   );

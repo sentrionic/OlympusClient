@@ -11,7 +11,7 @@ export const HomeTabs: React.FC<HomeTabsProps> = ({
   tabIndex = 0,
 }) => {
   return (
-    <Tabs align='end' variant='soft-rounded' defaultIndex={tabIndex}>
+    <Tabs align="center" variant="soft-rounded" defaultIndex={tabIndex}>
       <TabList>
         <Tab>
           <NextLink href={'/'}>Global</NextLink>
