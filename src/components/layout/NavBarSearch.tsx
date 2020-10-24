@@ -1,4 +1,5 @@
 import {
+  Flex,
   IconButton,
   Input,
   InputGroup,
@@ -7,9 +8,11 @@ import {
 import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 
-interface NavBarSearchProps {}
+interface NavBarSearchProps {
+  show: boolean;
+}
 
-export const NavBarSearch: React.FC<NavBarSearchProps> = ({}) => {
+export const NavBarSearch: React.FC<NavBarSearchProps> = ({ show }) => {
   const [search, setSearch] = useState('');
   const searchRef = useRef(null);
   const router = useRouter();
@@ -28,27 +31,40 @@ export const NavBarSearch: React.FC<NavBarSearchProps> = ({}) => {
   };
 
   return (
-    <InputGroup w={['50%', '25%']} mx={10}>
-      <Input
-        placeholder="Search"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        onSubmit={() => submitSearch()}
-        onKeyDown={handleKeyDown}
-        ref={searchRef}
-      />
-      <InputRightElement>
-        <IconButton
-          size="sm"
-          fontSize="lg"
-          aria-label={'Search'}
-          variant="ghost"
-          color="current"
-          mx="2"
-          icon={'search'}
-          onClick={() => submitSearch()}
+    <Flex
+      display={[show ? 'block' : 'none', show ? 'flex' : 'none', 'flex']}
+      width={['100%', '75%', 'auto']}
+      alignItems="center"
+      justify="center"
+      flexGrow={1}
+      mx={['0', '0', '10', '10']}
+    >
+      <InputGroup
+        mt={[4, 4, 0]}
+        w={['100%', '75%', '75%', '40%']}
+        display="block"
+      >
+        <Input
+          placeholder="Search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          onSubmit={() => submitSearch()}
+          onKeyDown={handleKeyDown}
+          ref={searchRef}
         />
-      </InputRightElement>
-    </InputGroup>
+        <InputRightElement>
+          <IconButton
+            size="sm"
+            fontSize="lg"
+            aria-label={'Search'}
+            variant="ghost"
+            color="current"
+            mx="2"
+            icon={'search'}
+            onClick={() => submitSearch()}
+          />
+        </InputRightElement>
+      </InputGroup>
+    </Flex>
   );
 };

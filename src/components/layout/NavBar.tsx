@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/core';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import { cache } from 'swr';
 import { logout } from '../../api';
 import { useGetCurrentUser } from '../../api/useGetCurrentUser';
@@ -29,6 +29,8 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   const router = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
   const isDark = colorMode === 'dark';
+  const [show, setShow] = useState(false);
+  const handleToggle = () => setShow(!show);
 
   let body = null;
 
@@ -100,7 +102,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   return (
     <Flex
       zIndex={4}
-      position="sticky"
+      position={['relative', 'relative', 'sticky']}
       top={0}
       p={4}
       boxShadow="md"
@@ -109,15 +111,41 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
       wrap="wrap"
       bg={isDark ? 'gray.800' : 'white'}
     >
-      <Flex ml="4">
-        <NextLink href="/">
-          <Link>
-            <Heading>OlympusBlog</Heading>
-          </Link>
-        </NextLink>
+      <Flex
+        align="center"
+        mr={['0', '0', '5']}
+        width={['100%', '100%', 'auto']}
+        justifyContent={['space-between', 'space-between', 'flex-start']}
+      >
+        <Flex justify={['center', 'center', 'flex-start']} w="full">
+          <NextLink href="/">
+            <Link>
+              <Heading as="h1" letterSpacing={'-.1rem'}>
+                OlympusBlog
+              </Heading>
+            </Link>
+          </NextLink>
+        </Flex>
+        <Box display={['block', 'block', 'none']} onClick={handleToggle}>
+          <svg
+            fill="black"
+            width="12px"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <title>Menu</title>
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+          </svg>
+        </Box>
       </Flex>
-      <NavBarSearch />
-      <Flex align="center">
+      <NavBarSearch show={show} />
+      <Box
+        mt={[4, 4, 0]}
+        display={[show ? 'flex' : 'none', show ? 'flex' : 'none', 'flex']}
+        alignItems="center"
+        justifyContent={['center', 'center', 'flex-end']}
+        flexGrow={[1, 1, 0]}
+      >
         {body}
         <IconButton
           size="md"
@@ -129,7 +157,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
           onClick={toggleColorMode}
           icon={isDark ? 'sun' : 'moon'}
         />
-      </Flex>
+      </Box>
     </Flex>
   );
 };
