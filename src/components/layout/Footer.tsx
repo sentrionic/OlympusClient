@@ -19,7 +19,7 @@ export const Footer: React.FC<FooterLinkProps> = ({}) => {
       justify="center"
       align="center"
       bg={isDark ? 'gray.800' : 'white'}
-      borderWidth="1px"
+      borderTopWidth="1px"
       p={5}
       as="footer"
     >

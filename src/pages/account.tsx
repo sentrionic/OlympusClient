@@ -68,7 +68,7 @@ const Account = () => {
                       title: 'Account updated.',
                       description: 'Successfully updated your account',
                       status: 'success',
-                      duration: 9000,
+                      duration: 5000,
                       isClosable: true,
                     });
                   }

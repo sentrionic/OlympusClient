@@ -11,7 +11,7 @@ export const SideBar: React.FC<SideBarProps> = ({}) => {
 
   return (
     <Box
-      w="25%"
+      w={['25%', '25%', '25%', '15%']}
       mr="auto"
       mt={100}
       ml="10"
@@ -19,7 +19,7 @@ export const SideBar: React.FC<SideBarProps> = ({}) => {
       display={['none', 'none', 'block', 'block']}
     >
       <Box shadow="md" borderWidth="1px" p="5">
-        <Image rounded="md" src="https://bit.ly/2Z4KKcF" />
+        <Image rounded="md" src="/logo.png" />
         <Flex justify="center" mt={2}>
           <Heading size="lg">OlympusBlog</Heading>
         </Flex>
@@ -29,9 +29,11 @@ export const SideBar: React.FC<SideBarProps> = ({}) => {
         </Text>
         <Box mt={2}>
           {user ? (
-            <Button variant="outline" variantColor="blue" w="full">
-              Create Article
-            </Button>
+            <NextLink href="/create">
+              <Button variant="outline" variantColor="blue" w="full">
+                Create Article
+              </Button>
+            </NextLink>
           ) : (
             <Box>
               <NextLink href="/register">

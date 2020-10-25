@@ -1,6 +1,7 @@
 import { Button } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { isError } from 'util';
 import { followUser, unfollowUser } from '../../api';
 import { ArticleResponse } from '../../api/models';
 import { useGetCurrentUser } from '../../api/useGetCurrentUser';
@@ -40,6 +41,8 @@ export const ArticleFollowButton: React.FC<ArticleFollowButtonProps> = ({
       followUser(article.author.username);
     }
   };
+
+  if (user?.id === article.author.id) return null;
 
   return (
     <Button
