@@ -51,17 +51,17 @@ const Index = (indexProps: IndexProps) => {
       <Flex>
         <Box
           mt={8}
-          maxW="600px"
-          w="auto"
-          ml="auto"
+          maxW='600px'
+          w='auto'
+          ml='auto'
           mr={['auto', 'auto', '0', '0']}
         >
           <HomeTabs>
             <TabPanels>
-              <TabPanel my="6">
+              <TabPanel my='6'>
                 {data.articles?.length === 0 ? (
-                  <Flex height="80vh">
-                    <Box shadow="md" borderWidth="1px" m="auto" p="10">
+                  <Flex height='80vh'>
+                    <Box shadow='md' borderWidth='1px' mb='auto' p='10'>
                       <Heading>No articles here yet.</Heading>
                       <Text>Be the first one</Text>
                     </Box>
@@ -73,8 +73,8 @@ const Index = (indexProps: IndexProps) => {
                     hasMore={data.hasMore}
                     loader={<h4>Loading...</h4>}
                     endMessage={
-                      <Flex align="center" justify="center" mt="10">
-                        <Box shadow="md" borderWidth="1px" m="auto" p="4">
+                      <Flex align='center' justify='center' mt='10'>
+                        <Box shadow='md' borderWidth='1px' m='auto' p='4'>
                           <Text>No More Articles</Text>
                         </Box>
                       </Flex>

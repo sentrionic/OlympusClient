@@ -31,18 +31,18 @@ const Account = () => {
   return (
     <>
       <NavBar />
-      <Flex width="full" align="center" justifyContent="center" mt="10">
+      <Flex width='full' align='center' justifyContent='center' my='10'>
         <Box
           p={8}
-          maxWidth="500px"
+          maxWidth='500px'
           borderWidth={1}
           borderRadius={8}
-          boxShadow="lg"
+          boxShadow='lg'
         >
-          <Box textAlign="center">
+          <Box textAlign='center'>
             <Heading>Account Settings</Heading>
           </Box>
-          <Box my={4} textAlign="left">
+          <Box my={4} textAlign='left'>
             <Formik
               initialValues={{
                 email: user.email,
@@ -84,18 +84,18 @@ const Account = () => {
             >
               {({ isSubmitting, values, setFieldValue }) => (
                 <Form>
-                  <Flex align="center" justify="center" mb="4">
+                  <Flex align='center' justify='center' mb='4'>
                     <PseudoBox _hover={{ cursor: 'pointer', opacity: 0.5 }}>
                       <Avatar
                         src={imageUrl || user.image}
-                        size="2xl"
+                        size='2xl'
                         onClick={() => inputFile.current.click()}
                       />
                     </PseudoBox>
                     <input
-                      type="file"
-                      name="image"
-                      accept="image/*"
+                      type='file'
+                      name='image'
+                      accept='image/*'
                       ref={inputFile}
                       hidden
                       onChange={async (e) => {
@@ -110,34 +110,34 @@ const Account = () => {
 
                   <InputField
                     value={values.email}
-                    type="email"
-                    placeholder="Email"
-                    label="Email"
-                    name="email"
-                    autoComplete="email"
+                    type='email'
+                    placeholder='Email'
+                    label='Email'
+                    name='email'
+                    autoComplete='email'
                   />
 
                   <InputField
                     value={values.username}
-                    placeholder="Username"
-                    label="Username"
-                    name="username"
-                    autoComplete="username"
+                    placeholder='Username'
+                    label='Username'
+                    name='username'
+                    autoComplete='username'
                   />
 
                   <InputField
                     value={values.bio}
                     textarea
-                    placeholder="Tell us about yourself..."
-                    label="Biography"
-                    name="bio"
+                    placeholder='Tell us about yourself...'
+                    label='Biography'
+                    name='bio'
                   />
 
                   <Button
-                    variantColor="blue"
-                    variant="outline"
-                    type="submit"
-                    width="full"
+                    variantColor='blue'
+                    variant='outline'
+                    type='submit'
+                    width='full'
                     mt={6}
                     isLoading={isSubmitting}
                   >

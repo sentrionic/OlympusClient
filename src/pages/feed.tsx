@@ -53,10 +53,10 @@ const Feed = () => {
           <TabPanel>
             <LoadingSpinner />
           </TabPanel>
-          <TabPanel my="6">
+          <TabPanel my='6'>
             {data.articles?.length === 0 ? (
-              <Flex height="80vh">
-                <Box shadow="md" borderWidth="1px" m="auto" p="10">
+              <Flex height='80vh'>
+                <Box shadow='md' borderWidth='1px' mx='auto' mb='auto' p='10'>
                   <Heading>No articles here yet.</Heading>
                   <Text>Be the first one</Text>
                 </Box>
@@ -68,8 +68,8 @@ const Feed = () => {
                 hasMore={data.hasMore}
                 loader={<h4>Loading...</h4>}
                 endMessage={
-                  <Flex align="center" justify="center" mt="10">
-                    <Box shadow="md" borderWidth="1px" m="auto" p="4">
+                  <Flex align='center' justify='center' mt='10'>
+                    <Box shadow='md' borderWidth='1px' m='auto' p='4'>
                       <Text>No More Articles</Text>
                     </Box>
                   </Flex>
