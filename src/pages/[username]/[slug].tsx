@@ -145,7 +145,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   try {
     const { data: article } = await getArticleBySlug(slug);
-    console.log(article);
     return { props: { article } };
   } catch (err) {
     return { props: { article: null } };
