@@ -1,7 +1,6 @@
 import { Button } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { isError } from 'util';
 import { followUser, unfollowUser } from '../../api';
 import { ArticleResponse } from '../../api/models';
 import { useGetCurrentUser } from '../../api/useGetCurrentUser';
