@@ -34,18 +34,18 @@ export const NavBarSearch: React.FC<NavBarSearchProps> = ({ show }) => {
     <Flex
       display={[show ? 'block' : 'none', show ? 'flex' : 'none', 'flex']}
       width={['100%', '75%', 'auto']}
-      alignItems="center"
-      justify="center"
+      alignItems='center'
+      justify='center'
       flexGrow={1}
       mx={['0', '0', '10', '10']}
     >
       <InputGroup
         mt={[4, 4, 0]}
         w={['100%', '75%', '75%', '40%']}
-        display="block"
+        display='block'
       >
         <Input
-          placeholder="Search"
+          placeholder='Search'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           onSubmit={() => submitSearch()}
@@ -54,12 +54,12 @@ export const NavBarSearch: React.FC<NavBarSearchProps> = ({ show }) => {
         />
         <InputRightElement>
           <IconButton
-            size="sm"
-            fontSize="lg"
+            size='sm'
+            fontSize='lg'
             aria-label={'Search'}
-            variant="ghost"
-            color="current"
-            mx="2"
+            variant='ghost'
+            color='current'
+            mx='2'
             icon={'search'}
             onClick={() => submitSearch()}
           />

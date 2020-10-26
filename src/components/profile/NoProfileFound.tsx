@@ -7,10 +7,10 @@ import { Layout } from '../layout/Layout';
 export const NoProfileFound: React.FC<{}> = () => {
   return (
     <Layout>
-      <Flex height="80vh">
-        <Box shadow="md" borderWidth="1px" m="auto" p="10">
+      <Flex height='80vh'>
+        <Box shadow='md' borderWidth='1px' m='auto' p='10'>
           <Heading>No Profile Found</Heading>
-          <NextLink href="/">
+          <NextLink href='/'>
             <Link>
               Go back <a>Home</a>
             </Link>

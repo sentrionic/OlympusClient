@@ -14,12 +14,12 @@ export const ArticleHeader: React.FC<ArticleHeaderProps> = ({ article }) => {
   const { user } = useGetCurrentUser();
 
   return (
-    <Flex mb="5" justify="space-between">
+    <Flex mb='5' justify='space-between'>
       <Stack isInline>
         <Avatar name={article.author.username} src={article.author.image} />
         <Box>
           <NextLink href={'/[username]'} as={`/${article.author.username}`}>
-            <Link fontWeight="bold" color="blue.600">
+            <Link fontWeight='bold' color='blue.600'>
               {article.author.username}
             </Link>
           </NextLink>

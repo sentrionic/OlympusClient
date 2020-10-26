@@ -13,7 +13,7 @@ export const ProfileTabs: React.FC<ProfileTabsProps> = ({
   tabIndex = 0,
 }) => {
   return (
-    <Tabs mt="2" size="sm" variantColor="black" defaultIndex={tabIndex}>
+    <Tabs mt='2' size='sm' variantColor='black' defaultIndex={tabIndex}>
       <TabList>
         <Tab>
           <NextLink href={'/[username]'} as={`/${username}`}>

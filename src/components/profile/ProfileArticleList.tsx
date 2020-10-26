@@ -2,8 +2,8 @@ import { Box, Flex, Stack, Text } from '@chakra-ui/core';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { PaginatedArticles, ProfileResponse } from '../../api/models';
+import { ArticlePreview } from '../article/ArticlePreview';
 import { InfoBox } from '../home/InfiniteScrollInfoBox';
-import { ProfileArticle } from './ProfileArticle';
 
 interface ProfileArticleListProps {
   data: PaginatedArticles;
@@ -34,8 +34,8 @@ export const ProfileArticleList: React.FC<ProfileArticleListProps> = ({
 
   if (data?.articles?.length === 0) {
     return (
-      <Box height="80vh" m="auto">
-        <Text fontWeight="semibold">{noDataText}</Text>
+      <Box height='80vh' m='auto'>
+        <Text fontWeight='semibold'>{noDataText}</Text>
       </Box>
     );
   }
@@ -52,7 +52,7 @@ export const ProfileArticleList: React.FC<ProfileArticleListProps> = ({
         {data.articles?.map((a) =>
           !a ? null : (
             <Flex key={a.id}>
-              <ProfileArticle article={a} />
+              <ArticlePreview article={a} />
             </Flex>
           )
         )}

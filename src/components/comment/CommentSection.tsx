@@ -1,11 +1,11 @@
 import { Box, Flex, Stack, Text } from '@chakra-ui/core';
 import React from 'react';
 import useSWR from 'swr';
-import { ArticleResponse, CommentResponse } from '../../api/models';
-import { useGetCurrentUser } from '../../api/useGetCurrentUser';
 import { Comment } from './Comment';
 import { CommentBox } from './CommentBox';
 import { CommentMenu } from './CommentMenu';
+import { ArticleResponse, CommentResponse } from '../../api/models';
+import { useGetCurrentUser } from '../../api/useGetCurrentUser';
 
 interface CommentSectionProps {
   article: ArticleResponse;

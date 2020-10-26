@@ -30,35 +30,35 @@ export const ProfileBox: React.FC<ProfileBoxProps> = ({ profile }) => {
   };
 
   return (
-    <Box display={{ md: 'flex' }} justifyContent="space-between">
+    <Box display={{ md: 'flex' }} justifyContent='space-between'>
       <Box mt={{ base: 4, md: 0 }}>
-        <Flex align="center">
-          <Text fontWeight="bold" fontSize="3xl">
+        <Flex align='center'>
+          <Text fontWeight='bold' fontSize='3xl'>
             {profile.username}
           </Text>
           {user?.id === profile.id ? null : (
             <Button
-              variant="outline"
-              size="xs"
-              rounded="true"
-              ml="6"
+              variant='outline'
+              size='xs'
+              rounded='true'
+              ml='6'
               onClick={() => toggleFollow(profile)}
             >
               {profile.following ? 'Unfollow' : 'Follow'}
             </Button>
           )}
         </Flex>
-        <Text color="gray.500">{profile.bio}</Text>
-        <Flex align="center">
-          <Text fontSize="sm" color="gray.500" fontWeight="semibold">
+        <Text color='gray.500'>{profile.bio}</Text>
+        <Flex align='center'>
+          <Text fontSize='sm' color='gray.500' fontWeight='semibold'>
             {profile.followee} Following
           </Text>
-          <Text fontSize="sm" color="gray.500" fontWeight="semibold" ml="5">
+          <Text fontSize='sm' color='gray.500' fontWeight='semibold' ml='5'>
             {profile.followers} Followers
           </Text>
         </Flex>
       </Box>
-      <Avatar size="2xl" name={profile.username} src={profile.image} />
+      <Avatar size='2xl' name={profile.username} src={profile.image} />
     </Box>
   );
 };

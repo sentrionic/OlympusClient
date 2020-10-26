@@ -38,10 +38,10 @@ export const CommentMenu: React.FC<CommentMenuProps> = ({ slug, id }) => {
       <Menu>
         <IconButton
           as={MenuButton}
-          variant="outline"
-          aria-label="Settings Menu"
-          icon="chevron-down"
-          size="sm"
+          variant='outline'
+          aria-label='Settings Menu'
+          icon='chevron-down'
+          size='sm'
         />
         <MenuList>
           <MenuItem onClick={() => setIsOpen(true)}>Delete</MenuItem>
@@ -54,7 +54,7 @@ export const CommentMenu: React.FC<CommentMenuProps> = ({ slug, id }) => {
       >
         <AlertDialogOverlay />
         <AlertDialogContent>
-          <AlertDialogHeader fontSize="lg" fontWeight="bold">
+          <AlertDialogHeader fontSize='lg' fontWeight='bold'>
             Delete Comment
           </AlertDialogHeader>
 
@@ -66,7 +66,7 @@ export const CommentMenu: React.FC<CommentMenuProps> = ({ slug, id }) => {
             <Button ref={cancelRef} onClick={() => setIsOpen(false)}>
               Cancel
             </Button>
-            <Button variantColor="red" onClick={() => onConfirm()} ml={3}>
+            <Button variantColor='red' onClick={() => onConfirm()} ml={3}>
               Delete
             </Button>
           </AlertDialogFooter>

@@ -1,9 +1,9 @@
 import { Box, Flex, Heading, Stack, Text } from '@chakra-ui/core';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { InfoBox } from './InfiniteScrollInfoBox';
 import { PaginatedArticles } from '../../api/models';
 import { ArticlePreview } from '../article/ArticlePreview';
-import { InfoBox } from './InfiniteScrollInfoBox';
 
 interface ArticleListProps {
   data: PaginatedArticles;
@@ -30,8 +30,8 @@ export const ArticleList: React.FC<ArticleListProps> = ({
 
   if (data.articles?.length === 0) {
     return (
-      <Flex height="80vh">
-        <Box shadow="md" borderWidth="1px" mb="auto" p="10">
+      <Flex height='80vh'>
+        <Box shadow='md' borderWidth='1px' mb='auto' p='10'>
           <Heading>No articles here yet.</Heading>
           <Text>Be the first one</Text>
         </Box>

@@ -30,7 +30,7 @@ const Feed = () => {
           <TabPanel>
             <LoadingSpinner />
           </TabPanel>
-          <TabPanel my="6">
+          <TabPanel my='6'>
             <ArticleList data={data} mutate={mutate} dataLoader={getFeed} />
           </TabPanel>
         </TabPanels>

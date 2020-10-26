@@ -14,28 +14,28 @@ export const ArticlePreview: React.FC<ArticlePreviewProps> = ({ article }) => {
   const [preview, setPreview] = useState(article);
 
   return (
-    <Flex p={5} shadow="md" borderWidth="1px" m="auto">
-      <Box maxW="32rem">
+    <Flex p={5} shadow='md' borderWidth='1px' m='auto'>
+      <Box maxW='32rem'>
         <ArticleHeader article={preview} />
         <ArticleImage article={preview} />
         <NextLink
-          href="/[username]/[slug]"
+          href='/[username]/[slug]'
           as={`/${preview.author.username}/${preview.slug}`}
         >
           <Link>
-            <Heading fontSize="xl" pt="6">
+            <Heading fontSize='xl' pt='6'>
               {preview.title}
             </Heading>
           </Link>
         </NextLink>
         <Text mt={2}>{preview.description}</Text>
-        <Flex align="center">
+        <Flex align='center'>
           <NextLink
-            href="/[username]/[slug]"
+            href='/[username]/[slug]'
             as={`/${preview.author.username}/${preview.slug}`}
           >
             <Link>
-              <Text fontSize="s" pt="6">
+              <Text fontSize='s' pt='6'>
                 Read more...
               </Text>
             </Link>

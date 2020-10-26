@@ -4,16 +4,16 @@ import { mutate } from 'swr';
 import { useRouter } from 'next/router';
 import {
   Box,
-  Flex,
-  Heading,
   Button,
+  Flex,
   FormControl,
-  FormLabel,
-  Input,
-  InputRightElement,
-  InputGroup,
-  Icon,
   FormErrorMessage,
+  FormLabel,
+  Heading,
+  Icon,
+  Input,
+  InputGroup,
+  InputRightElement,
 } from '@chakra-ui/core';
 
 import { register } from '../api';
@@ -29,18 +29,18 @@ const Register = () => {
   return (
     <>
       <NavBar />
-      <Flex width="full" align="center" justifyContent="center" mt="10">
+      <Flex width='full' align='center' justifyContent='center' mt='10'>
         <Box
           p={8}
-          maxWidth="500px"
+          maxWidth='500px'
           borderWidth={1}
           borderRadius={8}
-          boxShadow="lg"
+          boxShadow='lg'
         >
-          <Box textAlign="center">
+          <Box textAlign='center'>
             <Heading>Register Account</Heading>
           </Box>
-          <Box my={4} textAlign="left">
+          <Box my={4} textAlign='left'>
             <Formik
               initialValues={{ email: '', username: '', password: '' }}
               validationSchema={RegisterSchema}
@@ -66,10 +66,10 @@ const Register = () => {
                   <FormControl isInvalid={errors.username && touched.username}>
                     <FormLabel>Username</FormLabel>
                     <Input
-                      placeholder="Username"
-                      size="lg"
-                      name="username"
-                      autoComplete="username"
+                      placeholder='Username'
+                      size='lg'
+                      name='username'
+                      autoComplete='username'
                       onChange={handleChange}
                     />
                     <FormErrorMessage>{errors.username}</FormErrorMessage>
@@ -78,11 +78,11 @@ const Register = () => {
                   <FormControl mt={6} isInvalid={errors.email && touched.email}>
                     <FormLabel>Email</FormLabel>
                     <Input
-                      type="email"
-                      placeholder="Email"
-                      size="lg"
-                      name="email"
-                      autoComplete="email"
+                      type='email'
+                      placeholder='Email'
+                      size='lg'
+                      name='email'
+                      autoComplete='email'
                       onChange={handleChange}
                     />
                     <FormErrorMessage>{errors.email}</FormErrorMessage>
@@ -96,22 +96,22 @@ const Register = () => {
                     <InputGroup>
                       <Input
                         type={showPassword ? 'text' : 'password'}
-                        placeholder="*******"
-                        size="lg"
-                        name="password"
-                        autoComplete="current-password"
+                        placeholder='*******'
+                        size='lg'
+                        name='password'
+                        autoComplete='current-password'
                         onChange={handleChange}
                       />
-                      <InputRightElement width="3rem">
+                      <InputRightElement width='3rem'>
                         <Button
-                          h="1.5rem"
-                          size="sm"
+                          h='1.5rem'
+                          size='sm'
                           onClick={handlePasswordVisibility}
                         >
                           {showPassword ? (
-                            <Icon name="view-off" />
+                            <Icon name='view-off' />
                           ) : (
-                            <Icon name="view" />
+                            <Icon name='view' />
                           )}
                         </Button>
                       </InputRightElement>
@@ -119,10 +119,10 @@ const Register = () => {
                     <FormErrorMessage>{errors.password}</FormErrorMessage>
                   </FormControl>
                   <Button
-                    variantColor="blue"
-                    variant="outline"
-                    type="submit"
-                    width="full"
+                    variantColor='blue'
+                    variant='outline'
+                    type='submit'
+                    width='full'
                     mt={4}
                     isLoading={isSubmitting}
                   >

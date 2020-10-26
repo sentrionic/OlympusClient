@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+
 const DESCRIPTION_MAX_LENGTH = 150;
 const TITLE_MAX_LENGTH = 100;
 

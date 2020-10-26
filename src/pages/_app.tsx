@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { ThemeProvider, CSSReset, ColorModeProvider } from '@chakra-ui/core';
+import { ColorModeProvider, CSSReset, ThemeProvider } from '@chakra-ui/core';
 import { SWRConfig } from 'swr';
 import '../styles.css';
 
@@ -10,11 +10,11 @@ function MyApp({ Component, pageProps }) {
   return (
     <SWRConfig value={{ fetcher, revalidateOnFocus: false }}>
       <ThemeProvider theme={theme}>
-        <ColorModeProvider value="light">
+        <ColorModeProvider value='light'>
           <CSSReset />
           <Head>
             <title>OlympusBlog</title>
-            <link rel="shortcut icon" href="/favicon.ico" />
+            <link rel='shortcut icon' href='/favicon.ico' />
           </Head>
           <Component {...pageProps} />
         </ColorModeProvider>

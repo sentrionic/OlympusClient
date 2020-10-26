@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { LoginDTO, RegisterDTO } from '../../api/models';
+import {LoginDTO, RegisterDTO} from '../../api/models';
 
 export const LoginSchema = yup.object<LoginDTO>({
   email: yup.string().defined(),

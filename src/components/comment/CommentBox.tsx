@@ -23,7 +23,7 @@ export const CommentBox: React.FC<CommentBoxProps> = ({
 }) => {
   const { user } = useGetCurrentUser();
   return (
-    <Flex align="flex-end">
+    <Flex align='flex-end'>
       <Formik
         initialValues={{
           body: '',
@@ -59,10 +59,10 @@ export const CommentBox: React.FC<CommentBoxProps> = ({
           handleSubmit,
         }) => (
           <>
-            <FormControl isInvalid={errors.body && touched.body} w="full">
+            <FormControl isInvalid={errors.body && touched.body} w='full'>
               <Textarea
                 value={values.body}
-                name="body"
+                name='body'
                 onChange={handleChange}
                 placeholder={`What are your thoughts?${
                   !user ? '\nSign in to comment.' : ''
@@ -72,11 +72,11 @@ export const CommentBox: React.FC<CommentBoxProps> = ({
             </FormControl>
 
             <Button
-              variantColor="blue"
-              variant="outline"
+              variantColor='blue'
+              variant='outline'
               ml={4}
-              size="sm"
-              color="blue"
+              size='sm'
+              color='blue'
               isLoading={isSubmitting}
               isDisabled={!user}
               onClick={handleSubmit}

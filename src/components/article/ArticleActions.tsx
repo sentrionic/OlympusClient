@@ -44,25 +44,25 @@ export const ArticleAction: React.FC<ArticleActionsProps> = ({
   };
 
   return (
-    <Flex pt="4" justify="space-between">
-      <Flex align="center">
+    <Flex pt='4' justify='space-between'>
+      <Flex align='center'>
         <IconButton
-          variant="ghost"
-          aria-label="Favorite Article"
-          icon="star"
-          size="md"
+          variant='ghost'
+          aria-label='Favorite Article'
+          icon='star'
+          size='md'
           variantColor={article.favorited ? 'yellow' : undefined}
           onClick={() => handleFavorite(article)}
         />
-        <Text pl="2" fontSize="sm">
+        <Text pl='2' fontSize='sm'>
           {article.favoritesCount}
         </Text>
       </Flex>
       <IconButton
-        variant="ghost"
-        aria-label="Favorite Article"
-        icon="chat"
-        size="md"
+        variant='ghost'
+        aria-label='Favorite Article'
+        icon='chat'
+        size='md'
         onClick={() => handleComment()}
       />
     </Flex>

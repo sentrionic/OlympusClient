@@ -12,16 +12,16 @@ export const ProfileListItem: React.FC<ProfileListItemProps> = ({
 }) => {
   return (
     <Stack isInline>
-      <Avatar name={profile.username} src={profile.image} size="lg" />
+      <Avatar name={profile.username} src={profile.image} size='lg' />
       <Box>
         <NextLink href={'/[username]'} as={`/${profile.username}`}>
           <Link>
-            <Heading as="h3" size="md">
+            <Heading as='h3' size='md'>
               {profile.username}
             </Heading>
           </Link>
         </NextLink>
-        <Text mt="1" color="gray.700">
+        <Text mt='1' color='gray.700'>
           {profile.bio}
         </Text>
       </Box>

@@ -1,14 +1,14 @@
 import Axios, { AxiosResponse } from 'axios';
 
 import {
-  LoginDTO,
+  ArticleResponse,
   AuthResponse,
-  RegisterDTO,
-  ProfileResponse,
   CommentDTO,
   CommentResponse,
-  ArticleResponse,
+  LoginDTO,
   PaginatedArticles,
+  ProfileResponse,
+  RegisterDTO,
 } from './models';
 
 const request = Axios.create({

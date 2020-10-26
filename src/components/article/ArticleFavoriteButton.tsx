@@ -43,16 +43,16 @@ export const ArticleFavoriteButton: React.FC<ArticleFavoriteButtonProps> = ({
   return (
     <>
       <IconButton
-        variant="ghost"
-        aria-label="Favorite Article"
-        icon="star"
-        size="md"
+        variant='ghost'
+        aria-label='Favorite Article'
+        icon='star'
+        size='md'
         variantColor={article.favorited ? 'yellow' : undefined}
         onClick={() => {
           toggleFavorite();
         }}
       />
-      <Text pl="2" fontSize="sm">
+      <Text pl='2' fontSize='sm'>
         {article.favoritesCount}
       </Text>
     </>

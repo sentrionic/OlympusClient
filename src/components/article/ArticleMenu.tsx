@@ -42,10 +42,10 @@ export const ArticleMenu: React.FC<ArticleMenuProps> = ({ article }) => {
       <Menu>
         <IconButton
           as={MenuButton}
-          variant="outline"
-          aria-label="Settings Menu"
-          icon="chevron-down"
-          size="sm"
+          variant='outline'
+          aria-label='Settings Menu'
+          icon='chevron-down'
+          size='sm'
         />
         <MenuList>
           <NextLink
@@ -64,7 +64,7 @@ export const ArticleMenu: React.FC<ArticleMenuProps> = ({ article }) => {
       >
         <AlertDialogOverlay />
         <AlertDialogContent>
-          <AlertDialogHeader fontSize="lg" fontWeight="bold">
+          <AlertDialogHeader fontSize='lg' fontWeight='bold'>
             Delete Article
           </AlertDialogHeader>
 
@@ -76,7 +76,7 @@ export const ArticleMenu: React.FC<ArticleMenuProps> = ({ article }) => {
             <Button ref={cancelRef} onClick={() => setIsOpen(false)}>
               Cancel
             </Button>
-            <Button variantColor="red" onClick={onClose} ml={3}>
+            <Button variantColor='red' onClick={onClose} ml={3}>
               Delete
             </Button>
           </AlertDialogFooter>

@@ -18,9 +18,9 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { cache } from 'swr';
+import { NavBarSearch } from './NavBarSearch';
 import { logout } from '../../api';
 import { useGetCurrentUser } from '../../api/useGetCurrentUser';
-import { NavBarSearch } from './NavBarSearch';
 
 interface NavBarProps {}
 
@@ -40,12 +40,12 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
       <>
         <NextLink href={'/create'}>
           <Button
-            variantColor="blue"
-            variant="outline"
+            variantColor='blue'
+            variant='outline'
             mr={10}
-            size="sm"
-            leftIcon="edit"
-            color="blue"
+            size='sm'
+            leftIcon='edit'
+            color='blue'
           >
             Create Article
           </Button>
@@ -59,10 +59,10 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             <Avatar src={user.image} />
           </PseudoBox>
           <MenuList>
-            <NextLink href="/[username]" as={`/${user.username}`}>
+            <NextLink href='/[username]' as={`/${user.username}`}>
               <MenuItem>Your Profile</MenuItem>
             </NextLink>
-            <NextLink href="/account">
+            <NextLink href='/account'>
               <MenuItem>Account</MenuItem>
             </NextLink>
             <MenuDivider />
@@ -85,13 +85,13 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   } else {
     body = (
       <>
-        <NextLink href="/login">
-          <Button variantColor="blue" variant="outline" mr={2} size="sm">
+        <NextLink href='/login'>
+          <Button variantColor='blue' variant='outline' mr={2} size='sm'>
             Login
           </Button>
         </NextLink>
-        <NextLink href="/register">
-          <Button variantColor="blue" variant="solid" mr={2} size="sm">
+        <NextLink href='/register'>
+          <Button variantColor='blue' variant='solid' mr={2} size='sm'>
             Register
           </Button>
         </NextLink>
@@ -105,22 +105,22 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
       position={['relative', 'relative', 'sticky']}
       top={0}
       p={4}
-      boxShadow="md"
-      justify="space-between"
-      align="center"
-      wrap="wrap"
+      boxShadow='md'
+      justify='space-between'
+      align='center'
+      wrap='wrap'
       bg={isDark ? 'gray.800' : 'white'}
     >
       <Flex
-        align="center"
+        align='center'
         mr={['0', '0', '5']}
         width={['100%', '100%', 'auto']}
         justifyContent={['space-between', 'space-between', 'flex-start']}
       >
-        <Flex justify={['center', 'center', 'flex-start']} w="full">
-          <NextLink href="/">
+        <Flex justify={['center', 'center', 'flex-start']} w='full'>
+          <NextLink href='/'>
             <Link>
-              <Heading as="h1" letterSpacing={'-.1rem'}>
+              <Heading as='h1' letterSpacing={'-.1rem'}>
                 OlympusBlog
               </Heading>
             </Link>
@@ -128,13 +128,13 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
         </Flex>
         <Box display={['block', 'block', 'none']} onClick={handleToggle}>
           <svg
-            fill="black"
-            width="12px"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
+            fill='black'
+            width='12px'
+            viewBox='0 0 20 20'
+            xmlns='http://www.w3.org/2000/svg'
           >
             <title>Menu</title>
-            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+            <path d='M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z' />
           </svg>
         </Box>
       </Flex>
@@ -142,18 +142,18 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
       <Box
         mt={[4, 4, 0]}
         display={[show ? 'flex' : 'none', show ? 'flex' : 'none', 'flex']}
-        alignItems="center"
+        alignItems='center'
         justifyContent={['center', 'center', 'flex-end']}
         flexGrow={[1, 1, 0]}
       >
         {body}
         <IconButton
-          size="md"
-          fontSize="lg"
+          size='md'
+          fontSize='lg'
           aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
-          variant="ghost"
-          color="current"
-          mx="2"
+          variant='ghost'
+          color='current'
+          mx='2'
           onClick={toggleColorMode}
           icon={isDark ? 'sun' : 'moon'}
         />

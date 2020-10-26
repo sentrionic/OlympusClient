@@ -15,26 +15,26 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   return (
     <Flex>
       <Input
-        variant="flushed"
-        focusBorderColor="black"
-        placeholder="Search OlympusBlog"
-        size="lg"
+        variant='flushed'
+        focusBorderColor='black'
+        placeholder='Search OlympusBlog'
+        size='lg'
         value={search}
         onChange={(e: any) => setSearch(e.target.value)}
       />
       <Select
-        defaultValue="DESC"
-        variant="flushed"
-        focusBorderColor="black"
-        size="lg"
-        mb="auto"
-        w="150px"
-        ml="4"
+        defaultValue='DESC'
+        variant='flushed'
+        focusBorderColor='black'
+        size='lg'
+        mb='auto'
+        w='150px'
+        ml='4'
         onChange={(option) => setOrder(option.target.value)}
       >
-        <option value="DESC">Newest</option>
-        <option value="ASC">Oldest</option>
-        <option value="TOP">Top</option>
+        <option value='DESC'>Newest</option>
+        <option value='ASC'>Oldest</option>
+        <option value='TOP'>Top</option>
       </Select>
     </Flex>
   );

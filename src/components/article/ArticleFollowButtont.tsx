@@ -45,10 +45,10 @@ export const ArticleFollowButton: React.FC<ArticleFollowButtonProps> = ({
 
   return (
     <Button
-      variant="outline"
-      size="xs"
-      rounded="true"
-      ml="3"
+      variant='outline'
+      size='xs'
+      rounded='true'
+      ml='3'
       onClick={() => toggleFollow()}
     >
       {article.author.following ? 'Unfollow' : 'Follow'}

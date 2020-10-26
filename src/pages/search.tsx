@@ -39,7 +39,7 @@ const Search = ({ index, query }: SearchProps) => {
 
   return (
     <Layout>
-      <Box minH="100vh">
+      <Box minH='100vh'>
         <SearchInput
           search={search}
           setSearch={setSearch}
@@ -48,7 +48,7 @@ const Search = ({ index, query }: SearchProps) => {
 
         <Tabs
           my={5}
-          variantColor="black"
+          variantColor='black'
           defaultIndex={index}
           onChange={(index) => setTabIndex(index)}
         >
