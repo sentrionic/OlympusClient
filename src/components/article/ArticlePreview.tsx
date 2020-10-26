@@ -15,7 +15,7 @@ export const ArticlePreview: React.FC<ArticlePreviewProps> = ({ article }) => {
 
   return (
     <Flex p={5} shadow="md" borderWidth="1px" m="auto">
-      <Box flex={1}>
+      <Box maxW="32rem">
         <ArticleHeader article={preview} />
         <ArticleImage article={preview} />
         <NextLink
@@ -28,7 +28,7 @@ export const ArticlePreview: React.FC<ArticlePreviewProps> = ({ article }) => {
             </Heading>
           </Link>
         </NextLink>
-        <Text>{preview.description}</Text>
+        <Text mt={2}>{preview.description}</Text>
         <Flex align="center">
           <NextLink
             href="/[username]/[slug]"

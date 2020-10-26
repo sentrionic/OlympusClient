@@ -14,7 +14,7 @@ export const ProfileArticle: React.FC<ProfileArticleProps> = ({ article }) => {
   const [preview, setPreview] = useState(article);
   return (
     <Flex p={5} shadow="md" borderWidth="1px" m="auto">
-      <Box flex={1}>
+      <Box maxW="32rem">
         <ArticleHeader article={article} />
         <ArticleImage article={preview} />
         <NextLink

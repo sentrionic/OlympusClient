@@ -36,7 +36,7 @@ export const ProfileBox: React.FC<ProfileBoxProps> = ({ profile }) => {
           <Text fontWeight="bold" fontSize="3xl">
             {profile.username}
           </Text>
-          {user.id === profile.id ? null : (
+          {user?.id === profile.id ? null : (
             <Button
               variant="outline"
               size="xs"

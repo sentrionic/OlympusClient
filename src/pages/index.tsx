@@ -1,16 +1,18 @@
 import {
   Box,
+  Button,
   Flex,
-  Heading,
+  Link,
   Stack,
   TabPanel,
   TabPanels,
+  Tag,
   Text,
 } from '@chakra-ui/core';
 import { GetServerSideProps } from 'next';
 import React from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import useSWR from 'swr';
+import NextLink from 'next/link';
 import { getAllArticles, setCookie } from '../api';
 import { ArticleResponse } from '../api/models';
 import { ArticlePreview } from '../components/article/ArticlePreview';
@@ -23,27 +25,17 @@ import { NavBar } from '../components/layout/NavBar';
 interface IndexProps {
   articles: ArticleResponse[];
   hasMore: boolean;
+  page: number;
 }
 
 const Index = (indexProps: IndexProps) => {
-  const { data, error, mutate } = useSWR('/articles', {
-    dedupingInterval: 60000,
+  const { page, hasMore } = indexProps;
+
+  const { data, error } = useSWR(`/articles?p=${page}&limit=10`, {
     initialData: indexProps,
   });
 
   if (!error && !data) return null;
-
-  const fetchMore = async () => {
-    const cursor = data.articles[data.articles.length - 1].createdAt;
-    const { data: newArticles } = await getAllArticles(cursor);
-    mutate(
-      {
-        articles: [...data.articles, ...newArticles.articles],
-        hasMore: newArticles.hasMore,
-      },
-      false
-    );
-  };
 
   return (
     <>
@@ -51,46 +43,51 @@ const Index = (indexProps: IndexProps) => {
       <Flex>
         <Box
           mt={8}
-          maxW='600px'
-          w='auto'
-          ml='auto'
+          maxW="600px"
+          w="auto"
+          ml="auto"
           mr={['auto', 'auto', '0', '0']}
         >
           <HomeTabs>
             <TabPanels>
-              <TabPanel my='6'>
-                {data.articles?.length === 0 ? (
-                  <Flex height='80vh'>
-                    <Box shadow='md' borderWidth='1px' mb='auto' p='10'>
-                      <Heading>No articles here yet.</Heading>
-                      <Text>Be the first one</Text>
-                    </Box>
-                  </Flex>
-                ) : (
-                  <InfiniteScroll
-                    dataLength={data.articles.length}
-                    next={fetchMore}
-                    hasMore={data.hasMore}
-                    loader={<h4>Loading...</h4>}
-                    endMessage={
-                      <Flex align='center' justify='center' mt='10'>
-                        <Box shadow='md' borderWidth='1px' m='auto' p='4'>
-                          <Text>No More Articles</Text>
-                        </Box>
+              <TabPanel my="6">
+                <Stack spacing={8}>
+                  {data.articles?.map((a) =>
+                    !a ? null : (
+                      <Flex key={a.id}>
+                        <ArticlePreview article={a} />
                       </Flex>
-                    }
+                    )
+                  )}
+                </Stack>
+                <Flex mt="4" justify="space-around">
+                  <NextLink
+                    href={{
+                      pathname: '/',
+                      query: page === 2 ? null : { p: page - 1 },
+                    }}
                   >
-                    <Stack spacing={8}>
-                      {data.articles?.map((a) =>
-                        !a ? null : (
-                          <Flex key={a.id}>
-                            <ArticlePreview article={a} />
-                          </Flex>
-                        )
-                      )}
-                    </Stack>
-                  </InfiniteScroll>
-                )}
+                    <Button
+                      variant="outline"
+                      aria-label="Favorite Article"
+                      leftIcon="chevron-left"
+                      isDisabled={page <= 1}
+                    >
+                      <Text>Previous</Text>
+                    </Button>
+                  </NextLink>
+                  <Tag mx="auto">{page}</Tag>
+                  <NextLink href={{ pathname: '/', query: { p: page + 1 } }}>
+                    <Button
+                      variant="outline"
+                      aria-label="Favorite Article"
+                      rightIcon="chevron-right"
+                      isDisabled={!hasMore}
+                    >
+                      <Text>Next</Text>
+                    </Button>
+                  </NextLink>
+                </Flex>
               </TabPanel>
               <TabPanel>
                 <LoadingSpinner />
@@ -110,7 +107,9 @@ export default Index;
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   setCookie(ctx?.req?.headers?.cookie);
 
-  const { data } = await getAllArticles();
+  const page = Math.max(parseInt(ctx?.query?.p?.toString()), 1) || 1;
+
+  const { data } = await getAllArticles(page);
   const { articles, hasMore } = data;
-  return { props: { articles, hasMore } };
+  return { props: { articles, hasMore, page } };
 };

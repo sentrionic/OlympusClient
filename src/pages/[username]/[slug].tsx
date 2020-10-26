@@ -123,7 +123,7 @@ const Article = ({ article }: ArticleProps) => {
               </NextLink>
               <ArticleFollowButton article={data} mutate={mutate} />
             </Flex>
-            <Text mt="2" color="gray.700">
+            <Text mt="2" color="gray.600">
               {data.author.bio}
             </Text>
           </Box>

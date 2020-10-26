@@ -64,10 +64,13 @@ export const unfollowUser = (
 const paginate = (count: number, cursor?: string) =>
   `limit=${count}${cursor ? `&cursor=${cursor}` : ''}`;
 
+const pagePaginate = (count: number, page?: number) =>
+  `limit=${count}${page ? `&p=${page}` : ''}`;
+
 export const getAllArticles = (
-  cursor?: string
+  page?: number
 ): Promise<AxiosResponse<PaginatedArticles>> => {
-  return request.get(`/articles?${paginate(10, cursor)}`);
+  return request.get(`/articles?${pagePaginate(10, page)}`);
 };
 
 export const getFeed = (
