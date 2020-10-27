@@ -37,6 +37,18 @@ export interface ProfileResponse extends UserResponse {
   followee: number;
 }
 
+export class ChangePasswordInput {
+  currentPassword!: string;
+  newPassword!: string;
+  confirmNewPassword!: string;
+}
+
+export class ResetPasswordInput {
+  token!: string;
+  newPassword!: string;
+  confirmNewPassword!: string;
+}
+
 export type ArticleDTO = Partial<{
   title: string;
   body: string;

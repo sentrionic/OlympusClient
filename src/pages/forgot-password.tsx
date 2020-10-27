@@ -1,32 +1,14 @@
-import React, { useState } from 'react';
+import { Box, Button, Flex, Heading, useToast } from '@chakra-ui/core';
 import { Form, Formik } from 'formik';
-import { mutate } from 'swr';
 import { useRouter } from 'next/router';
-import {
-  Box,
-  Button,
-  Flex,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Heading,
-  Icon,
-  Input,
-  InputGroup,
-  InputRightElement,
-} from '@chakra-ui/core';
-
-import { register } from '../api';
-import { NavBar } from '../components/layout/NavBar';
-import { RegisterSchema } from '../utils/schemas/user.schema';
+import React from 'react';
+import { forgotPassword } from '../api';
 import { InputField } from '../components/common/InputField';
-import { PasswordField } from '../components/common/PasswordField';
+import { NavBar } from '../components/layout/NavBar';
 
-const Register = () => {
-  const [showPassword, setShowPassword] = useState(false);
+const ForgotPassword = () => {
+  const toast = useToast();
   const router = useRouter();
-
-  const handlePasswordVisibility = () => setShowPassword(!showPassword);
 
   return (
     <>
@@ -40,17 +22,23 @@ const Register = () => {
           boxShadow="lg"
         >
           <Box textAlign="center">
-            <Heading>Register Account</Heading>
+            <Heading>Forgot Password</Heading>
           </Box>
           <Box my={4} textAlign="left">
             <Formik
-              initialValues={{ email: '', username: '', password: '' }}
-              validationSchema={RegisterSchema}
+              initialValues={{ email: '' }}
               onSubmit={async (values, { setErrors }) => {
                 try {
-                  const { data } = await register(values);
+                  const { data } = await forgotPassword(values.email);
                   if (data) {
-                    mutate('/user', data);
+                    toast({
+                      title: 'Reset Mail.',
+                      description:
+                        'If an account with that email already exists, we sent you an email',
+                      status: 'success',
+                      duration: 5000,
+                      isClosable: true,
+                    });
                     await router.push('/');
                   }
                 } catch (err) {
@@ -63,15 +51,8 @@ const Register = () => {
                 }
               }}
             >
-              {({ isSubmitting, handleChange, errors, touched }) => (
+              {({ isSubmitting }) => (
                 <Form>
-                  <InputField
-                    placeholder="Username"
-                    label="Username"
-                    name="username"
-                    autoComplete="username"
-                  />
-
                   <InputField
                     type="email"
                     placeholder="Email"
@@ -79,22 +60,16 @@ const Register = () => {
                     name="email"
                     autoComplete="email"
                   />
-
-                  <PasswordField
-                    autoComplete="new-password"
-                    label="Password"
-                    name="password"
-                  />
-
                   <Button
                     variantColor="blue"
                     variant="outline"
                     type="submit"
                     width="full"
                     mt={8}
+                    leftIcon="email"
                     isLoading={isSubmitting}
                   >
-                    Sign Up
+                    Send Mail
                   </Button>
                 </Form>
               )}
@@ -106,4 +81,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default ForgotPassword;

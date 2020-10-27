@@ -3,12 +3,15 @@ import Axios, { AxiosResponse } from 'axios';
 import {
   ArticleResponse,
   AuthResponse,
+  ChangePasswordInput,
   CommentDTO,
   CommentResponse,
   LoginDTO,
   PaginatedArticles,
   ProfileResponse,
   RegisterDTO,
+  ResetPasswordInput,
+  UserResponse,
 } from './models';
 
 const request = Axios.create({
@@ -30,6 +33,21 @@ export const register = (
 
 export const logout = (): Promise<AxiosResponse<boolean>> =>
   request.post('/users/logout');
+
+export const forgotPassword = (
+  email: string
+): Promise<AxiosResponse<boolean>> =>
+  request.post('/users/forgot-password', { email });
+
+export const changePassword = (
+  body: ChangePasswordInput
+): Promise<AxiosResponse<UserResponse>> =>
+  request.put('/users/change-password', body);
+
+export const resetPassword = (
+  body: ResetPasswordInput
+): Promise<AxiosResponse<UserResponse>> =>
+  request.post('/users/reset-password', body);
 
 // user
 export const getCurrentUser = (): Promise<AxiosResponse<ProfileResponse>> =>

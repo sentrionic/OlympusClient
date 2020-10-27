@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import NextLink from 'next/link';
 import { Form, Formik } from 'formik';
 import { mutate } from 'swr';
 import { useRouter } from 'next/router';
@@ -14,11 +15,14 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  Link,
 } from '@chakra-ui/core';
 
 import { login } from '../api';
 import { NavBar } from '../components/layout/NavBar';
 import { LoginSchema } from '../utils/schemas/user.schema';
+import { InputField } from '../components/common/InputField';
+import { PasswordField } from '../components/common/PasswordField';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -29,18 +33,18 @@ const Login = () => {
   return (
     <>
       <NavBar />
-      <Flex width='full' align='center' justifyContent='center' mt='10'>
+      <Flex width="full" align="center" justifyContent="center" mt="10">
         <Box
           p={8}
-          maxWidth='500px'
+          maxWidth="500px"
           borderWidth={1}
           borderRadius={8}
-          boxShadow='lg'
+          boxShadow="lg"
         >
-          <Box textAlign='center'>
+          <Box textAlign="center">
             <Heading>Login</Heading>
           </Box>
-          <Box my={4} textAlign='left'>
+          <Box my={4} textAlign="left">
             <Formik
               initialValues={{ email: '', password: '' }}
               validationSchema={LoginSchema}
@@ -66,57 +70,28 @@ const Login = () => {
                 }
               }}
             >
-              {({ isSubmitting, handleChange, errors, touched }) => (
+              {({ isSubmitting }) => (
                 <Form>
-                  <FormControl isInvalid={errors.email && touched.email}>
-                    <FormLabel>Email</FormLabel>
-                    <Input
-                      type='email'
-                      placeholder='Email'
-                      size='lg'
-                      name='email'
-                      autoComplete='email'
-                      onChange={handleChange}
-                    />
-                    <FormErrorMessage>{errors.email}</FormErrorMessage>
-                  </FormControl>
+                  <InputField
+                    type="email"
+                    placeholder="Email"
+                    label="Email"
+                    name="email"
+                    autoComplete="email"
+                  />
 
-                  <FormControl
-                    mt={6}
-                    isInvalid={errors.password && touched.password}
-                  >
-                    <FormLabel>Password</FormLabel>
-                    <InputGroup>
-                      <Input
-                        type={showPassword ? 'text' : 'password'}
-                        placeholder='*******'
-                        size='lg'
-                        name='password'
-                        autoComplete='current-password'
-                        onChange={handleChange}
-                      />
-                      <InputRightElement width='3rem'>
-                        <Button
-                          h='1.5rem'
-                          size='sm'
-                          onClick={handlePasswordVisibility}
-                        >
-                          {showPassword ? (
-                            <Icon name='view-off' />
-                          ) : (
-                            <Icon name='view' />
-                          )}
-                        </Button>
-                      </InputRightElement>
-                    </InputGroup>
-                    <FormErrorMessage>{errors.password}</FormErrorMessage>
-                  </FormControl>
+                  <PasswordField
+                    autoComplete="current-password"
+                    label="Password"
+                    name="password"
+                  />
+
                   <Button
-                    variantColor='blue'
-                    variant='outline'
-                    type='submit'
-                    width='full'
-                    mt={4}
+                    variantColor="blue"
+                    variant="outline"
+                    type="submit"
+                    width="full"
+                    mt={8}
                     isLoading={isSubmitting}
                   >
                     Sign In
@@ -124,6 +99,12 @@ const Login = () => {
                 </Form>
               )}
             </Formik>
+
+            <Flex mt="4" justify="center" align="center">
+              <NextLink href="/forgot-password">
+                <Link>Forgot Password?</Link>
+              </NextLink>
+            </Flex>
           </Box>
         </Box>
       </Flex>
