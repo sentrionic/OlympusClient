@@ -163,6 +163,7 @@ const Edit = () => {
                       <Flex align='center'>
                         <Switch
                           id='preview'
+                          tabIndex={-1}
                           onChange={() => togglePreview(!isPreview)}
                         />
                         <Text ml='2'>Preview</Text>
