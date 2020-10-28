@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Heading, Image, Text } from '@chakra-ui/core';
 import React from 'react';
 import NextLink from 'next/link';
-import { PopularTags } from './PopularTabs';
+import { PopularTags } from './PopularTags';
 import { useGetCurrentUser } from '../../api/useGetCurrentUser';
 
 type SideBarProps = {};

@@ -41,7 +41,7 @@ export const NavBarSearch: React.FC<NavBarSearchProps> = ({ show }) => {
     >
       <InputGroup
         mt={[4, 4, 0]}
-        w={['100%', '75%', '75%', '40%']}
+        w={['100%', '75%', '75%', '350px']}
         display='block'
       >
         <Input

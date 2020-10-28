@@ -55,21 +55,20 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             as={MenuButton}
             _hover={{ cursor: 'pointer' }}
             _focus={{ boxShadow: 'none' }}
-            display={['none', 'none', 'flex']}
           >
             <Avatar src={user.image} display={['none', 'none', 'flex']} />
+            <Button
+              as={Box}
+              variantColor='blue'
+              variant='outline'
+              size='sm'
+              display={['flex', 'flex', 'none']}
+              color='blue'
+              leftIcon='settings'
+            >
+              Account
+            </Button>
           </PseudoBox>
-          <Button
-            as={MenuButton}
-            variantColor='blue'
-            variant='outline'
-            size='sm'
-            display={['flex', 'flex', 'none']}
-            color='blue'
-            leftIcon='settings'
-          >
-            Account
-          </Button>
           <MenuList>
             <NextLink href='/[username]' as={`/${user.username}`}>
               <MenuItem>Your Profile</MenuItem>
@@ -165,7 +164,8 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
           aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
           variant='ghost'
           color='current'
-          mx='2'
+          mr='2'
+          ml='4'
           onClick={toggleColorMode}
           icon={isDark ? 'sun' : 'moon'}
         />
