@@ -55,9 +55,21 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             as={MenuButton}
             _hover={{ cursor: 'pointer' }}
             _focus={{ boxShadow: 'none' }}
+            display={['none', 'none', 'flex']}
           >
-            <Avatar src={user.image} />
+            <Avatar src={user.image} display={['none', 'none', 'flex']} />
           </PseudoBox>
+          <Button
+            as={MenuButton}
+            variantColor='blue'
+            variant='outline'
+            size='sm'
+            display={['flex', 'flex', 'none']}
+            color='blue'
+            leftIcon='settings'
+          >
+            Account
+          </Button>
           <MenuList>
             <NextLink href='/[username]' as={`/${user.username}`}>
               <MenuItem>Your Profile</MenuItem>

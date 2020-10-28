@@ -11,11 +11,12 @@ export const SideBar: React.FC<SideBarProps> = ({}) => {
 
   return (
     <Box
-      w={['25%', '25%', '25%', '15%']}
+      w={['25%', '25%', '25%', '20%']}
       mr='auto'
       mt={100}
       ml='10'
       h='50%'
+      maxW={'250px'}
       display={['none', 'none', 'block', 'block']}
     >
       <Box shadow='md' borderWidth='1px' p='5'>

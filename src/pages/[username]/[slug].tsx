@@ -52,7 +52,7 @@ const Article = ({ article }: ArticleProps) => {
 
   return (
     <Layout>
-      <Flex direction='column' justify='center'>
+      <Flex direction='column' justify='center' mx={['4', '4', '4', 'auto']}>
         <Flex align='center'>
           <Heading mr='10'>{data.title}</Heading>
           {user?.id === article.author.id && <ArticleMenu article={data} />}
@@ -88,7 +88,7 @@ const Article = ({ article }: ArticleProps) => {
             variant='ghost'
             aria-label='Favorite Article'
             leftIcon='chat'
-            size='md'
+            size='lg'
             ml='4'
             onClick={() => handleToggle()}
           >

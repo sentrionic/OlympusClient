@@ -50,7 +50,7 @@ export const ArticleAction: React.FC<ArticleActionsProps> = ({
           variant='ghost'
           aria-label='Favorite Article'
           icon='star'
-          size='md'
+          size='lg'
           variantColor={article.favorited ? 'yellow' : undefined}
           onClick={() => handleFavorite(article)}
         />
@@ -62,7 +62,7 @@ export const ArticleAction: React.FC<ArticleActionsProps> = ({
         variant='ghost'
         aria-label='Favorite Article'
         icon='chat'
-        size='md'
+        size='lg'
         onClick={() => handleComment()}
       />
     </Flex>

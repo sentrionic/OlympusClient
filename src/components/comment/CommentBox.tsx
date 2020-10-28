@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Flex,
   FormControl,
@@ -23,7 +24,7 @@ export const CommentBox: React.FC<CommentBoxProps> = ({
 }) => {
   const { user } = useGetCurrentUser();
   return (
-    <Flex align='flex-end'>
+    <Box>
       <Formik
         initialValues={{
           body: '',
@@ -74,7 +75,7 @@ export const CommentBox: React.FC<CommentBoxProps> = ({
             <Button
               variantColor='blue'
               variant='outline'
-              ml={4}
+              mt={4}
               size='sm'
               color='blue'
               isLoading={isSubmitting}
@@ -86,6 +87,6 @@ export const CommentBox: React.FC<CommentBoxProps> = ({
           </>
         )}
       </Formik>
-    </Flex>
+    </Box>
   );
 };

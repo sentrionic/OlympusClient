@@ -10,7 +10,7 @@ export const ArticleImage: React.FC<ArticleImageProps> = ({ article }) => {
   return (
     <Flex justify='center' align='center'>
       <Image
-        maxW='lg'
+        maxW={['sm', 'md', 'lg']}
         borderWidth='1px'
         rounded='lg'
         overflow='hidden'
