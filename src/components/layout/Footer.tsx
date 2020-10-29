@@ -21,6 +21,7 @@ export const Footer: React.FC<FooterLinkProps> = ({}) => {
       bg={isDark ? 'gray.800' : 'white'}
       borderTopWidth='1px'
       p={5}
+      minW={430}
       as='footer'
     >
       <Box textAlign='center'>

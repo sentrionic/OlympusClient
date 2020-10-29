@@ -89,7 +89,7 @@ const Article = ({ article }: ArticleProps) => {
             aria-label='Favorite Article'
             leftIcon='chat'
             size='lg'
-            ml='4'
+            ml='8'
             onClick={() => handleToggle()}
           >
             <Text pl='2' fontSize='sm'>

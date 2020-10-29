@@ -116,6 +116,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
       position={['relative', 'relative', 'sticky']}
       top={0}
       p={4}
+      minW={430}
       boxShadow='md'
       justify='space-between'
       align='center'
