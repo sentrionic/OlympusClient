@@ -23,6 +23,7 @@ import { NavBar } from '../components/layout/NavBar';
 import { LoginSchema } from '../utils/schemas/user.schema';
 import { InputField } from '../components/common/InputField';
 import { PasswordField } from '../components/common/PasswordField';
+import { toErrorMap } from '../utils/toErrorMap';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -33,18 +34,18 @@ const Login = () => {
   return (
     <>
       <NavBar />
-      <Flex width="full" align="center" justifyContent="center" mt="10">
+      <Flex width='full' align='center' justifyContent='center' mt='10'>
         <Box
           p={8}
-          maxWidth="500px"
+          maxWidth='500px'
           borderWidth={1}
           borderRadius={8}
-          boxShadow="lg"
+          boxShadow='lg'
         >
-          <Box textAlign="center">
+          <Box textAlign='center'>
             <Heading>Login</Heading>
           </Box>
-          <Box my={4} textAlign="left">
+          <Box my={4} textAlign='left'>
             <Formik
               initialValues={{ email: '', password: '' }}
               validationSchema={LoginSchema}
@@ -63,9 +64,7 @@ const Login = () => {
                 } catch (err) {
                   if (err?.response?.data?.errors) {
                     const errors = err?.response?.data?.errors;
-                    Object.keys(errors).map((key) => {
-                      setErrors({ [key]: errors[key] });
-                    });
+                    setErrors(toErrorMap(errors));
                   }
                 }
               }}
@@ -73,24 +72,24 @@ const Login = () => {
               {({ isSubmitting }) => (
                 <Form>
                   <InputField
-                    type="email"
-                    placeholder="Email"
-                    label="Email"
-                    name="email"
-                    autoComplete="email"
+                    type='email'
+                    placeholder='Email'
+                    label='Email'
+                    name='email'
+                    autoComplete='email'
                   />
 
                   <PasswordField
-                    autoComplete="current-password"
-                    label="Password"
-                    name="password"
+                    autoComplete='current-password'
+                    label='Password'
+                    name='password'
                   />
 
                   <Button
-                    variantColor="blue"
-                    variant="outline"
-                    type="submit"
-                    width="full"
+                    variantColor='blue'
+                    variant='outline'
+                    type='submit'
+                    width='full'
                     mt={8}
                     isLoading={isSubmitting}
                   >
@@ -100,8 +99,8 @@ const Login = () => {
               )}
             </Formik>
 
-            <Flex mt="4" justify="center" align="center">
-              <NextLink href="/forgot-password">
+            <Flex mt='4' justify='center' align='center'>
+              <NextLink href='/forgot-password'>
                 <Link>Forgot Password?</Link>
               </NextLink>
             </Flex>

@@ -12,6 +12,7 @@ import { createComment } from '../../api';
 import { ArticleResponse } from '../../api/models';
 import { useGetCurrentUser } from '../../api/useGetCurrentUser';
 import { CommentSchema } from '../../utils/schemas/article.schema';
+import { toErrorMap } from '../../utils/toErrorMap';
 
 interface CommentBoxProps {
   article: ArticleResponse;
@@ -44,9 +45,7 @@ export const CommentBox: React.FC<CommentBoxProps> = ({
           } catch (err) {
             if (err?.response?.data?.errors) {
               const errors = err?.response?.data?.errors;
-              Object.keys(errors).map((key) => {
-                setErrors({ [key]: errors[key] });
-              });
+              setErrors(toErrorMap(errors));
             }
           }
         }}

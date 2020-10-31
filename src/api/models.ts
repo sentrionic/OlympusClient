@@ -96,3 +96,8 @@ export interface CommentResponse extends BaseEntity {
   body: string;
   author: ProfileResponse;
 }
+
+export interface FieldError {
+  field: string;
+  message: string;
+}

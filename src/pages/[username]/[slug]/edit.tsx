@@ -27,6 +27,7 @@ import { updateArticle } from '../../../api';
 import { InputField } from '../../../components/common/InputField';
 import { useGetCurrentUser } from '../../../api/useGetCurrentUser';
 import { UpdateArticleSchema } from '../../../utils/schemas/article.schema';
+import { toErrorMap } from '../../../utils/toErrorMap';
 
 const Edit = () => {
   useIsAuth();
@@ -95,9 +96,7 @@ const Edit = () => {
               } catch (err) {
                 if (err?.response?.data?.errors) {
                   const errors = err?.response?.data?.errors;
-                  Object.keys(errors).map((key) => {
-                    setErrors({ [key]: errors[key] });
-                  });
+                  setErrors(toErrorMap(errors));
                 }
               }
             }}

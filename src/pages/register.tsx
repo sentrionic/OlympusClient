@@ -21,6 +21,7 @@ import { NavBar } from '../components/layout/NavBar';
 import { RegisterSchema } from '../utils/schemas/user.schema';
 import { InputField } from '../components/common/InputField';
 import { PasswordField } from '../components/common/PasswordField';
+import { toErrorMap } from '../utils/toErrorMap';
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -31,18 +32,18 @@ const Register = () => {
   return (
     <>
       <NavBar />
-      <Flex width="full" align="center" justifyContent="center" mt="10">
+      <Flex width='full' align='center' justifyContent='center' mt='10'>
         <Box
           p={8}
-          maxWidth="500px"
+          maxWidth='500px'
           borderWidth={1}
           borderRadius={8}
-          boxShadow="lg"
+          boxShadow='lg'
         >
-          <Box textAlign="center">
+          <Box textAlign='center'>
             <Heading>Register Account</Heading>
           </Box>
-          <Box my={4} textAlign="left">
+          <Box my={4} textAlign='left'>
             <Formik
               initialValues={{ email: '', username: '', password: '' }}
               validationSchema={RegisterSchema}
@@ -56,41 +57,39 @@ const Register = () => {
                 } catch (err) {
                   if (err?.response?.data?.errors) {
                     const errors = err?.response?.data?.errors;
-                    Object.keys(errors).map((key) => {
-                      setErrors({ [key]: errors[key] });
-                    });
+                    setErrors(toErrorMap(errors));
                   }
                 }
               }}
             >
-              {({ isSubmitting, handleChange, errors, touched }) => (
+              {({ isSubmitting }) => (
                 <Form>
                   <InputField
-                    placeholder="Username"
-                    label="Username"
-                    name="username"
-                    autoComplete="username"
+                    placeholder='Username'
+                    label='Username'
+                    name='username'
+                    autoComplete='username'
                   />
 
                   <InputField
-                    type="email"
-                    placeholder="Email"
-                    label="Email"
-                    name="email"
-                    autoComplete="email"
+                    type='email'
+                    placeholder='Email'
+                    label='Email'
+                    name='email'
+                    autoComplete='email'
                   />
 
                   <PasswordField
-                    autoComplete="new-password"
-                    label="Password"
-                    name="password"
+                    autoComplete='new-password'
+                    label='Password'
+                    name='password'
                   />
 
                   <Button
-                    variantColor="blue"
-                    variant="outline"
-                    type="submit"
-                    width="full"
+                    variantColor='blue'
+                    variant='outline'
+                    type='submit'
+                    width='full'
                     mt={8}
                     isLoading={isSubmitting}
                   >

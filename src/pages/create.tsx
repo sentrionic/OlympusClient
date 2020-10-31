@@ -22,6 +22,7 @@ import { InputField } from '../components/common/InputField';
 import { Layout } from '../components/layout/Layout';
 import { useIsAuth } from '../utils/useIsAuth';
 import { ArticleSchema } from '../utils/schemas/article.schema';
+import { toErrorMap } from '../utils/toErrorMap';
 
 const Create = () => {
   useIsAuth();
@@ -62,9 +63,7 @@ const Create = () => {
               } catch (err) {
                 if (err?.response?.data?.errors) {
                   const errors = err?.response?.data?.errors;
-                  Object.keys(errors).map((key) => {
-                    setErrors({ [key]: errors[key] });
-                  });
+                  setErrors(toErrorMap(errors));
                 }
               }
             }}

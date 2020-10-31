@@ -5,28 +5,45 @@ import React from 'react';
 import { forgotPassword } from '../api';
 import { InputField } from '../components/common/InputField';
 import { NavBar } from '../components/layout/NavBar';
+import { ForgotPasswordSchema } from '../utils/schemas/user.schema';
+import { toErrorMap } from '../utils/toErrorMap';
 
 const ForgotPassword = () => {
   const toast = useToast();
   const router = useRouter();
 
+  const handleRedirect = async (email: string) => {
+    //@ts-ignore
+    if (window.Android) {
+      //@ts-ignore
+      window.Android.onLoading(true);
+      //@ts-ignore
+      window.Android.onSuccess(email);
+      //@ts-ignore
+      window.Android.onLoading(false);
+    } else {
+      await router.push('/');
+    }
+  };
+
   return (
     <>
       <NavBar />
-      <Flex width="full" align="center" justifyContent="center" mt="10">
+      <Flex width='full' align='center' justifyContent='center' mt='10'>
         <Box
           p={8}
-          maxWidth="500px"
+          maxWidth='500px'
           borderWidth={1}
           borderRadius={8}
-          boxShadow="lg"
+          boxShadow='lg'
         >
-          <Box textAlign="center">
+          <Box textAlign='center'>
             <Heading>Forgot Password</Heading>
           </Box>
-          <Box my={4} textAlign="left">
+          <Box my={4} textAlign='left'>
             <Formik
               initialValues={{ email: '' }}
+              validationSchema={ForgotPasswordSchema}
               onSubmit={async (values, { setErrors }) => {
                 try {
                   const { data } = await forgotPassword(values.email);
@@ -39,14 +56,12 @@ const ForgotPassword = () => {
                       duration: 5000,
                       isClosable: true,
                     });
-                    await router.push('/');
+                    handleRedirect(values.email);
                   }
                 } catch (err) {
                   if (err?.response?.data?.errors) {
                     const errors = err?.response?.data?.errors;
-                    Object.keys(errors).map((key) => {
-                      setErrors({ [key]: errors[key] });
-                    });
+                    setErrors(toErrorMap(errors));
                   }
                 }
               }}
@@ -54,19 +69,19 @@ const ForgotPassword = () => {
               {({ isSubmitting }) => (
                 <Form>
                   <InputField
-                    type="email"
-                    placeholder="Email"
-                    label="Email"
-                    name="email"
-                    autoComplete="email"
+                    type='email'
+                    placeholder='Email'
+                    label='Email'
+                    name='email'
+                    autoComplete='email'
                   />
                   <Button
-                    variantColor="blue"
-                    variant="outline"
-                    type="submit"
-                    width="full"
+                    variantColor='blue'
+                    variant='outline'
+                    type='submit'
+                    width='full'
                     mt={8}
-                    leftIcon="email"
+                    leftIcon='email'
                     isLoading={isSubmitting}
                   >
                     Send Mail
