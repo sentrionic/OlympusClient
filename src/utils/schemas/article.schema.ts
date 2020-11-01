@@ -24,8 +24,8 @@ export const ArticleSchema = yup.object().shape({
     .array<string>(
       yup.string().min(3).max(15, 'Max Limit is 15 characters').defined()
     )
+    .min(1, 'At least one tag is required')
     .max(5, 'At most 5 tags')
-    .required('At least one tag is required')
     .defined(),
 });
 
