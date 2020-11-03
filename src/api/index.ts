@@ -15,7 +15,7 @@ import {
 } from './models';
 
 const request = Axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
 });
 
