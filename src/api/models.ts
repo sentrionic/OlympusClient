@@ -83,7 +83,8 @@ export interface ArticleResponse {
   image: string;
   createdAt: string;
   tagList: string[];
-  favorited: boolean | null;
+  favorited: boolean;
+  bookmarked: boolean;
   favoritesCount: number;
   author: ProfileResponse;
 }

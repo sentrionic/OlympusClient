@@ -45,6 +45,9 @@ const Index = (indexProps: IndexProps) => {
               <TabPanel>
                 <LoadingSpinner />
               </TabPanel>
+              <TabPanel>
+                <LoadingSpinner />
+              </TabPanel>
             </TabPanels>
           </HomeTabs>
         </Box>

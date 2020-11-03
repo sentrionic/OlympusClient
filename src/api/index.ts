@@ -97,6 +97,12 @@ export const getFeed = (
   return request.get(`/articles/feed?${paginate(10, cursor)}`);
 };
 
+export const getBookmarked = (
+  cursor?: string
+): Promise<AxiosResponse<PaginatedArticles>> => {
+  return request.get(`/articles/bookmarked?${paginate(10, cursor)}`);
+};
+
 export const getArticlesByAuthor = (
   username: string,
   cursor?: string
@@ -144,6 +150,12 @@ export const favoriteArticle = (slug: string): Promise<ArticleResponse> =>
 
 export const unfavoriteArticle = (slug: string): Promise<ArticleResponse> =>
   request.delete(`/articles/${slug}/favorite`);
+
+export const bookmarkArticle = (slug: string): Promise<ArticleResponse> =>
+  request.post(`/articles/${slug}/bookmark`);
+
+export const unbookmarkArticle = (slug: string): Promise<ArticleResponse> =>
+  request.delete(`/articles/${slug}/bookmark`);
 
 // comments
 export const getArticlesComments = (slug: string): Promise<CommentResponse[]> =>

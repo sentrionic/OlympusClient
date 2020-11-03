@@ -1,7 +1,7 @@
 import { TabPanel, TabPanels } from '@chakra-ui/core';
 import React from 'react';
 import useSWR from 'swr';
-import { getFeed } from '../api';
+import { getBookmarked } from '../api';
 import { PaginatedArticles } from '../api/models';
 import { ArticleList } from '../components/home/ArticleList';
 import { HomeTabs } from '../components/home/HomeTabs';
@@ -9,9 +9,9 @@ import { LoadingSpinner } from '../components/home/LoadingSpinner';
 import { Layout } from '../components/layout/Layout';
 import { useIsAuth } from '../utils/useIsAuth';
 
-const Feed = () => {
+const Bookmarked = () => {
   useIsAuth();
-  const { data, mutate } = useSWR<PaginatedArticles>('/articles/feed');
+  const { data, mutate } = useSWR<PaginatedArticles>('/articles/bookmarked');
 
   if (!data) {
     return (
@@ -23,8 +23,11 @@ const Feed = () => {
 
   return (
     <Layout>
-      <HomeTabs tabIndex={1}>
+      <HomeTabs tabIndex={2}>
         <TabPanels>
+          <TabPanel>
+            <LoadingSpinner />
+          </TabPanel>
           <TabPanel>
             <LoadingSpinner />
           </TabPanel>
@@ -32,14 +35,11 @@ const Feed = () => {
             <ArticleList
               data={data}
               mutate={mutate}
-              dataLoader={getFeed}
+              dataLoader={getBookmarked}
               noArticlesText={
-                'Articles will appear here once you follow more people'
+                'Articles will appear here once you bookmark them'
               }
             />
-          </TabPanel>
-          <TabPanel>
-            <LoadingSpinner />
           </TabPanel>
         </TabPanels>
       </HomeTabs>
@@ -47,4 +47,4 @@ const Feed = () => {
   );
 };
 
-export default Feed;
+export default Bookmarked;
