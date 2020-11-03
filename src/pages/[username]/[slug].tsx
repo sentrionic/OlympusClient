@@ -19,6 +19,7 @@ import useSWR from 'swr';
 import { getArticleBySlug, setCookie } from '../../api';
 import { ArticleResponse } from '../../api/models';
 import { useGetCurrentUser } from '../../api/useGetCurrentUser';
+import { ArticleBookmarkButton } from '../../components/article/ArticleBookmarkButton';
 import { ArticleFavoriteButton } from '../../components/article/ArticleFavoriteButton';
 import { ArticleFollowButton } from '../../components/article/ArticleFollowButtont';
 import { ArticleImage } from '../../components/article/ArticleImage';
@@ -82,20 +83,23 @@ const Article = ({ article }: ArticleProps) => {
           />
         </Box>
         <ArticleTagList tagList={data.tagList} />
-        <Flex mt='10' align='center'>
-          <ArticleFavoriteButton article={data} mutate={mutate} />
-          <Button
-            variant='ghost'
-            aria-label='Favorite Article'
-            leftIcon='chat'
-            size='lg'
-            ml='8'
-            onClick={() => handleToggle()}
-          >
-            <Text pl='2' fontSize='sm'>
-              View Comments
-            </Text>
-          </Button>
+        <Flex mt='10' justify='space-between'>
+          <Flex align='center'>
+            <ArticleFavoriteButton article={data} mutate={mutate} />
+            <Button
+              variant='ghost'
+              aria-label='Favorite Article'
+              leftIcon='chat'
+              size='lg'
+              ml='8'
+              onClick={() => handleToggle()}
+            >
+              <Text pl='2' fontSize='sm'>
+                View Comments
+              </Text>
+            </Button>
+          </Flex>
+          <ArticleBookmarkButton article={data} mutate={mutate} />
         </Flex>
         <Divider my='5' />
         <Stack isInline>

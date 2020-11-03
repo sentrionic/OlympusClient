@@ -21,6 +21,7 @@ import { cache } from 'swr';
 import { NavBarSearch } from './NavBarSearch';
 import { logout } from '../../api';
 import { useGetCurrentUser } from '../../api/useGetCurrentUser';
+import Headroom from 'react-headroom';
 
 interface NavBarProps {}
 
@@ -111,66 +112,67 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   }
 
   return (
-    <Flex
-      zIndex={4}
-      position={['relative', 'relative', 'sticky']}
-      top={0}
-      p={4}
-      minW={430}
-      boxShadow='md'
-      justify='space-between'
-      align='center'
-      wrap='wrap'
-      bg={isDark ? 'gray.800' : 'white'}
-    >
+    <Headroom>
       <Flex
+        zIndex={4}
+        top={0}
+        p={4}
+        minW={430}
+        boxShadow='md'
+        justify='space-between'
         align='center'
-        mr={['0', '0', '5']}
-        width={['100%', '100%', 'auto']}
-        justifyContent={['space-between', 'space-between', 'flex-start']}
+        wrap='wrap'
+        bg={isDark ? 'gray.800' : 'white'}
       >
-        <Flex justify={['center', 'center', 'flex-start']} w='full'>
-          <NextLink href='/'>
-            <Link>
-              <Heading as='h1' letterSpacing={'-.1rem'}>
-                OlympusBlog
-              </Heading>
-            </Link>
-          </NextLink>
+        <Flex
+          align='center'
+          mr={['0', '0', '5']}
+          width={['100%', '100%', 'auto']}
+          justifyContent={['space-between', 'space-between', 'flex-start']}
+        >
+          <Flex justify={['center', 'center', 'flex-start']} w='full'>
+            <NextLink href='/'>
+              <Link>
+                <Heading as='h1' letterSpacing={'-.1rem'}>
+                  OlympusBlog
+                </Heading>
+              </Link>
+            </NextLink>
+          </Flex>
+          <Box display={['block', 'block', 'none']} onClick={handleToggle}>
+            <svg
+              fill='black'
+              width='12px'
+              viewBox='0 0 20 20'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <title>Menu</title>
+              <path d='M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z' />
+            </svg>
+          </Box>
         </Flex>
-        <Box display={['block', 'block', 'none']} onClick={handleToggle}>
-          <svg
-            fill='black'
-            width='12px'
-            viewBox='0 0 20 20'
-            xmlns='http://www.w3.org/2000/svg'
-          >
-            <title>Menu</title>
-            <path d='M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z' />
-          </svg>
+        <NavBarSearch show={show} />
+        <Box
+          mt={[4, 4, 0]}
+          display={[show ? 'flex' : 'none', show ? 'flex' : 'none', 'flex']}
+          alignItems='center'
+          justifyContent={['center', 'center', 'flex-end']}
+          flexGrow={[1, 1, 0]}
+        >
+          {body}
+          <IconButton
+            size='md'
+            fontSize='lg'
+            aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+            variant='ghost'
+            color='current'
+            mr='2'
+            ml='4'
+            onClick={toggleColorMode}
+            icon={isDark ? 'sun' : 'moon'}
+          />
         </Box>
       </Flex>
-      <NavBarSearch show={show} />
-      <Box
-        mt={[4, 4, 0]}
-        display={[show ? 'flex' : 'none', show ? 'flex' : 'none', 'flex']}
-        alignItems='center'
-        justifyContent={['center', 'center', 'flex-end']}
-        flexGrow={[1, 1, 0]}
-      >
-        {body}
-        <IconButton
-          size='md'
-          fontSize='lg'
-          aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
-          variant='ghost'
-          color='current'
-          mr='2'
-          ml='4'
-          onClick={toggleColorMode}
-          icon={isDark ? 'sun' : 'moon'}
-        />
-      </Box>
-    </Flex>
+    </Headroom>
   );
 };
