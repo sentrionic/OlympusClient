@@ -1,12 +1,8 @@
-import { IconButton, Text } from '@chakra-ui/core';
+import { IconButton } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
 import React from 'react';
-import {
-  bookmarkArticle,
-  favoriteArticle,
-  unbookmarkArticle,
-  unfavoriteArticle,
-} from '../../api';
+import { BsBookmark, BsFillBookmarkFill } from 'react-icons/bs';
+import { bookmarkArticle, unbookmarkArticle } from '../../api';
 import { ArticleResponse } from '../../api/models';
 import { useGetCurrentUser } from '../../api/useGetCurrentUser';
 
@@ -47,9 +43,8 @@ export const ArticleBookmarkButton: React.FC<ArticleBookmarkButtonProps> = ({
     <IconButton
       variant='ghost'
       aria-label='Bookmark Article'
-      icon='lock'
       size='lg'
-      variantColor={article.bookmarked ? 'teal' : undefined}
+      icon={article.bookmarked ? BsFillBookmarkFill : BsBookmark}
       onClick={() => {
         toggleBookmark();
       }}

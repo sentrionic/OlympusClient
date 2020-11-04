@@ -5,6 +5,7 @@ import {
   Flex,
   Heading,
   IconButton,
+  Image,
   Link,
   Menu,
   MenuButton,
@@ -15,6 +16,7 @@ import {
   useColorMode,
 } from '@chakra-ui/core';
 import NextLink from 'next/link';
+//import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { cache } from 'swr';
@@ -133,9 +135,20 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
           <Flex justify={['center', 'center', 'flex-start']} w='full'>
             <NextLink href='/'>
               <Link>
-                <Heading as='h1' letterSpacing={'-.1rem'}>
-                  OlympusBlog
-                </Heading>
+                <Flex ml={4}>
+                  <Image
+                    src={isDark ? '/icon_dark.png' : '/icon.png'}
+                    size={'40px'}
+                  />
+                  <Heading
+                    as='h1'
+                    letterSpacing={'-.1rem'}
+                    ml={4}
+                    display={[undefined, undefined, 'none']}
+                  >
+                    OlympusBlog
+                  </Heading>
+                </Flex>
               </Link>
             </NextLink>
           </Flex>

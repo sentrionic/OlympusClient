@@ -2,6 +2,12 @@ import { Flex, IconButton, Text } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
 import React from 'react';
 import {
+  BsBookmark,
+  BsFillBookmarkFill,
+  BsStar,
+  BsStarFill,
+} from 'react-icons/bs';
+import {
   bookmarkArticle,
   favoriteArticle,
   unbookmarkArticle,
@@ -72,7 +78,7 @@ export const ArticleAction: React.FC<ArticleActionsProps> = ({
           <IconButton
             variant='ghost'
             aria-label='Favorite Article'
-            icon='star'
+            icon={article.favorited ? BsStarFill : BsStar}
             size='lg'
             variantColor={article.favorited ? 'yellow' : undefined}
             onClick={() => handleFavorite(article)}
@@ -93,9 +99,8 @@ export const ArticleAction: React.FC<ArticleActionsProps> = ({
       <IconButton
         variant='ghost'
         aria-label='Bookmark Article'
-        icon='lock'
+        icon={article.bookmarked ? BsFillBookmarkFill : BsBookmark}
         size='lg'
-        variantColor={article.bookmarked ? 'teal' : undefined}
         onClick={() => handleBookmark(article)}
       />
     </Flex>
