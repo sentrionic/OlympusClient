@@ -15,7 +15,7 @@ export const ArticlePreview: React.FC<ArticlePreviewProps> = ({ article }) => {
 
   return (
     <Flex p={5} shadow='md' borderWidth='1px' m='auto'>
-      <Box maxW='32rem'>
+      <Box maxW={['28rem', '28rem', '32rem']}>
         <ArticleHeader article={preview} />
         <ArticleImage article={preview} />
         <NextLink
