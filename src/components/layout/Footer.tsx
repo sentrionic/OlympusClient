@@ -1,14 +1,11 @@
 import React from 'react';
+import { Box, Flex, Link, Stack, Text, useColorMode } from '@chakra-ui/core';
 import {
-  Box,
-  Flex,
-  Icon,
-  Link,
-  Stack,
-  Text,
-  useColorMode,
-} from '@chakra-ui/core';
-import { AiOutlineGithub, AiOutlineInfoCircle } from 'react-icons/ai';
+  AiOutlineGithub,
+  AiOutlineAndroid,
+  AiOutlineApi,
+} from 'react-icons/ai';
+import { BsInfoSquare } from 'react-icons/bs';
 import { IconType } from 'react-icons';
 
 type FooterLinkProps = {
@@ -30,9 +27,19 @@ const links = [
     href: 'https://github.com/chakra-ui/chakra-ui',
   },
   {
-    icon: AiOutlineInfoCircle,
+    icon: BsInfoSquare,
     label: 'About',
     href: 'https://github.com/chakra-ui/chakra-ui',
+  },
+  {
+    icon: AiOutlineAndroid,
+    label: 'Android',
+    href: 'https://github.com/chakra-ui/chakra-ui',
+  },
+  {
+    icon: AiOutlineApi,
+    label: 'API',
+    href: 'https://api.harmonyapp.xyz',
   },
 ];
 

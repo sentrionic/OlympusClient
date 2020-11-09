@@ -5,7 +5,6 @@ import {
   Flex,
   Heading,
   IconButton,
-  Image,
   Link,
   Menu,
   MenuButton,
@@ -18,13 +17,13 @@ import {
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import { cache } from 'swr';
 import Headroom from 'react-headroom';
 import { AiOutlineMenu } from 'react-icons/ai';
-
-import { NavBarSearch } from './NavBarSearch';
+import { cache } from 'swr';
+import { Logo } from './Logo';
 import { logout } from '../../api';
 import { useGetCurrentUser } from '../../api/useGetCurrentUser';
+import { NavBarSearch } from './NavBarSearch';
 
 interface NavBarProps {}
 
@@ -137,10 +136,9 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             <NextLink href='/'>
               <Link>
                 <Flex ml={[0, 0, 4]}>
-                  <Image
-                    src={isDark ? '/icon_dark.png' : '/icon.png'}
-                    size={'40px'}
-                  />
+                  <Box w='40px' h='40px'>
+                    <Logo isDark={isDark} />
+                  </Box>
                   <Heading
                     as='h1'
                     letterSpacing={'-.1rem'}
