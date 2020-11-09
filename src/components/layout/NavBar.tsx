@@ -133,23 +133,21 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
           justifyContent={['space-between', 'space-between', 'flex-start']}
         >
           <Flex justify={['center', 'center', 'flex-start']} w='full'>
-            <NextLink href='/'>
-              <Link>
-                <Flex ml={[0, 0, 4]}>
-                  <Box w='40px' h='40px'>
-                    <Logo isDark={isDark} />
-                  </Box>
-                  <Heading
-                    as='h1'
-                    letterSpacing={'-.1rem'}
-                    ml={4}
-                    display={[undefined, undefined, 'none']}
-                  >
-                    OlympusBlog
-                  </Heading>
-                </Flex>
+            <Flex ml={[0, 0, 4]}>
+              <Link style={{ textDecoration: 'none' }} href='/'>
+                <Box w='40px' h='40px'>
+                  <Logo isDark={isDark} />
+                </Box>
+                <Heading
+                  as='h1'
+                  letterSpacing={'-.1rem'}
+                  ml={4}
+                  display={[undefined, undefined, 'none']}
+                >
+                  OlympusBlog
+                </Heading>
               </Link>
-            </NextLink>
+            </Flex>
           </Flex>
           <Box
             as={AiOutlineMenu}

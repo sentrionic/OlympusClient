@@ -11,21 +11,6 @@ import { toErrorMap } from '../utils/toErrorMap';
 const ForgotPassword = () => {
   const toast = useToast();
   const router = useRouter();
-
-  const handleRedirect = async (email: string) => {
-    //@ts-ignore
-    if (window.Android) {
-      //@ts-ignore
-      window.Android.onLoading(true);
-      //@ts-ignore
-      window.Android.onSuccess(email);
-      //@ts-ignore
-      window.Android.onLoading(false);
-    } else {
-      await router.push('/');
-    }
-  };
-
   return (
     <>
       <NavBar />
@@ -56,7 +41,7 @@ const ForgotPassword = () => {
                       duration: 5000,
                       isClosable: true,
                     });
-                    handleRedirect(values.email);
+                    await router.push('/');
                   }
                 } catch (err) {
                   if (err?.response?.data?.errors) {

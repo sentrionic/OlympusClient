@@ -11,9 +11,7 @@ export const NoProfileFound: React.FC<{}> = () => {
         <Box shadow='md' borderWidth='1px' m='auto' p='10'>
           <Heading>No Profile Found</Heading>
           <NextLink href='/'>
-            <Link>
-              Go back <a>Home</a>
-            </Link>
+            <Link>Go back Home</Link>
           </NextLink>
         </Box>
       </Flex>

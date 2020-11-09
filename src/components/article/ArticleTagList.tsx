@@ -1,5 +1,4 @@
-import { Badge, Flex, PseudoBox } from '@chakra-ui/core';
-import NextLink from 'next/link';
+import { Badge, Flex, Link, PseudoBox } from '@chakra-ui/core';
 import React from 'react';
 
 interface ArticleTagListProps {
@@ -10,13 +9,13 @@ export const ArticleTagList: React.FC<ArticleTagListProps> = ({ tagList }) => {
   return (
     <Flex mt='5'>
       {tagList.map((t) => (
-        <NextLink key={t} href={{ pathname: '/search', query: { tag: [t] } }}>
-          <PseudoBox key={t} _hover={{ cursor: 'pointer' }} mr='4'>
+        <PseudoBox key={t} _hover={{ cursor: 'pointer' }} mr='4'>
+          <Link href={`/search?tag=${t}`}>
             <Badge p='2' rounded='md'>
               {t}
             </Badge>
-          </PseudoBox>
-        </NextLink>
+          </Link>
+        </PseudoBox>
       ))}
     </Flex>
   );

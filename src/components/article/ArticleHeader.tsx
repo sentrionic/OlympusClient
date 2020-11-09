@@ -18,11 +18,13 @@ export const ArticleHeader: React.FC<ArticleHeaderProps> = ({ article }) => {
       <Stack isInline>
         <Avatar name={article.author.username} src={article.author.image} />
         <Box>
-          <NextLink href={'/[username]'} as={`/${article.author.username}`}>
-            <Link fontWeight='bold' color='blue.600'>
-              {article.author.username}
-            </Link>
-          </NextLink>
+          <Link
+            href={`/${article.author.username}`}
+            fontWeight='bold'
+            color='blue.600'
+          >
+            {article.author.username}
+          </Link>
           <ArticleTime createdAt={article.createdAt} />
         </Box>
       </Stack>

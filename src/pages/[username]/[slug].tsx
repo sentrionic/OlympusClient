@@ -12,7 +12,6 @@ import {
 } from '@chakra-ui/core';
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
 import { GetServerSideProps } from 'next';
-import NextLink from 'next/link';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import useSWR from 'swr';
@@ -62,9 +61,9 @@ const Article = ({ article }: ArticleProps) => {
           <Avatar name={data.author.username} src={data.author.image} />
           <Box>
             <Flex justify='space-between' align='center'>
-              <NextLink href={'/[username]'} as={`/${data.author.username}`}>
-                <Link fontWeight='semibold'>{data.author.username}</Link>
-              </NextLink>
+              <Link href={`/${data.author.username}`} fontWeight='semibold'>
+                {data.author.username}
+              </Link>
               <ArticleFollowButton article={data} mutate={mutate} />
             </Flex>
             <ArticleTime createdAt={data.createdAt} />
@@ -118,13 +117,12 @@ const Article = ({ article }: ArticleProps) => {
               Written by
             </Text>
             <Flex justify='space-between' align='center'>
-              <NextLink href={'/[username]'} as={`/${data.author.username}`}>
-                <Link>
-                  <Heading as='h3' size='lg'>
-                    {data.author.username}
-                  </Heading>
-                </Link>
-              </NextLink>
+              <Link href={`/${data.author.username}`}>
+                <Heading as='h3' size='lg'>
+                  {data.author.username}
+                </Heading>
+              </Link>
+
               <ArticleFollowButton article={data} mutate={mutate} />
             </Flex>
             <Text mt='2' color='gray.600'>

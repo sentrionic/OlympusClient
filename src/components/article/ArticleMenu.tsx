@@ -12,7 +12,6 @@ import {
   MenuItem,
   MenuList,
 } from '@chakra-ui/core';
-import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { mutate } from 'swr';
@@ -37,6 +36,10 @@ export const ArticleMenu: React.FC<ArticleMenuProps> = ({ article }) => {
     }
   };
 
+  const pushEditArticle = async () => {
+    await router.push(`/${article.author.username}/${article.slug}/edit`);
+  };
+
   return (
     <>
       <Menu>
@@ -48,12 +51,7 @@ export const ArticleMenu: React.FC<ArticleMenuProps> = ({ article }) => {
           size='sm'
         />
         <MenuList>
-          <NextLink
-            href={'/[username]/[slug]/edit'}
-            as={`/${article.author.username}/${article.slug}/edit`}
-          >
-            <MenuItem>Edit</MenuItem>
-          </NextLink>
+          <MenuItem onClick={() => pushEditArticle()}>Edit</MenuItem>
           <MenuItem onClick={() => setIsOpen(true)}>Delete</MenuItem>
         </MenuList>
       </Menu>

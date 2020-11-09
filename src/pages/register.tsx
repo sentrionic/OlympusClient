@@ -1,33 +1,17 @@
-import React, { useState } from 'react';
+import { Box, Button, Flex, Heading } from '@chakra-ui/core';
 import { Form, Formik } from 'formik';
-import { mutate } from 'swr';
 import { useRouter } from 'next/router';
-import {
-  Box,
-  Button,
-  Flex,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Heading,
-  Icon,
-  Input,
-  InputGroup,
-  InputRightElement,
-} from '@chakra-ui/core';
-
+import React from 'react';
+import { mutate } from 'swr';
 import { register } from '../api';
-import { NavBar } from '../components/layout/NavBar';
-import { RegisterSchema } from '../utils/schemas/user.schema';
 import { InputField } from '../components/common/InputField';
 import { PasswordField } from '../components/common/PasswordField';
+import { NavBar } from '../components/layout/NavBar';
+import { RegisterSchema } from '../utils/schemas/user.schema';
 import { toErrorMap } from '../utils/toErrorMap';
 
 const Register = () => {
-  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
-
-  const handlePasswordVisibility = () => setShowPassword(!showPassword);
 
   return (
     <>

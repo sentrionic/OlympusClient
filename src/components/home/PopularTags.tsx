@@ -3,11 +3,11 @@ import {
   Box,
   Flex,
   Heading,
+  Link,
   PseudoBox,
   SimpleGrid,
   useColorMode,
 } from '@chakra-ui/core';
-import NextLink from 'next/link';
 import React from 'react';
 import useSWR from 'swr';
 
@@ -34,7 +34,7 @@ export const PopularTags: React.FC<PopularTagsProps> = ({}) => {
 
       <SimpleGrid mt={3} columns={2} spacing={3}>
         {data?.map((t) => (
-          <NextLink key={t} href={{ pathname: '/search', query: { tag: [t] } }}>
+          <Link key={t} href={`/search?tag=${t}`}>
             <PseudoBox
               as={Badge}
               key={t}
@@ -49,7 +49,7 @@ export const PopularTags: React.FC<PopularTagsProps> = ({}) => {
             >
               {t}
             </PseudoBox>
-          </NextLink>
+          </Link>
         ))}
       </SimpleGrid>
     </Flex>

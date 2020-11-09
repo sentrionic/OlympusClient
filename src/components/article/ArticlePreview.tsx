@@ -1,5 +1,4 @@
 import { Box, Flex, Heading, Link, Text } from '@chakra-ui/core';
-import NextLink from 'next/link';
 import React, { useState } from 'react';
 import { ArticleResponse } from '../../api/models';
 import { ArticleAction } from './ArticleActions';
@@ -18,28 +17,16 @@ export const ArticlePreview: React.FC<ArticlePreviewProps> = ({ article }) => {
       <Box maxW={['28rem', '28rem', '32rem']}>
         <ArticleHeader article={preview} />
         <ArticleImage article={preview} />
-        <NextLink
-          href='/[username]/[slug]'
-          as={`/${preview.author.username}/${preview.slug}`}
-        >
-          <Link>
-            <Heading fontSize='xl' pt='6'>
-              {preview.title}
-            </Heading>
+        <Box mt='6'>
+          <Link href={`/${preview.author.username}/${preview.slug}`}>
+            <Heading fontSize='xl'>{preview.title}</Heading>
           </Link>
-        </NextLink>
+        </Box>
         <Text mt={2}>{preview.description}</Text>
-        <Flex align='center'>
-          <NextLink
-            href='/[username]/[slug]'
-            as={`/${preview.author.username}/${preview.slug}`}
-          >
-            <Link>
-              <Text fontSize='s' pt='6'>
-                Read more...
-              </Text>
-            </Link>
-          </NextLink>
+        <Flex align='center' mt='4'>
+          <Link href={`/${preview.author.username}/${preview.slug}`}>
+            <Text fontSize='s'>Read more...</Text>
+          </Link>
         </Flex>
         <ArticleAction article={preview} setPreview={setPreview} />
       </Box>
