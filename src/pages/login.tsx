@@ -1,5 +1,6 @@
-import { Box, Button, Flex, Heading, Link } from '@chakra-ui/core';
+import { Box, Button, Flex, Heading, Link } from '@chakra-ui/react';
 import { Form, Formik } from 'formik';
+import { NextSeo } from 'next-seo';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -16,19 +17,20 @@ const Login = () => {
 
   return (
     <>
+      <NextSeo title="Login" />
       <NavBar />
-      <Flex width='full' align='center' justifyContent='center' mt='10'>
+      <Flex width="full" align="center" justifyContent="center" mt="10">
         <Box
           p={8}
-          maxWidth='500px'
+          maxWidth="500px"
           borderWidth={1}
           borderRadius={8}
-          boxShadow='lg'
+          boxShadow="lg"
         >
-          <Box textAlign='center'>
+          <Box textAlign="center">
             <Heading>Login</Heading>
           </Box>
-          <Box my={4} textAlign='left'>
+          <Box my={4} textAlign="left">
             <Formik
               initialValues={{ email: '', password: '' }}
               validationSchema={LoginSchema}
@@ -55,24 +57,24 @@ const Login = () => {
               {({ isSubmitting }) => (
                 <Form>
                   <InputField
-                    type='email'
-                    placeholder='Email'
-                    label='Email'
-                    name='email'
-                    autoComplete='email'
+                    type="email"
+                    placeholder="Email"
+                    label="Email"
+                    name="email"
+                    autoComplete="email"
                   />
 
                   <PasswordField
-                    autoComplete='current-password'
-                    label='Password'
-                    name='password'
+                    autoComplete="current-password"
+                    label="Password"
+                    name="password"
                   />
 
                   <Button
-                    variantColor='blue'
-                    variant='outline'
-                    type='submit'
-                    width='full'
+                    colorScheme="blue"
+                    variant="outline"
+                    type="submit"
+                    width="full"
                     mt={8}
                     isLoading={isSubmitting}
                   >
@@ -82,8 +84,8 @@ const Login = () => {
               )}
             </Formik>
 
-            <Flex mt='4' justify='center' align='center'>
-              <NextLink href='/forgot-password'>
+            <Flex mt="4" justify="center" align="center">
+              <NextLink href="/forgot-password">
                 <Link>Forgot Password?</Link>
               </NextLink>
             </Flex>

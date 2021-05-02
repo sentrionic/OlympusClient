@@ -1,4 +1,5 @@
-import { TabPanel, TabPanels } from '@chakra-ui/core';
+import { TabPanel, TabPanels } from '@chakra-ui/react';
+import { NextSeo } from 'next-seo';
 import React from 'react';
 import useSWR from 'swr';
 import { getBookmarked } from '../api';
@@ -23,6 +24,7 @@ const Bookmarked = () => {
 
   return (
     <Layout>
+      <NextSeo title="Bookmarked" />
       <HomeTabs tabIndex={2}>
         <TabPanels>
           <TabPanel>
@@ -31,7 +33,7 @@ const Bookmarked = () => {
           <TabPanel>
             <LoadingSpinner />
           </TabPanel>
-          <TabPanel my='6'>
+          <TabPanel my="6">
             <ArticleList
               data={data}
               mutate={mutate}

@@ -1,6 +1,6 @@
 import React from 'react';
 import NextLink from 'next/link';
-import { Box, Flex, Heading, Link } from '@chakra-ui/core';
+import { Box, Flex, Heading, Link } from '@chakra-ui/react';
 
 import { Layout } from '../layout/Layout';
 

@@ -1,4 +1,4 @@
-import { IconButton } from '@chakra-ui/core';
+import { IconButton } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { BsBookmark, BsFillBookmarkFill } from 'react-icons/bs';
@@ -44,7 +44,7 @@ export const ArticleBookmarkButton: React.FC<ArticleBookmarkButtonProps> = ({
       variant='ghost'
       aria-label='Bookmark Article'
       size='lg'
-      icon={article.bookmarked ? BsFillBookmarkFill : BsBookmark}
+      icon={article.bookmarked ? <BsFillBookmarkFill /> : <BsBookmark />}
       onClick={() => {
         toggleBookmark();
       }}

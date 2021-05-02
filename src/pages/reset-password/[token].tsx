@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Heading, Link, Text } from '@chakra-ui/core';
+import { Box, Button, Flex, Heading, Link, Text } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
@@ -9,6 +9,7 @@ import { PasswordField } from '../../components/common/PasswordField';
 import { NavBar } from '../../components/layout/NavBar';
 import { ResetPasswordSchema } from '../../utils/schemas/user.schema';
 import { toErrorMap } from '../../utils/toErrorMap';
+import { NextSeo } from 'next-seo';
 
 const ResetPassword = () => {
   const router = useRouter();
@@ -16,19 +17,20 @@ const ResetPassword = () => {
 
   return (
     <>
+      <NextSeo title="Reset Password" />
       <NavBar />
-      <Flex width='full' align='center' justifyContent='center' mt='10'>
+      <Flex width="full" align="center" justifyContent="center" mt="10">
         <Box
           p={8}
-          maxWidth='500px'
+          maxWidth="500px"
           borderWidth={1}
           borderRadius={8}
-          boxShadow='lg'
+          boxShadow="lg"
         >
-          <Box textAlign='center'>
+          <Box textAlign="center">
             <Heading>Reset Password</Heading>
           </Box>
-          <Box my={4} textAlign='left'>
+          <Box my={4} textAlign="left">
             <Formik
               initialValues={{ newPassword: '', confirmNewPassword: '' }}
               validationSchema={ResetPasswordSchema}
@@ -59,19 +61,19 @@ const ResetPassword = () => {
               {({ isSubmitting }) => (
                 <Form>
                   <PasswordField
-                    label='New Password'
-                    name='newPassword'
-                    autoComplete='new-password'
+                    label="New Password"
+                    name="newPassword"
+                    autoComplete="new-password"
                   />
                   <PasswordField
-                    label='Confirm New Password'
-                    name='confirmNewPassword'
+                    label="Confirm New Password"
+                    name="confirmNewPassword"
                   />
                   <Button
-                    variantColor='blue'
-                    variant='outline'
-                    type='submit'
-                    width='full'
+                    colorScheme="blue"
+                    variant="outline"
+                    type="submit"
+                    width="full"
                     mt={8}
                     isLoading={isSubmitting}
                   >
@@ -81,10 +83,10 @@ const ResetPassword = () => {
               )}
             </Formik>
             {tokenError ? (
-              <Flex direction='column' mt='4' justify='center' align='center'>
+              <Flex direction="column" mt="4" justify="center" align="center">
                 <Text>Invalid or expired token.</Text>
-                <NextLink href='/forgot-password'>
-                  <Link color='red'>Click here to get a new token</Link>
+                <NextLink href="/forgot-password">
+                  <Link color="red">Click here to get a new token</Link>
                 </NextLink>
               </Flex>
             ) : null}

@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7b47aec0-229c-41cf-be85-8c92ef600569" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/useGetCurrentUser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/useGetCurrentUser.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/useGetProfile.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/useGetProfile.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/article/ArticleActions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/article/ArticleActions.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/article/ArticleBookmarkButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/article/ArticleBookmarkButton.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/article/ArticleFavoriteButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/article/ArticleFavoriteButton.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/article/ArticleFollowButtont.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/article/ArticleFollowButtont.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/article/ArticleHeader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/article/ArticleHeader.tsx" afterDir="false" />
@@ -20,19 +20,19 @@
       <change beforePath="$PROJECT_DIR$/src/components/comment/CommentMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/comment/CommentMenu.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/comment/CommentSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/comment/CommentSection.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/common/InputField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/InputField.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/common/PasswordField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/PasswordField.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/home/ArticleList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/ArticleList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/HomeList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/HomeList.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/home/HomeTabs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/HomeTabs.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/home/InfiniteScrollInfoBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/InfiniteScrollInfoBox.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/home/LoadingSpinner.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/LoadingSpinner.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/PopularTabs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/PopularTabs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/PopularTags.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/PopularTags.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/home/SideBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/SideBar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/layout/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/Footer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/layout/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/Layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/layout/NavBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/NavBar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/layout/NavBarSearch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/NavBarSearch.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/layout/Wrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/Wrapper.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/profile/NoProfileFound.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/profile/NoProfileFound.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/profile/ProfileArticle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/profile/ProfileArticle.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/profile/ProfileArticleList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/profile/ProfileArticleList.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/profile/ProfileBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/profile/ProfileBox.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/profile/ProfileTabHeader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/profile/ProfileTabHeader.tsx" afterDir="false" />
@@ -48,25 +48,39 @@
       <change beforePath="$PROJECT_DIR$/src/pages/[username]/favorited.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/[username]/favorited.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_app.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/account.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/account.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/bookmarked.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/bookmarked.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/change-password.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/change-password.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/create.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/create.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/feed.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/feed.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/forgot-password.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/forgot-password.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/register.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/reset-password/[token].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/reset-password/[token].tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/search.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/search.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/theme.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/theme.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/getTime.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/getTime.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/schemas/article.schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/schemas/article.schema.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/schemas/user.schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/schemas/user.schema.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/useIsAuth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/useIsAuth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="ProjectId" id="1jQ0wsAqn3FeUKLsopxGrZU0iJH" />
   <component name="ProjectViewState">
@@ -75,8 +89,10 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="ts.external.directory.path" value="C:\Users\chris\Downloads\OlympusBlog\OlympusClient\node_modules\typescript\lib" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="ts.external.directory.path" value="C:\Users\Christoph\Downloads\OlympusBlog\OlympusClient\node_modules\typescript\lib" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

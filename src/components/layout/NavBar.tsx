@@ -11,9 +11,8 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
-  PseudoBox,
   useColorMode,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
@@ -24,6 +23,7 @@ import { Logo } from './Logo';
 import { logout } from '../../api';
 import { useGetCurrentUser } from '../../api/useGetCurrentUser';
 import { NavBarSearch } from './NavBarSearch';
+import { EditIcon, MoonIcon, SettingsIcon, SunIcon } from "@chakra-ui/icons";
 
 interface NavBarProps {}
 
@@ -43,18 +43,17 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
       <>
         <NextLink href={'/create'}>
           <Button
-            variantColor='blue'
+            colorScheme='blue'
             variant='outline'
             mr={10}
             size='sm'
-            leftIcon='edit'
-            color='blue'
+            leftIcon={<EditIcon />}
           >
             Create Article
           </Button>
         </NextLink>
         <Menu>
-          <PseudoBox
+          <Box
             as={MenuButton}
             _hover={{ cursor: 'pointer' }}
             _focus={{ boxShadow: 'none' }}
@@ -62,16 +61,15 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             <Avatar src={user.image} display={['none', 'none', 'flex']} />
             <Button
               as={Box}
-              variantColor='blue'
+              colorScheme='blue'
               variant='outline'
               size='sm'
               display={['flex', 'flex', 'none']}
-              color='blue'
-              leftIcon='settings'
+              leftIcon={<SettingsIcon />}
             >
               Account
             </Button>
-          </PseudoBox>
+          </Box>
           <MenuList>
             <NextLink href='/[username]' as={`/${user.username}`}>
               <MenuItem>Your Profile</MenuItem>
@@ -100,12 +98,12 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
     body = (
       <>
         <NextLink href='/login'>
-          <Button variantColor='blue' variant='outline' mr={2} size='sm'>
+          <Button colorScheme='blue' variant='outline' mr={2} size='sm'>
             Login
           </Button>
         </NextLink>
         <NextLink href='/register'>
-          <Button variantColor='blue' variant='solid' mr={2} size='sm'>
+          <Button colorScheme='blue' variant='solid' mr={2} size='sm'>
             Register
           </Button>
         </NextLink>
@@ -154,7 +152,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             as={AiOutlineMenu}
             display={['block', 'block', 'none']}
             onClick={handleToggle}
-          ></Box>
+          />
         </Flex>
         <NavBarSearch show={show} />
         <Box
@@ -174,7 +172,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             mr='2'
             ml='4'
             onClick={toggleColorMode}
-            icon={isDark ? 'sun' : 'moon'}
+            icon={isDark ? <SunIcon /> : <MoonIcon />}
           />
         </Box>
       </Flex>

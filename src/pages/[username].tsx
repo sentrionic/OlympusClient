@@ -1,5 +1,6 @@
-import { TabPanel, TabPanels } from '@chakra-ui/core';
+import { TabPanel, TabPanels } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
+import { NextSeo } from 'next-seo';
 import React from 'react';
 import useSWR from 'swr';
 import { getArticlesByAuthor, getProfile, setCookie } from '../api';
@@ -37,6 +38,7 @@ const Profile = (profileProps: ProfileProps) => {
 
   return (
     <Layout>
+      <NextSeo title={`${profileProps.profile.username}`} />
       <ProfileWrapper>
         <ProfileBox profile={data} />
         <ProfileTabs username={data.username}>

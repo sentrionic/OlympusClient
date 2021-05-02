@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Link, Text } from '@chakra-ui/core';
+import { Box, Flex, Heading, Link, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { ArticleResponse } from '../../api/models';
 import { ArticleAction } from './ArticleActions';

@@ -7,7 +7,8 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
+import { NextSeo } from 'next-seo';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
 import useSWR from 'swr';
@@ -39,7 +40,8 @@ const Search = ({ index, query }: SearchProps) => {
 
   return (
     <Layout>
-      <Box minH='100vh'>
+      <NextSeo title="Search..." />
+      <Box minH="100vh">
         <SearchInput
           search={search}
           setSearch={setSearch}
@@ -48,7 +50,7 @@ const Search = ({ index, query }: SearchProps) => {
 
         <Tabs
           my={5}
-          variantColor='black'
+          colorScheme="black"
           defaultIndex={index}
           onChange={(index) => setTabIndex(index)}
         >

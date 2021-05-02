@@ -4,7 +4,7 @@ import {
   FormControl,
   FormErrorMessage,
   Textarea,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { Formik } from 'formik';
 import React from 'react';
 import { createComment } from '../../api';
@@ -71,14 +71,13 @@ export const CommentBox: React.FC<CommentBoxProps> = ({
             </FormControl>
 
             <Button
-              variantColor='blue'
+              colorScheme='blue'
               variant='outline'
               mt={4}
               size='sm'
-              color='blue'
               isLoading={isSubmitting}
               isDisabled={!user}
-              onClick={handleSubmit}
+              onClick={() => handleSubmit}
             >
               Post Comment
             </Button>

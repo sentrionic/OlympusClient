@@ -1,6 +1,6 @@
 import React from 'react';
 import { mutate } from 'swr';
-import { Avatar, Box, Button, Flex, Text } from '@chakra-ui/core';
+import { Avatar, Box, Button, Flex, Text } from '@chakra-ui/react';
 
 import { ProfileResponse } from '../../api/models';
 import { followUser, unfollowUser } from '../../api';

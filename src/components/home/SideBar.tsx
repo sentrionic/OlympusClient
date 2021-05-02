@@ -1,6 +1,5 @@
-import { Box, Button, Flex, Heading, Image, Link, Text } from '@chakra-ui/core';
+import { Box, Button, Flex, Heading, Image, Link, Text } from '@chakra-ui/react';
 import React from 'react';
-import NextLink from 'next/link';
 import { PopularTags } from './PopularTags';
 import { useGetCurrentUser } from '../../api/useGetCurrentUser';
 
@@ -31,19 +30,19 @@ export const SideBar: React.FC<SideBarProps> = ({}) => {
         <Box mt={2}>
           {user ? (
             <Link href='/create' style={{ textDecoration: 'none' }}>
-              <Button variant='outline' variantColor='blue' w='full'>
+              <Button variant='outline' colorScheme='blue' w='full'>
                 Create Article
               </Button>
             </Link>
           ) : (
             <Box>
               <Link href='/register' style={{ textDecoration: 'none' }}>
-                <Button variant='outline' variantColor='blue' w='full'>
+                <Button variant='outline' colorScheme='blue' w='full'>
                   Register
                 </Button>
               </Link>
               <Link href='/login' style={{ textDecoration: 'none' }}>
-                <Button mt='2' variant='ghost' variantColor='blue' w='full'>
+                <Button mt='2' variant='ghost' colorScheme='blue' w='full'>
                   Login
                 </Button>
               </Link>

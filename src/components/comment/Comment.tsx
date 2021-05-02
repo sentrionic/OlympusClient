@@ -1,4 +1,4 @@
-import { Avatar, Box, Flex, Link, Text } from '@chakra-ui/core';
+import { Avatar, Box, Flex, Link, Text } from '@chakra-ui/react';
 import React from 'react';
 import { CommentResponse } from '../../api/models';
 import { getCommentTime } from '../../utils/getTime';

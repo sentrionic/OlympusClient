@@ -1,5 +1,6 @@
-import { TabPanel, TabPanels } from '@chakra-ui/core';
+import { TabPanel, TabPanels } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
+import { NextSeo } from 'next-seo';
 import React from 'react';
 import useSWR from 'swr';
 import { getAuthorFavorites, getProfile, setCookie } from '../../api';
@@ -38,6 +39,7 @@ const Favorited = (profileProps: ProfileProps) => {
 
   return (
     <Layout>
+      <NextSeo title={`${profileProps.profile.username}'s favorites`} />
       <ProfileWrapper>
         <ProfileBox profile={data} />
         <ProfileTabs username={data.username} tabIndex={1}>

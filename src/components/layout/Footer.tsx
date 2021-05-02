@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Link, Stack, Text, useColorMode } from '@chakra-ui/core';
+import { Box, Flex, Link, Stack, Text, useColorMode } from '@chakra-ui/react';
 import {
   AiOutlineGithub,
   AiOutlineAndroid,
@@ -24,17 +24,7 @@ const links = [
   {
     icon: AiOutlineGithub,
     label: 'GitHub',
-    href: 'https://github.com/chakra-ui/chakra-ui',
-  },
-  {
-    icon: BsInfoSquare,
-    label: 'About',
-    href: 'https://github.com/chakra-ui/chakra-ui',
-  },
-  {
-    icon: AiOutlineAndroid,
-    label: 'Android',
-    href: 'https://github.com/chakra-ui/chakra-ui',
+    href: 'https://github.com/sentrionic/OlympusNest',
   },
   {
     icon: AiOutlineApi,
@@ -62,7 +52,7 @@ export const Footer: React.FC<FooterLinkProps> = ({}) => {
     >
       <Box textAlign='center'>
         <Text fontSize='xl'>
-          <span>OlympusBlog | 2020</span>
+          <span>OlympusBlog | 2021</span>
         </Text>
         <Stack mt={2} isInline justify='center'>
           {links.map((link) => (

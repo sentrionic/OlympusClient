@@ -11,12 +11,13 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { mutate } from 'swr';
 import { deleteArticle } from '../../api';
 import { ArticleResponse } from '../../api/models';
+import { ChevronDownIcon } from "@chakra-ui/icons";
 
 interface ArticleMenuProps {
   article: ArticleResponse;
@@ -47,7 +48,7 @@ export const ArticleMenu: React.FC<ArticleMenuProps> = ({ article }) => {
           as={MenuButton}
           variant='outline'
           aria-label='Settings Menu'
-          icon='chevron-down'
+          icon={<ChevronDownIcon />}
           size='sm'
         />
         <MenuList>
@@ -74,7 +75,7 @@ export const ArticleMenu: React.FC<ArticleMenuProps> = ({ article }) => {
             <Button ref={cancelRef} onClick={() => setIsOpen(false)}>
               Cancel
             </Button>
-            <Button variantColor='red' onClick={onClose} ml={3}>
+            <Button colorScheme='red' onClick={onClose} ml={3}>
               Delete
             </Button>
           </AlertDialogFooter>

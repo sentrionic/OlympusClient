@@ -1,4 +1,4 @@
-import { Flex, Input, Select } from '@chakra-ui/core';
+import { Flex, Input, Select } from '@chakra-ui/react';
 import React from 'react';
 
 interface SearchInputProps {

@@ -1,4 +1,4 @@
-import { IconButton, Text } from '@chakra-ui/core';
+import { IconButton, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { BsStar, BsStarFill } from 'react-icons/bs';
@@ -46,9 +46,9 @@ export const ArticleFavoriteButton: React.FC<ArticleFavoriteButtonProps> = ({
       <IconButton
         variant='ghost'
         aria-label='Favorite Article'
-        icon={article.favorited ? BsStarFill : BsStar}
+        icon={article.favorited ? <BsStarFill /> : <BsStar />}
         size='lg'
-        variantColor={article.favorited ? 'yellow' : undefined}
+        colorScheme={article.favorited ? 'yellow' : undefined}
         onClick={() => {
           toggleFavorite();
         }}
@@ -58,4 +58,4 @@ export const ArticleFavoriteButton: React.FC<ArticleFavoriteButtonProps> = ({
       </Text>
     </>
   );
-};
+}

@@ -1,4 +1,4 @@
-import { Avatar, Box, Heading, Link, Stack, Text } from '@chakra-ui/core';
+import { Avatar, Box, Heading, Link, Stack, Text } from '@chakra-ui/react';
 import React from 'react';
 import { ProfileResponse } from '../../api/models';
 

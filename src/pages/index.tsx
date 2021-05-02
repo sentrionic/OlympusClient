@@ -1,5 +1,6 @@
-import { Box, Flex, TabPanel, TabPanels } from '@chakra-ui/core';
+import { Box, Flex, TabPanel, TabPanels } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
+import { NextSeo } from 'next-seo';
 import React from 'react';
 import useSWR from 'swr';
 import { getAllArticles, setCookie } from '../api';
@@ -28,18 +29,19 @@ const Index = (indexProps: IndexProps) => {
 
   return (
     <>
+      <NextSeo title="Home" />
       <NavBar />
       <Flex>
         <Box
           mt={8}
-          maxW='600px'
-          w='auto'
-          ml='auto'
+          maxW="600px"
+          w="auto"
+          ml="auto"
           mr={['auto', 'auto', '0', '0']}
         >
           <HomeTabs>
             <TabPanels>
-              <TabPanel my='6'>
+              <TabPanel my="6">
                 <HomeList data={data} />
               </TabPanel>
               <TabPanel>

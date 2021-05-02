@@ -1,4 +1,4 @@
-import { Flex, IconButton, Text } from '@chakra-ui/core';
+import { Flex, IconButton, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 import {
@@ -15,6 +15,7 @@ import {
 } from '../../api';
 import { ArticleResponse } from '../../api/models';
 import { useGetCurrentUser } from '../../api/useGetCurrentUser';
+import { ChatIcon } from "@chakra-ui/icons";
 
 interface ArticleActionsProps {
   article: ArticleResponse;
@@ -78,9 +79,9 @@ export const ArticleAction: React.FC<ArticleActionsProps> = ({
           <IconButton
             variant='ghost'
             aria-label='Favorite Article'
-            icon={article.favorited ? BsStarFill : BsStar}
+            icon={article.favorited ? <BsStarFill /> : <BsStar />}
             size='lg'
-            variantColor={article.favorited ? 'yellow' : undefined}
+            colorScheme={article.favorited ? 'yellow' : undefined}
             onClick={() => handleFavorite(article)}
           />
           <Text ml='2' fontSize='sm'>
@@ -90,7 +91,7 @@ export const ArticleAction: React.FC<ArticleActionsProps> = ({
         <IconButton
           variant='ghost'
           aria-label='Favorite Article'
-          icon='chat'
+          icon={<ChatIcon/>}
           size='lg'
           ml='2'
           onClick={() => handleComment()}
@@ -99,10 +100,10 @@ export const ArticleAction: React.FC<ArticleActionsProps> = ({
       <IconButton
         variant='ghost'
         aria-label='Bookmark Article'
-        icon={article.bookmarked ? BsFillBookmarkFill : BsBookmark}
+        icon={article.bookmarked ? <BsFillBookmarkFill /> : <BsBookmark />}
         size='lg'
         onClick={() => handleBookmark(article)}
       />
     </Flex>
   );
-};
+}

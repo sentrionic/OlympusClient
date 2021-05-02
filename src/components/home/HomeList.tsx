@@ -1,8 +1,9 @@
-import { Box, Button, Flex, Heading, Stack, Tag, Text } from '@chakra-ui/core';
+import { Box, Button, Flex, Heading, Stack, Tag, Text } from '@chakra-ui/react';
 import React from 'react';
 import NextLink from 'next/link';
 import { ArticlePreview } from '../article/ArticlePreview';
 import { IndexProps } from '../../pages';
+import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 
 interface HomeListProps {
   data: IndexProps;
@@ -48,7 +49,7 @@ export const HomeList: React.FC<HomeListProps> = ({ data }) => {
           <Button
             variant='outline'
             aria-label='Favorite Article'
-            leftIcon='chevron-left'
+            leftIcon={<ChevronLeftIcon />}
             isDisabled={page <= 1}
           >
             <Text>Previous</Text>
@@ -59,7 +60,7 @@ export const HomeList: React.FC<HomeListProps> = ({ data }) => {
           <Button
             variant='outline'
             aria-label='Favorite Article'
-            rightIcon='chevron-right'
+            rightIcon={<ChevronRightIcon />}
             isDisabled={!hasMore}
           >
             <Text>Next</Text>

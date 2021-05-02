@@ -21,6 +21,7 @@ export const ArticleSchema = yup.object().shape({
     .defined(),
   body: yup.string().defined().required('A body is required'),
   tagList: yup
+    //@ts-ignore
     .array<string>(
       yup.string().min(3).max(15, 'Max Limit is 15 characters').defined()
     )
@@ -45,6 +46,7 @@ export const UpdateArticleSchema = yup.object().shape({
     .optional(),
   body: yup.string().optional(),
   tagList: yup
+    //@ts-ignore
     .array<string>(
       yup.string().min(3).max(15, 'Max Limit is 15 characters').defined()
     )

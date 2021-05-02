@@ -1,4 +1,4 @@
-import { Tab, TabList, Tabs } from '@chakra-ui/core';
+import { Tab, TabList, Tabs } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import React from 'react';
 import { useGetCurrentUser } from '../../api/useGetCurrentUser';

@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Stack, Text } from '@chakra-ui/core';
+import { Box, Flex, Heading, Stack, Text } from '@chakra-ui/react';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { InfoBox } from './InfiniteScrollInfoBox';

@@ -1,4 +1,4 @@
-import { Box, Flex, Stack, Text } from '@chakra-ui/core';
+import { Box, Flex, Stack, Text } from '@chakra-ui/react';
 import React from 'react';
 import useSWR from 'swr';
 import { Comment } from './Comment';

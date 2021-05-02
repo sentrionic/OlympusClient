@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Text } from '@chakra-ui/core';
+import { Box, Flex, Text } from '@chakra-ui/react';
 
 export const InfoBox: React.FC<{ text: string }> = ({ text }) => (
   <Flex align='center' justify='center' mt='10'>

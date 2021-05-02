@@ -9,7 +9,8 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 type PasswordFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
@@ -41,7 +42,7 @@ export const PasswordField: React.FC<PasswordFieldProps> = ({
             onClick={handlePasswordVisibility}
             tabIndex={-1}
           >
-            {showPassword ? <Icon name="view-off" /> : <Icon name="view" />}
+            {showPassword ? <ViewOffIcon /> : <ViewIcon />}
           </Button>
         </InputRightElement>
       </InputGroup>

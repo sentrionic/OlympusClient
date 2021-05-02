@@ -1,4 +1,5 @@
-import { TabPanel, TabPanels } from '@chakra-ui/core';
+import { TabPanel, TabPanels } from '@chakra-ui/react';
+import { NextSeo } from 'next-seo';
 import React from 'react';
 import useSWR from 'swr';
 import { getFeed } from '../api';
@@ -23,12 +24,13 @@ const Feed = () => {
 
   return (
     <Layout>
+      <NextSeo title="Your Feed" />
       <HomeTabs tabIndex={1}>
         <TabPanels>
           <TabPanel>
             <LoadingSpinner />
           </TabPanel>
-          <TabPanel my='6'>
+          <TabPanel my="6">
             <ArticleList
               data={data}
               mutate={mutate}

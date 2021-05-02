@@ -6,7 +6,7 @@ import {
   FormLabel,
   Input,
   Textarea,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 
 type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
@@ -24,6 +24,7 @@ export const InputField: React.FC<InputFieldProps> = ({
   return (
     <FormControl mt={6} isInvalid={error && touched}>
       <FormLabel htmlFor={field.name}>{label}</FormLabel>
+      {/*@ts-ignore*/}
       <TextInput {...field} {...props} size='lg' />
       <FormErrorMessage>{error}</FormErrorMessage>
     </FormControl>

@@ -1,4 +1,4 @@
-import { Avatar, Box, Flex, Link, Stack } from '@chakra-ui/core';
+import { Avatar, Box, Flex, Link, Stack } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import React from 'react';
 import { ArticleResponse } from '../../api/models';
@@ -17,7 +17,7 @@ export const ArticleHeader: React.FC<ArticleHeaderProps> = ({ article }) => {
     <Flex mb='5' justify='space-between'>
       <Stack isInline>
         <Avatar name={article.author.username} src={article.author.image} />
-        <Box>
+        <Box textAlign={"left"}>
           <Link
             href={`/${article.author.username}`}
             fontWeight='bold'

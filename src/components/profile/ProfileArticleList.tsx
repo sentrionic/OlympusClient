@@ -1,4 +1,4 @@
-import { Box, Flex, Stack, Text } from '@chakra-ui/core';
+import { Box, Flex, Stack, Text } from '@chakra-ui/react';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { PaginatedArticles, ProfileResponse } from '../../api/models';

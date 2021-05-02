@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Heading, Link, useToast } from '@chakra-ui/core';
+import { Box, Button, Flex, Heading, Link, useToast } from '@chakra-ui/react';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import NextLink from 'next/link';
@@ -8,6 +8,7 @@ import { NavBar } from '../components/layout/NavBar';
 import { ChangePasswordSchema } from '../utils/schemas/user.schema';
 import { useIsAuth } from '../utils/useIsAuth';
 import { toErrorMap } from '../utils/toErrorMap';
+import { NextSeo } from 'next-seo';
 
 const ChangePassword = () => {
   useIsAuth();
@@ -16,18 +17,19 @@ const ChangePassword = () => {
   return (
     <>
       <NavBar />
-      <Flex width='full' align='center' justifyContent='center' mt='10'>
+      <NextSeo title="Change Password" />
+      <Flex width="full" align="center" justifyContent="center" mt="10">
         <Box
           p={8}
-          maxWidth='500px'
+          maxWidth="500px"
           borderWidth={1}
           borderRadius={8}
-          boxShadow='lg'
+          boxShadow="lg"
         >
-          <Box textAlign='center'>
+          <Box textAlign="center">
             <Heading>Change Password</Heading>
           </Box>
-          <Box my={4} textAlign='left'>
+          <Box my={4} textAlign="left">
             <Formik
               initialValues={{
                 currentPassword: '',
@@ -58,27 +60,27 @@ const ChangePassword = () => {
               {({ isSubmitting }) => (
                 <Form>
                   <PasswordField
-                    label='Current Password'
-                    name='currentPassword'
-                    autoComplete='current-password'
+                    label="Current Password"
+                    name="currentPassword"
+                    autoComplete="current-password"
                   />
 
                   <PasswordField
-                    label='New Password'
-                    name='newPassword'
-                    autoComplete='new-password'
+                    label="New Password"
+                    name="newPassword"
+                    autoComplete="new-password"
                   />
 
                   <PasswordField
-                    label='Confirm New Password'
-                    name='confirmNewPassword'
+                    label="Confirm New Password"
+                    name="confirmNewPassword"
                   />
 
                   <Button
-                    variantColor='blue'
-                    variant='outline'
-                    type='submit'
-                    width='full'
+                    colorScheme="blue"
+                    variant="outline"
+                    type="submit"
+                    width="full"
                     mt={8}
                     isLoading={isSubmitting}
                   >
@@ -88,8 +90,8 @@ const ChangePassword = () => {
               )}
             </Formik>
           </Box>
-          <Flex mt='6' justify='center' align='center'>
-            <NextLink href='/account'>
+          <Flex mt="6" justify="center" align="center">
+            <NextLink href="/account">
               <Link>Go Back</Link>
             </NextLink>
           </Flex>

@@ -1,4 +1,4 @@
-import { Tab, TabList, Tabs } from '@chakra-ui/core';
+import { Tab, TabList, Tabs } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import React from 'react';
 
@@ -13,7 +13,7 @@ export const ProfileTabs: React.FC<ProfileTabsProps> = ({
   tabIndex = 0,
 }) => {
   return (
-    <Tabs mt='2' size='sm' variantColor='black' defaultIndex={tabIndex}>
+    <Tabs mt='2' size='sm' colorScheme='black' defaultIndex={tabIndex}>
       <TabList>
         <Tab>
           <NextLink href={'/[username]'} as={`/${username}`}>

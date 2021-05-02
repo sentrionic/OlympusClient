@@ -1,12 +1,11 @@
 import * as yup from 'yup';
-import { LoginDTO, RegisterDTO } from '../../api/models';
 
-export const LoginSchema = yup.object<LoginDTO>({
+export const LoginSchema = yup.object().shape({
   email: yup.string().required('Email is required').defined(),
   password: yup.string().required('Password is required').defined(),
 });
 
-export const RegisterSchema = yup.object<RegisterDTO>({
+export const RegisterSchema = yup.object().shape({
   username: yup
     .string()
     .min(3)
