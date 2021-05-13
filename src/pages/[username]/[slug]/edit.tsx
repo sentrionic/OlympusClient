@@ -12,24 +12,24 @@ import {
   Switch,
   Text,
   Textarea,
-} from '@chakra-ui/react';
-import { Form, Formik } from 'formik';
-import NextLink from 'next/link';
-import ReactMarkdown from 'react-markdown';
-import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
-import { useRouter } from 'next/router';
-import React, { useRef, useState } from 'react';
-import { useIsAuth } from '../../../utils/useIsAuth';
-import { Layout } from '../../../components/layout/Layout';
-import useSWR, { mutate } from 'swr';
-import { ArticleResponse } from '../../../api/models';
-import { updateArticle } from '../../../api';
-import { InputField } from '../../../components/common/InputField';
-import { useGetCurrentUser } from '../../../api/useGetCurrentUser';
-import { UpdateArticleSchema } from '../../../utils/schemas/article.schema';
-import { toErrorMap } from '../../../utils/toErrorMap';
-import { PlusSquareIcon } from '@chakra-ui/icons';
-import { NextSeo } from 'next-seo';
+} from "@chakra-ui/react";
+import { Form, Formik } from "formik";
+import NextLink from "next/link";
+import ReactMarkdown from "react-markdown";
+import ChakraUIRenderer from "chakra-ui-markdown-renderer";
+import { useRouter } from "next/router";
+import React, { useRef, useState } from "react";
+import { useIsAuth } from "../../../utils/useIsAuth";
+import { Layout } from "../../../components/layout/Layout";
+import useSWR, { mutate } from "swr";
+import { ArticleResponse } from "../../../api/models";
+import { updateArticle } from "../../../api";
+import { InputField } from "../../../components/common/InputField";
+import { useGetCurrentUser } from "../../../api/useGetCurrentUser";
+import { UpdateArticleSchema } from "../../../utils/schemas/article.schema";
+import { toErrorMap } from "../../../utils/toErrorMap";
+import { PlusSquareIcon } from "@chakra-ui/icons";
+import { NextSeo } from "next-seo";
 
 const Edit = () => {
   useIsAuth();
@@ -81,20 +81,18 @@ const Edit = () => {
             onSubmit={async (values, { setErrors }) => {
               try {
                 const formData = new FormData();
-                formData.append('title', values.title);
-                formData.append('description', values.description);
-                formData.append('body', values.body);
-                formData.append('image', values.image);
+                formData.append("title", values.title);
+                formData.append("description", values.description);
+                formData.append("body", values.body);
+                if (values.image) formData.append("image", values.image);
                 const tags = values.tagList;
-                tags.map((tag, i) =>
-                  formData.append(`tagList[${i}]`, tag.trim())
-                );
+                tags.map((tag) => formData.append(`tagList`, tag.trim()));
                 const { data: updatedArticle } = await updateArticle(
                   data.slug,
                   formData
                 );
                 if (updatedArticle) {
-                  mutate('/articles');
+                  mutate("/articles");
                   mutate(`/articles/${slug}`);
                   await router.push(`/${data.author.username}/${data.slug}`);
                 }
@@ -123,7 +121,7 @@ const Edit = () => {
                   hidden
                   onChange={async (e) => {
                     if (!e.currentTarget.files) return;
-                    setFieldValue('image', e.currentTarget.files[0]);
+                    setFieldValue("image", e.currentTarget.files[0]);
                     setImageUrl(URL.createObjectURL(e.currentTarget.files[0]));
                   }}
                 />
@@ -135,7 +133,7 @@ const Edit = () => {
                     rounded="lg"
                     overflow="hidden"
                     src={imageUrl || data.image}
-                    alt={'Article Image'}
+                    alt={"Article Image"}
                     objectFit="contain"
                   />
                 </Flex>
@@ -201,7 +199,7 @@ const Edit = () => {
                   label="Tags"
                   name="tagList"
                   onChange={(e) =>
-                    setFieldValue('tagList', [...e.target.value.split(',')])
+                    setFieldValue("tagList", [...e.target.value.split(",")])
                   }
                 />
                 <Flex justify="flex-end">

@@ -4,14 +4,14 @@ import {
   FormControl,
   FormErrorMessage,
   Textarea,
-} from '@chakra-ui/react';
-import { Formik } from 'formik';
-import React from 'react';
-import { createComment } from '../../api';
-import { ArticleResponse } from '../../api/models';
-import { useGetCurrentUser } from '../../api/useGetCurrentUser';
-import { CommentSchema } from '../../utils/schemas/article.schema';
-import { toErrorMap } from '../../utils/toErrorMap';
+} from "@chakra-ui/react";
+import { Formik } from "formik";
+import React from "react";
+import { createComment } from "../../api";
+import { ArticleResponse } from "../../api/models";
+import { useGetCurrentUser } from "../../api/useGetCurrentUser";
+import { CommentSchema } from "../../utils/schemas/article.schema";
+import { toErrorMap } from "../../utils/toErrorMap";
 
 interface CommentBoxProps {
   article: ArticleResponse;
@@ -27,7 +27,7 @@ export const CommentBox: React.FC<CommentBoxProps> = ({
     <Box>
       <Formik
         initialValues={{
-          body: '',
+          body: "",
         }}
         validationSchema={CommentSchema}
         onSubmit={async (values, { setErrors, resetForm }) => {
@@ -58,26 +58,26 @@ export const CommentBox: React.FC<CommentBoxProps> = ({
           handleSubmit,
         }) => (
           <>
-            <FormControl isInvalid={errors.body && touched.body} w='full'>
+            <FormControl isInvalid={errors.body && touched.body} w="full">
               <Textarea
                 value={values.body}
-                name='body'
+                name="body"
                 onChange={handleChange}
                 placeholder={`What are your thoughts?${
-                  !user ? '\nSign in to comment.' : ''
+                  !user ? "\nSign in to comment." : ""
                 }`}
               />
               <FormErrorMessage>{errors.body}</FormErrorMessage>
             </FormControl>
 
             <Button
-              colorScheme='blue'
-              variant='outline'
+              colorScheme="blue"
+              variant="outline"
               mt={4}
-              size='sm'
+              size="sm"
               isLoading={isSubmitting}
               isDisabled={!user}
-              onClick={() => handleSubmit}
+              onClick={() => handleSubmit()}
             >
               Post Comment
             </Button>

@@ -11,26 +11,26 @@ import {
   Switch,
   Text,
   Textarea,
-} from '@chakra-ui/react';
-import { Form, Formik } from 'formik';
-import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
-import { useRouter } from 'next/router';
-import React, { useRef, useState } from 'react';
-import { createArticle } from '../api';
-import { InputField } from '../components/common/InputField';
-import { Layout } from '../components/layout/Layout';
-import { useIsAuth } from '../utils/useIsAuth';
-import { ArticleSchema } from '../utils/schemas/article.schema';
-import { toErrorMap } from '../utils/toErrorMap';
-import { PlusSquareIcon } from '@chakra-ui/icons';
-import ReactMarkdown from 'react-markdown';
-import { NextSeo } from 'next-seo';
+} from "@chakra-ui/react";
+import { Form, Formik } from "formik";
+import ChakraUIRenderer from "chakra-ui-markdown-renderer";
+import { useRouter } from "next/router";
+import React, { useRef, useState } from "react";
+import { createArticle } from "../api";
+import { InputField } from "../components/common/InputField";
+import { Layout } from "../components/layout/Layout";
+import { useIsAuth } from "../utils/useIsAuth";
+import { ArticleSchema } from "../utils/schemas/article.schema";
+import { toErrorMap } from "../utils/toErrorMap";
+import { PlusSquareIcon } from "@chakra-ui/icons";
+import ReactMarkdown from "react-markdown";
+import { NextSeo } from "next-seo";
 
 const Create = () => {
   useIsAuth();
   const router = useRouter();
   const inputFile = useRef(null);
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageUrl, setImageUrl] = useState("");
   const [isPreview, togglePreview] = useState(false);
 
   return (
@@ -43,9 +43,9 @@ const Create = () => {
         <Box my={4} textAlign="left">
           <Formik
             initialValues={{
-              title: '',
-              description: '',
-              body: '',
+              title: "",
+              description: "",
+              body: "",
               tagList: [],
               image: null,
             }}
@@ -53,16 +53,16 @@ const Create = () => {
             onSubmit={async (values, { setErrors }) => {
               try {
                 const formData = new FormData();
-                formData.append('title', values.title);
-                formData.append('description', values.description);
-                formData.append('body', values.body);
-                formData.append('image', values.image);
-                values.tagList.map((tag, i) =>
-                  formData.append(`tagList[${i}]`, tag.trim())
+                formData.append("title", values.title);
+                formData.append("description", values.description);
+                formData.append("body", values.body);
+                if (values.image) formData.append("image", values.image);
+                values.tagList.map((tag) =>
+                  formData.append(`tagList`, tag.trim())
                 );
                 const { data } = await createArticle(formData);
                 if (data) {
-                  await router.push('/');
+                  await router.push("/");
                 }
               } catch (err) {
                 if (err?.response?.data?.errors) {
@@ -89,7 +89,7 @@ const Create = () => {
                   hidden
                   onChange={async (e) => {
                     if (!e.currentTarget.files) return;
-                    setFieldValue('image', e.currentTarget.files[0]);
+                    setFieldValue("image", e.currentTarget.files[0]);
                     setImageUrl(URL.createObjectURL(e.currentTarget.files[0]));
                   }}
                 />
@@ -101,7 +101,7 @@ const Create = () => {
                       rounded="lg"
                       overflow="hidden"
                       src={imageUrl}
-                      alt={'Article Image'}
+                      alt={"Article Image"}
                       objectFit="contain"
                     />
                   </Flex>
@@ -160,7 +160,7 @@ const Create = () => {
                   label="Tags"
                   name="tagList"
                   onChange={(e) =>
-                    setFieldValue('tagList', [...e.target.value.split(',')])
+                    setFieldValue("tagList", [...e.target.value.split(",")])
                   }
                 />
                 <Flex justify="flex-end">
