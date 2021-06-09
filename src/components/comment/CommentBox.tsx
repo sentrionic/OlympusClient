@@ -56,7 +56,7 @@ export const CommentBox: React.FC<CommentBoxProps> = ({ article, addComment }) =
               size="sm"
               isLoading={isSubmitting}
               isDisabled={!user}
-              onClick={() => handleSubmit}
+              onClick={() => handleSubmit()}
             >
               Post Comment
             </Button>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Flex, Link, Stack, Text, useColorMode } from '@chakra-ui/react';
-import { AiOutlineGithub, AiOutlineAndroid, AiOutlineApi } from 'react-icons/ai';
-import { BsInfoSquare } from 'react-icons/bs';
+import { AiOutlineGithub, AiOutlineApi } from 'react-icons/ai';
 import { IconType } from 'react-icons';
 
 type FooterLinkProps = {
@@ -20,12 +19,12 @@ const links = [
   {
     icon: AiOutlineGithub,
     label: 'GitHub',
-    href: 'https://github.com/sentrionic/OlympusNest',
+    href: 'https://github.com/sentrionic/OlympusBlog',
   },
   {
     icon: AiOutlineApi,
     label: 'API',
-    href: 'https://api.harmonyapp.xyz',
+    href: 'https://olympus-blog.herokuapp.com',
   },
 ];
 

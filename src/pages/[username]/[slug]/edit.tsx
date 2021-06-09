@@ -82,9 +82,9 @@ const Edit = () => {
                 formData.append('title', values.title);
                 formData.append('description', values.description);
                 formData.append('body', values.body);
-                formData.append('image', values.image);
+                if (values.image) formData.append('image', values.image);
                 const tags = values.tagList;
-                tags.map((tag, i) => formData.append(`tagList[${i}]`, tag.trim()));
+                tags.map((tag) => formData.append(`tagList`, tag.trim()));
                 const { data: updatedArticle } = await updateArticle(data.slug, formData);
                 if (updatedArticle) {
                   mutate('/articles');

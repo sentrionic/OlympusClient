@@ -56,8 +56,8 @@ const Create = () => {
                 formData.append('title', values.title);
                 formData.append('description', values.description);
                 formData.append('body', values.body);
-                formData.append('image', values.image);
-                values.tagList.map((tag, i) => formData.append(`tagList[${i}]`, tag.trim()));
+                if (values.image) formData.append('image', values.image);
+                values.tagList.map((tag) => formData.append(`tagList`, tag.trim()));
                 const { data } = await createArticle(formData);
                 if (data) {
                   await router.push('/');

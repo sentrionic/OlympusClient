@@ -9,8 +9,8 @@ export const Logo: React.FC<LogoProps> = ({ isDark }) => {
     <svg
       version="1.0"
       xmlns="http://www.w3.org/2000/svg"
-      width="auto"
-      height="auto"
+      width="40"
+      height="40"
       viewBox="0 0 100.000000 99.000000"
       preserveAspectRatio="xMidYMid meet"
     >

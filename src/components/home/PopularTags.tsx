@@ -1,4 +1,4 @@
-import { Badge, Flex, Heading, Link, Box, SimpleGrid, useColorMode } from '@chakra-ui/react';
+import { Badge, Flex, Heading, Link, SimpleGrid, useColorMode } from '@chakra-ui/react';
 import React from 'react';
 import useSWR from 'swr';
 
@@ -18,8 +18,7 @@ export const PopularTags: React.FC<PopularTagsProps> = ({}) => {
       <SimpleGrid mt={3} columns={2} spacing={3}>
         {data?.map((t) => (
           <Link key={t} href={`/search?tag=${t}`}>
-            <Box
-              as={Badge}
+            <Badge
               key={t}
               w="full"
               p="2"
@@ -31,7 +30,7 @@ export const PopularTags: React.FC<PopularTagsProps> = ({}) => {
               }}
             >
               {t}
-            </Box>
+            </Badge>
           </Link>
         ))}
       </SimpleGrid>
