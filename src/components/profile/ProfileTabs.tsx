@@ -7,13 +7,9 @@ interface ProfileTabsProps {
   tabIndex?: number;
 }
 
-export const ProfileTabs: React.FC<ProfileTabsProps> = ({
-  children,
-  username,
-  tabIndex = 0,
-}) => {
+export const ProfileTabs: React.FC<ProfileTabsProps> = ({ children, username, tabIndex = 0 }) => {
   return (
-    <Tabs mt='2' size='sm' colorScheme='black' defaultIndex={tabIndex}>
+    <Tabs mt="2" size="sm" colorScheme="black" defaultIndex={tabIndex}>
       <TabList>
         <Tab>
           <NextLink href={'/[username]'} as={`/${username}`}>
@@ -21,10 +17,7 @@ export const ProfileTabs: React.FC<ProfileTabsProps> = ({
           </NextLink>
         </Tab>
         <Tab>
-          <NextLink
-            href={'/[username]/favorited'}
-            as={`/${username}/favorited`}
-          >
+          <NextLink href={'/[username]/favorited'} as={`/${username}/favorited`}>
             Favorited
           </NextLink>
         </Tab>

@@ -18,13 +18,7 @@ const ForgotPassword = () => {
       <NextSeo title="Forgot Password" />
       <NavBar />
       <Flex width="full" align="center" justifyContent="center" mt="10">
-        <Box
-          p={8}
-          maxWidth="500px"
-          borderWidth={1}
-          borderRadius={8}
-          boxShadow="lg"
-        >
+        <Box p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">
           <Box textAlign="center">
             <Heading>Forgot Password</Heading>
           </Box>
@@ -38,8 +32,7 @@ const ForgotPassword = () => {
                   if (data) {
                     toast({
                       title: 'Reset Mail.',
-                      description:
-                        'If an account with that email already exists, we sent you an email',
+                      description: 'If an account with that email already exists, we sent you an email',
                       status: 'success',
                       duration: 5000,
                       isClosable: true,
@@ -56,13 +49,7 @@ const ForgotPassword = () => {
             >
               {({ isSubmitting }) => (
                 <Form>
-                  <InputField
-                    type="email"
-                    placeholder="Email"
-                    label="Email"
-                    name="email"
-                    autoComplete="email"
-                  />
+                  <InputField type="email" placeholder="Email" label="Email" name="email" autoComplete="email" />
                   <Button
                     colorScheme="blue"
                     variant="outline"

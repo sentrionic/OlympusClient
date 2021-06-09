@@ -1,12 +1,4 @@
-import {
-  Badge,
-  Flex,
-  Heading,
-  Link,
-  Box,
-  SimpleGrid,
-  useColorMode,
-} from '@chakra-ui/react';
+import { Badge, Flex, Heading, Link, Box, SimpleGrid, useColorMode } from '@chakra-ui/react';
 import React from 'react';
 import useSWR from 'swr';
 
@@ -18,16 +10,8 @@ export const PopularTags: React.FC<PopularTagsProps> = ({}) => {
   const isDark = colorMode === 'dark';
 
   return (
-    <Flex
-      justify='center'
-      align='center'
-      direction='column'
-      shadow='md'
-      borderWidth='1px'
-      p='5'
-      mt='5'
-    >
-      <Heading size='lg' my={2}>
+    <Flex justify="center" align="center" direction="column" shadow="md" borderWidth="1px" p="5" mt="5">
+      <Heading size="lg" my={2}>
         Popular Tags
       </Heading>
 
@@ -37,10 +21,10 @@ export const PopularTags: React.FC<PopularTagsProps> = ({}) => {
             <Box
               as={Badge}
               key={t}
-              w='full'
-              p='2'
-              rounded='md'
-              textAlign='center'
+              w="full"
+              p="2"
+              rounded="md"
+              textAlign="center"
               _hover={{
                 cursor: 'pointer',
                 bg: isDark ? 'gray.500' : 'gray.300',

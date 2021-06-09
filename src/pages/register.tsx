@@ -19,13 +19,7 @@ const Register = () => {
       <NextSeo title="Register" />
       <NavBar />
       <Flex width="full" align="center" justifyContent="center" mt="10">
-        <Box
-          p={8}
-          maxWidth="500px"
-          borderWidth={1}
-          borderRadius={8}
-          boxShadow="lg"
-        >
+        <Box p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">
           <Box textAlign="center">
             <Heading>Register Account</Heading>
           </Box>
@@ -50,26 +44,11 @@ const Register = () => {
             >
               {({ isSubmitting }) => (
                 <Form>
-                  <InputField
-                    placeholder="Username"
-                    label="Username"
-                    name="username"
-                    autoComplete="username"
-                  />
+                  <InputField placeholder="Username" label="Username" name="username" autoComplete="username" />
 
-                  <InputField
-                    type="email"
-                    placeholder="Email"
-                    label="Email"
-                    name="email"
-                    autoComplete="email"
-                  />
+                  <InputField type="email" placeholder="Email" label="Email" name="email" autoComplete="email" />
 
-                  <PasswordField
-                    autoComplete="new-password"
-                    label="Password"
-                    name="password"
-                  />
+                  <PasswordField autoComplete="new-password" label="Password" name="password" />
 
                   <Button
                     colorScheme="blue"

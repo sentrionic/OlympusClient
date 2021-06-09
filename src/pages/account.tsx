@@ -1,13 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Link,
-  useDisclosure,
-  useToast,
-} from '@chakra-ui/react';
+import { Avatar, Box, Button, Flex, Heading, Link, useDisclosure, useToast } from '@chakra-ui/react';
 import { Form, Formik } from 'formik';
 import React, { useRef, useState } from 'react';
 import NextLink from 'next/link';
@@ -26,11 +17,7 @@ const Account = () => {
   useIsAuth();
   const toast = useToast();
   const { user, isLoading } = useGetCurrentUser();
-  const {
-    isOpen: cropperIsOpen,
-    onOpen: cropperOnOpen,
-    onClose: cropperOnClose,
-  } = useDisclosure();
+  const { isOpen: cropperIsOpen, onOpen: cropperOnOpen, onClose: cropperOnClose } = useDisclosure();
 
   const inputFile = useRef(null);
   const [imageUrl, setImageUrl] = useState(user?.image);
@@ -52,13 +39,7 @@ const Account = () => {
       <NextSeo title={'Account'} />
       <NavBar />
       <Flex width="full" align="center" justifyContent="center" my="10">
-        <Box
-          p={8}
-          maxWidth="500px"
-          borderWidth={1}
-          borderRadius={8}
-          boxShadow="lg"
-        >
+        <Box p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">
           <Box textAlign="center">
             <Heading>Account Settings</Heading>
           </Box>
@@ -101,11 +82,7 @@ const Account = () => {
                 <Form>
                   <Flex align="center" justify="center" mb="4">
                     <Box _hover={{ cursor: 'pointer', opacity: 0.5 }}>
-                      <Avatar
-                        src={imageUrl || user.image}
-                        size="2xl"
-                        onClick={() => inputFile.current.click()}
-                      />
+                      <Avatar src={imageUrl || user.image} size="2xl" onClick={() => inputFile.current.click()} />
                     </Box>
                     <input
                       type="file"
@@ -115,9 +92,7 @@ const Account = () => {
                       hidden
                       onChange={async (e) => {
                         if (!e.currentTarget.files) return;
-                        setCropImage(
-                          URL.createObjectURL(e.currentTarget.files[0])
-                        );
+                        setCropImage(URL.createObjectURL(e.currentTarget.files[0]));
                         cropperOnOpen();
                       }}
                     />
@@ -169,12 +144,7 @@ const Account = () => {
           </Flex>
         </Box>
       </Flex>
-      <CropAvatarModal
-        isOpen={cropperIsOpen}
-        onClose={cropperOnClose}
-        initialImage={cropImage}
-        applyCrop={applyCrop}
-      />
+      <CropAvatarModal isOpen={cropperIsOpen} onClose={cropperOnClose} initialImage={cropImage} applyCrop={applyCrop} />
     </>
   );
 };

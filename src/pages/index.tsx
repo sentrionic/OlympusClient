@@ -32,13 +32,7 @@ const Index = (indexProps: IndexProps) => {
       <NextSeo title="Home" />
       <NavBar />
       <Flex>
-        <Box
-          mt={8}
-          maxW="600px"
-          w="auto"
-          ml="auto"
-          mr={['auto', 'auto', '0', '0']}
-        >
+        <Box mt={8} maxW="600px" w="auto" ml="auto" mr={['auto', 'auto', '0', '0']}>
           <HomeTabs>
             <TabPanels>
               <TabPanel my="6">

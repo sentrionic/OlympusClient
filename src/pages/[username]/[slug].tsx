@@ -1,15 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Collapse,
-  Divider,
-  Flex,
-  Heading,
-  Link,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
+import { Avatar, Box, Button, Collapse, Divider, Flex, Heading, Link, Stack, Text } from '@chakra-ui/react';
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
 import { GetServerSideProps } from 'next';
 import React from 'react';
@@ -105,18 +94,9 @@ const Article = ({ article }: ArticleProps) => {
         </Flex>
         <Divider my="5" />
         <Stack isInline>
-          <Avatar
-            name={data.author.username}
-            src={data.author.image}
-            size="lg"
-          />
+          <Avatar name={data.author.username} src={data.author.image} size="lg" />
           <Box>
-            <Text
-              textTransform="uppercase"
-              fontSize="sm"
-              letterSpacing="wide"
-              color="gray.500"
-            >
+            <Text textTransform="uppercase" fontSize="sm" letterSpacing="wide" color="gray.500">
               Written by
             </Text>
             <Flex justify="space-between" align="center">

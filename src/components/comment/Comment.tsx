@@ -12,15 +12,15 @@ export const Comment: React.FC<CommentProps> = ({ comment }) => {
     <Flex>
       <Avatar name={comment.author.username} src={comment.author.image} />
       <Box>
-        <Flex ml='3'>
-          <Link href={`/${comment.author.username}`} fontWeight='bold'>
+        <Flex ml="3">
+          <Link href={`/${comment.author.username}`} fontWeight="bold">
             {comment.author.username}
           </Link>
-          <Text ml='2' fontSize='sm' color='gray.500'>
+          <Text ml="2" fontSize="sm" color="gray.500">
             {getCommentTime(comment.createdAt)}
           </Text>
         </Flex>
-        <Text ml='3'>{comment.body}</Text>
+        <Text ml="3">{comment.body}</Text>
       </Box>
     </Flex>
   );

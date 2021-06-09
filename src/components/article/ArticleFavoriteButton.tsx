@@ -11,10 +11,7 @@ interface ArticleFavoriteButtonProps {
   mutate: Function;
 }
 
-export const ArticleFavoriteButton: React.FC<ArticleFavoriteButtonProps> = ({
-  article,
-  mutate,
-}) => {
+export const ArticleFavoriteButton: React.FC<ArticleFavoriteButtonProps> = ({ article, mutate }) => {
   const { user } = useGetCurrentUser();
   const router = useRouter();
 
@@ -44,18 +41,18 @@ export const ArticleFavoriteButton: React.FC<ArticleFavoriteButtonProps> = ({
   return (
     <>
       <IconButton
-        variant='ghost'
-        aria-label='Favorite Article'
+        variant="ghost"
+        aria-label="Favorite Article"
         icon={article.favorited ? <BsStarFill /> : <BsStar />}
-        size='lg'
+        size="lg"
         colorScheme={article.favorited ? 'yellow' : undefined}
         onClick={() => {
           toggleFavorite();
         }}
       />
-      <Text pl='2' fontSize='sm'>
+      <Text pl="2" fontSize="sm">
         {article.favoritesCount}
       </Text>
     </>
   );
-}
+};

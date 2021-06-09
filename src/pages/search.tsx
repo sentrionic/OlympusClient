@@ -1,22 +1,9 @@
-import {
-  Box,
-  Flex,
-  Stack,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-} from '@chakra-ui/react';
+import { Box, Flex, Stack, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import { NextSeo } from 'next-seo';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
 import useSWR from 'swr';
-import {
-  ArticleResponse,
-  PaginatedArticles,
-  ProfileResponse,
-} from '../api/models';
+import { ArticleResponse, PaginatedArticles, ProfileResponse } from '../api/models';
 import { ArticlePreview } from '../components/article/ArticlePreview';
 import { Layout } from '../components/layout/Layout';
 import { ProfileTabHeader } from '../components/profile/ProfileTabHeader';
@@ -42,18 +29,9 @@ const Search = ({ index, query }: SearchProps) => {
     <Layout>
       <NextSeo title="Search..." />
       <Box minH="100vh">
-        <SearchInput
-          search={search}
-          setSearch={setSearch}
-          setOrder={setOrder}
-        />
+        <SearchInput search={search} setSearch={setSearch} setOrder={setOrder} />
 
-        <Tabs
-          my={5}
-          colorScheme="black"
-          defaultIndex={index}
-          onChange={(index) => setTabIndex(index)}
-        >
+        <Tabs my={5} colorScheme="black" defaultIndex={index} onChange={(index) => setTabIndex(index)}>
           <TabList>
             <Tab>Articles</Tab>
             <Tab>Authors</Tab>
@@ -68,13 +46,12 @@ const Search = ({ index, query }: SearchProps) => {
                   data?.articles?.length === 0 ? (
                     <NoResults search={search} />
                   ) : (
-                    (data as PaginatedArticles)?.articles?.map(
-                      (a: ArticleResponse) =>
-                        !a ? null : (
-                          <Flex key={a.id}>
-                            <ArticlePreview article={a} />
-                          </Flex>
-                        )
+                    (data as PaginatedArticles)?.articles?.map((a: ArticleResponse) =>
+                      !a ? null : (
+                        <Flex key={a.id}>
+                          <ArticlePreview article={a} />
+                        </Flex>
+                      )
                     )
                   )
                 ) : null}
@@ -105,13 +82,12 @@ const Search = ({ index, query }: SearchProps) => {
                   data?.articles?.length === 0 ? (
                     <NoResults search={search} />
                   ) : (
-                    (data as PaginatedArticles)?.articles?.map(
-                      (a: ArticleResponse) =>
-                        !a ? null : (
-                          <Flex key={a.id}>
-                            <ArticlePreview article={a} />
-                          </Flex>
-                        )
+                    (data as PaginatedArticles)?.articles?.map((a: ArticleResponse) =>
+                      !a ? null : (
+                        <Flex key={a.id}>
+                          <ArticlePreview article={a} />
+                        </Flex>
+                      )
                     )
                   )
                 ) : null}

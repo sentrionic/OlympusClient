@@ -38,9 +38,7 @@ const Bookmarked = () => {
               data={data}
               mutate={mutate}
               dataLoader={getBookmarked}
-              noArticlesText={
-                'Articles will appear here once you bookmark them'
-              }
+              noArticlesText={'Articles will appear here once you bookmark them'}
             />
           </TabPanel>
         </TabPanels>

@@ -35,9 +35,7 @@ const Feed = () => {
               data={data}
               mutate={mutate}
               dataLoader={getFeed}
-              noArticlesText={
-                'Articles will appear here once you follow more people'
-              }
+              noArticlesText={'Articles will appear here once you follow more people'}
             />
           </TabPanel>
           <TabPanel>

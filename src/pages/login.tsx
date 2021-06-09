@@ -20,13 +20,7 @@ const Login = () => {
       <NextSeo title="Login" />
       <NavBar />
       <Flex width="full" align="center" justifyContent="center" mt="10">
-        <Box
-          p={8}
-          maxWidth="500px"
-          borderWidth={1}
-          borderRadius={8}
-          boxShadow="lg"
-        >
+        <Box p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">
           <Box textAlign="center">
             <Heading>Login</Heading>
           </Box>
@@ -56,19 +50,9 @@ const Login = () => {
             >
               {({ isSubmitting }) => (
                 <Form>
-                  <InputField
-                    type="email"
-                    placeholder="Email"
-                    label="Email"
-                    name="email"
-                    autoComplete="email"
-                  />
+                  <InputField type="email" placeholder="Email" label="Email" name="email" autoComplete="email" />
 
-                  <PasswordField
-                    autoComplete="current-password"
-                    label="Password"
-                    name="password"
-                  />
+                  <PasswordField autoComplete="current-password" label="Password" name="password" />
 
                   <Button
                     colorScheme="blue"

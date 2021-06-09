@@ -12,10 +12,7 @@ interface CommentSectionProps {
   isShown: boolean;
 }
 
-export const CommentSection: React.FC<CommentSectionProps> = ({
-  article,
-  isShown,
-}) => {
+export const CommentSection: React.FC<CommentSectionProps> = ({ article, isShown }) => {
   const { user } = useGetCurrentUser();
 
   const { data, mutate: commentMutate } = useSWR<CommentResponse[]>(
@@ -28,20 +25,18 @@ export const CommentSection: React.FC<CommentSectionProps> = ({
 
   return (
     <Box>
-      <Text fontWeight='semibold' fontSize='18px' mb='5'>
+      <Text fontWeight="semibold" fontSize="18px" mb="5">
         Comments
       </Text>
       <CommentBox article={article} addComment={addComment} />
-      <Stack spacing={2} mt='4'>
+      <Stack spacing={2} mt="4">
         {data?.length === 0 ? (
           <Text>No Comments Yet</Text>
         ) : (
           data?.map((c) => (
-            <Flex p={3} key={c.id} justify='space-between' align='center'>
+            <Flex p={3} key={c.id} justify="space-between" align="center">
               <Comment comment={c} />
-              {user?.username === c.author.username && (
-                <CommentMenu slug={article.slug} id={c.id} />
-              )}
+              {user?.username === c.author.username && <CommentMenu slug={article.slug} id={c.id} />}
             </Flex>
           ))
         )}

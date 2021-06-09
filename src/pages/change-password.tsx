@@ -19,13 +19,7 @@ const ChangePassword = () => {
       <NavBar />
       <NextSeo title="Change Password" />
       <Flex width="full" align="center" justifyContent="center" mt="10">
-        <Box
-          p={8}
-          maxWidth="500px"
-          borderWidth={1}
-          borderRadius={8}
-          boxShadow="lg"
-        >
+        <Box p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">
           <Box textAlign="center">
             <Heading>Change Password</Heading>
           </Box>
@@ -59,22 +53,11 @@ const ChangePassword = () => {
             >
               {({ isSubmitting }) => (
                 <Form>
-                  <PasswordField
-                    label="Current Password"
-                    name="currentPassword"
-                    autoComplete="current-password"
-                  />
+                  <PasswordField label="Current Password" name="currentPassword" autoComplete="current-password" />
 
-                  <PasswordField
-                    label="New Password"
-                    name="newPassword"
-                    autoComplete="new-password"
-                  />
+                  <PasswordField label="New Password" name="newPassword" autoComplete="new-password" />
 
-                  <PasswordField
-                    label="Confirm New Password"
-                    name="confirmNewPassword"
-                  />
+                  <PasswordField label="Confirm New Password" name="confirmNewPassword" />
 
                   <Button
                     colorScheme="blue"

@@ -34,8 +34,8 @@ export const ProfileArticleList: React.FC<ProfileArticleListProps> = ({
 
   if (data?.articles?.length === 0) {
     return (
-      <Box height='80vh' m='auto'>
-        <Text fontWeight='semibold'>{noDataText}</Text>
+      <Box height="80vh" m="auto">
+        <Text fontWeight="semibold">{noDataText}</Text>
       </Box>
     );
   }

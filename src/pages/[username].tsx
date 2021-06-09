@@ -25,12 +25,9 @@ const Profile = (profileProps: ProfileProps) => {
   }
 
   const { data, error } = useGetProfile(profileProps);
-  const { data: info, mutate } = useSWR(
-    `/articles?author=${profileProps.profile.username}`,
-    {
-      initialData: profileProps.initialData,
-    }
-  );
+  const { data: info, mutate } = useSWR(`/articles?author=${profileProps.profile.username}`, {
+    initialData: profileProps.initialData,
+  });
 
   if (error || !data) {
     return <NoProfileFound />;
@@ -54,9 +51,7 @@ const Profile = (profileProps: ProfileProps) => {
               />
             </TabPanel>
             <TabPanel>
-              <ProfileTabHeader isNotSelectedTab={true}>
-                Favorited
-              </ProfileTabHeader>
+              <ProfileTabHeader isNotSelectedTab={true}>Favorited</ProfileTabHeader>
             </TabPanel>
           </TabPanels>
         </ProfileTabs>

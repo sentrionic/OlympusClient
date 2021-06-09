@@ -24,12 +24,7 @@ interface IProps {
   onClose: () => void;
 }
 
-export const CropAvatarModal: React.FC<IProps> = ({
-  isOpen,
-  onClose,
-  applyCrop,
-  initialImage,
-}) => {
+export const CropAvatarModal: React.FC<IProps> = ({ isOpen, onClose, applyCrop, initialImage }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
@@ -40,10 +35,7 @@ export const CropAvatarModal: React.FC<IProps> = ({
 
   const showCroppedImage = useCallback(async () => {
     try {
-      const croppedImage = await getCroppedImage(
-        initialImage,
-        croppedAreaPixels
-      );
+      const croppedImage = await getCroppedImage(initialImage, croppedAreaPixels);
       applyCrop(croppedImage);
     } catch (e) {
       console.error(e);
@@ -51,12 +43,7 @@ export const CropAvatarModal: React.FC<IProps> = ({
   }, [croppedAreaPixels, initialImage, applyCrop]);
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      isCentered
-      closeOnOverlayClick={false}
-    >
+    <Modal isOpen={isOpen} onClose={onClose} isCentered closeOnOverlayClick={false}>
       <ModalOverlay />
 
       <ModalContent>
@@ -95,12 +82,7 @@ export const CropAvatarModal: React.FC<IProps> = ({
           <Button onClick={onClose} fontSize={'14px'} mr={6} variant="link">
             Cancel
           </Button>
-          <Button
-            colorScheme="blue"
-            type="submit"
-            fontSize={'14px'}
-            onClick={showCroppedImage}
-          >
+          <Button colorScheme="blue" type="submit" fontSize={'14px'} onClick={showCroppedImage}>
             Apply
           </Button>
         </ModalFooter>

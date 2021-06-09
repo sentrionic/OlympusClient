@@ -8,15 +8,15 @@ interface ArticleImageProps {
 
 export const ArticleImage: React.FC<ArticleImageProps> = ({ article }) => {
   return (
-    <Flex justify='center' align='center'>
+    <Flex justify="center" align="center">
       <Image
         maxW={['sm', 'md', 'lg']}
-        borderWidth='1px'
-        rounded='lg'
-        overflow='hidden'
+        borderWidth="1px"
+        rounded="lg"
+        overflow="hidden"
         src={article.image}
         alt={article.title}
-        objectFit='contain'
+        objectFit="contain"
       />
     </Flex>
   );

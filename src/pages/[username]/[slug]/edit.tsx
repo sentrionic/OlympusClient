@@ -49,9 +49,7 @@ const Edit = () => {
       <Layout>
         <Flex height="80vh">
           <Box shadow="md" borderWidth="1px" m="auto" p="10">
-            <Heading>
-              You do not have the permission to edit this article
-            </Heading>
+            <Heading>You do not have the permission to edit this article</Heading>
             <NextLink href="/">
               <Link mt="10">Go back Home</Link>
             </NextLink>
@@ -86,13 +84,8 @@ const Edit = () => {
                 formData.append('body', values.body);
                 formData.append('image', values.image);
                 const tags = values.tagList;
-                tags.map((tag, i) =>
-                  formData.append(`tagList[${i}]`, tag.trim())
-                );
-                const { data: updatedArticle } = await updateArticle(
-                  data.slug,
-                  formData
-                );
+                tags.map((tag, i) => formData.append(`tagList[${i}]`, tag.trim()));
+                const { data: updatedArticle } = await updateArticle(data.slug, formData);
                 if (updatedArticle) {
                   mutate('/articles');
                   mutate(`/articles/${slug}`);
@@ -106,14 +99,7 @@ const Edit = () => {
               }
             }}
           >
-            {({
-              isSubmitting,
-              setFieldValue,
-              values,
-              errors,
-              touched,
-              handleChange,
-            }) => (
+            {({ isSubmitting, setFieldValue, values, errors, touched, handleChange }) => (
               <Form>
                 <input
                   type="file"
@@ -148,12 +134,7 @@ const Edit = () => {
                 >
                   Choose Optional Splash Image
                 </Button>
-                <InputField
-                  value={values.title}
-                  placeholder="Title"
-                  label="Title"
-                  name="title"
-                />
+                <InputField value={values.title} placeholder="Title" label="Title" name="title" />
                 <InputField
                   value={values.description}
                   placeholder="What's this article about"
@@ -165,11 +146,7 @@ const Edit = () => {
                     <Flex align="center" justify="space-between">
                       <FormLabel>Body</FormLabel>
                       <Flex align="center">
-                        <Switch
-                          id="preview"
-                          tabIndex={-1}
-                          onChange={() => togglePreview(!isPreview)}
-                        />
+                        <Switch id="preview" tabIndex={-1} onChange={() => togglePreview(!isPreview)} />
                         <Text ml="2">Preview</Text>
                       </Flex>
                     </Flex>
@@ -200,18 +177,10 @@ const Edit = () => {
                   placeholder="A list of tags, seperated by commas"
                   label="Tags"
                   name="tagList"
-                  onChange={(e) =>
-                    setFieldValue('tagList', [...e.target.value.split(',')])
-                  }
+                  onChange={(e) => setFieldValue('tagList', [...e.target.value.split(',')])}
                 />
                 <Flex justify="flex-end">
-                  <Button
-                    colorScheme="blue"
-                    variant="outline"
-                    type="submit"
-                    mt={4}
-                    isLoading={isSubmitting}
-                  >
+                  <Button colorScheme="blue" variant="outline" type="submit" mt={4} isLoading={isSubmitting}>
                     Update Article
                   </Button>
                 </Flex>

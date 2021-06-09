@@ -14,23 +14,17 @@ export const ArticleHeader: React.FC<ArticleHeaderProps> = ({ article }) => {
   const { user } = useGetCurrentUser();
 
   return (
-    <Flex mb='5' justify='space-between'>
+    <Flex mb="5" justify="space-between">
       <Stack isInline>
         <Avatar name={article.author.username} src={article.author.image} />
-        <Box textAlign={"left"}>
-          <Link
-            href={`/${article.author.username}`}
-            fontWeight='bold'
-            color='blue.600'
-          >
+        <Box textAlign={'left'}>
+          <Link href={`/${article.author.username}`} fontWeight="bold" color="blue.600">
             {article.author.username}
           </Link>
           <ArticleTime createdAt={article.createdAt} />
         </Box>
       </Stack>
-      {user?.username === article.author.username && (
-        <ArticleMenu article={article} />
-      )}
+      {user?.username === article.author.username && <ArticleMenu article={article} />}
     </Flex>
   );
 };

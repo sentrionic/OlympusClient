@@ -6,10 +6,10 @@ import { Layout } from '../layout/Layout';
 
 export const NoArticleFound: React.FC<{}> = () => (
   <Layout>
-    <Flex height='80vh'>
-      <Box shadow='md' borderWidth='1px' m='auto' p='10'>
+    <Flex height="80vh">
+      <Box shadow="md" borderWidth="1px" m="auto" p="10">
         <Heading>No Article Found</Heading>
-        <NextLink href='/'>
+        <NextLink href="/">
           <Link>
             Go back <a>Home</a>
           </Link>

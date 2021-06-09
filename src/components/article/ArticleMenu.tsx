@@ -17,7 +17,7 @@ import React from 'react';
 import { mutate } from 'swr';
 import { deleteArticle } from '../../api';
 import { ArticleResponse } from '../../api/models';
-import { ChevronDownIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon } from '@chakra-ui/icons';
 
 interface ArticleMenuProps {
   article: ArticleResponse;
@@ -44,38 +44,26 @@ export const ArticleMenu: React.FC<ArticleMenuProps> = ({ article }) => {
   return (
     <>
       <Menu>
-        <IconButton
-          as={MenuButton}
-          variant='outline'
-          aria-label='Settings Menu'
-          icon={<ChevronDownIcon />}
-          size='sm'
-        />
+        <IconButton as={MenuButton} variant="outline" aria-label="Settings Menu" icon={<ChevronDownIcon />} size="sm" />
         <MenuList>
           <MenuItem onClick={() => pushEditArticle()}>Edit</MenuItem>
           <MenuItem onClick={() => setIsOpen(true)}>Delete</MenuItem>
         </MenuList>
       </Menu>
-      <AlertDialog
-        isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={() => setIsOpen(false)}
-      >
+      <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={() => setIsOpen(false)}>
         <AlertDialogOverlay />
         <AlertDialogContent>
-          <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+          <AlertDialogHeader fontSize="lg" fontWeight="bold">
             Delete Article
           </AlertDialogHeader>
 
-          <AlertDialogBody>
-            Are you sure? You can't undo this action afterwards.
-          </AlertDialogBody>
+          <AlertDialogBody>Are you sure? You can't undo this action afterwards.</AlertDialogBody>
 
           <AlertDialogFooter>
             <Button ref={cancelRef} onClick={() => setIsOpen(false)}>
               Cancel
             </Button>
-            <Button colorScheme='red' onClick={onClose} ml={3}>
+            <Button colorScheme="red" onClick={onClose} ml={3}>
               Delete
             </Button>
           </AlertDialogFooter>

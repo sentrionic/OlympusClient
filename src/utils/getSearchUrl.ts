@@ -4,11 +4,7 @@ interface SearchProps {
   order: string;
 }
 
-export const getSearchUrl = ({
-  tabIndex,
-  search,
-  order,
-}: SearchProps): string => {
+export const getSearchUrl = ({ tabIndex, search, order }: SearchProps): string => {
   let url = null;
 
   if (search.length < 3) {

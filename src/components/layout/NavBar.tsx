@@ -23,7 +23,7 @@ import { Logo } from './Logo';
 import { logout } from '../../api';
 import { useGetCurrentUser } from '../../api/useGetCurrentUser';
 import { NavBarSearch } from './NavBarSearch';
-import { EditIcon, MoonIcon, SettingsIcon, SunIcon } from "@chakra-ui/icons";
+import { EditIcon, MoonIcon, SettingsIcon, SunIcon } from '@chakra-ui/icons';
 
 interface NavBarProps {}
 
@@ -42,28 +42,18 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
     body = (
       <>
         <NextLink href={'/create'}>
-          <Button
-            colorScheme='blue'
-            variant='outline'
-            mr={10}
-            size='sm'
-            leftIcon={<EditIcon />}
-          >
+          <Button colorScheme="blue" variant="outline" mr={10} size="sm" leftIcon={<EditIcon />}>
             Create Article
           </Button>
         </NextLink>
         <Menu>
-          <Box
-            as={MenuButton}
-            _hover={{ cursor: 'pointer' }}
-            _focus={{ boxShadow: 'none' }}
-          >
+          <Box as={MenuButton} _hover={{ cursor: 'pointer' }} _focus={{ boxShadow: 'none' }}>
             <Avatar src={user.image} display={['none', 'none', 'flex']} />
             <Button
               as={Box}
-              colorScheme='blue'
-              variant='outline'
-              size='sm'
+              colorScheme="blue"
+              variant="outline"
+              size="sm"
               display={['flex', 'flex', 'none']}
               leftIcon={<SettingsIcon />}
             >
@@ -71,10 +61,10 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             </Button>
           </Box>
           <MenuList>
-            <NextLink href='/[username]' as={`/${user.username}`}>
+            <NextLink href="/[username]" as={`/${user.username}`}>
               <MenuItem>Your Profile</MenuItem>
             </NextLink>
-            <NextLink href='/account'>
+            <NextLink href="/account">
               <MenuItem>Account</MenuItem>
             </NextLink>
             <MenuDivider />
@@ -97,13 +87,13 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   } else {
     body = (
       <>
-        <NextLink href='/login'>
-          <Button colorScheme='blue' variant='outline' mr={2} size='sm'>
+        <NextLink href="/login">
+          <Button colorScheme="blue" variant="outline" mr={2} size="sm">
             Login
           </Button>
         </NextLink>
-        <NextLink href='/register'>
-          <Button colorScheme='blue' variant='solid' mr={2} size='sm'>
+        <NextLink href="/register">
+          <Button colorScheme="blue" variant="solid" mr={2} size="sm">
             Register
           </Button>
         </NextLink>
@@ -118,59 +108,51 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
         top={0}
         p={4}
         minW={430}
-        boxShadow='md'
-        justify='space-between'
-        align='center'
-        wrap='wrap'
+        boxShadow="md"
+        justify="space-between"
+        align="center"
+        wrap="wrap"
         bg={isDark ? 'gray.800' : 'white'}
       >
         <Flex
-          align='center'
+          align="center"
           mr={['0', '0', '5']}
           width={['100%', '100%', 'auto']}
           justifyContent={['space-between', 'space-between', 'flex-start']}
         >
-          <Flex
-            justify={['center', 'center', 'flex-start']}
-            w='full'
-            ml={[0, 0, 4]}
-          >
-            <Box w='40px' h='40px'>
-              <Link style={{ textDecoration: 'none' }} href='/'>
+          <Flex justify={['center', 'center', 'flex-start']} w="full" ml={[0, 0, 4]}>
+            <Box w="40px" h="40px">
+              <Link style={{ textDecoration: 'none' }} href="/">
                 <Logo isDark={isDark} />
               </Link>
             </Box>
             <Box ml={4} display={[undefined, undefined, 'none']}>
-              <Link style={{ textDecoration: 'none' }} href='/'>
-                <Heading as='h1' letterSpacing={'-.1rem'}>
+              <Link style={{ textDecoration: 'none' }} href="/">
+                <Heading as="h1" letterSpacing={'-.1rem'}>
                   OlympusBlog
                 </Heading>
               </Link>
             </Box>
           </Flex>
-          <Box
-            as={AiOutlineMenu}
-            display={['block', 'block', 'none']}
-            onClick={handleToggle}
-          />
+          <Box as={AiOutlineMenu} display={['block', 'block', 'none']} onClick={handleToggle} />
         </Flex>
         <NavBarSearch show={show} />
         <Box
           mt={[4, 4, 0]}
           display={[show ? 'flex' : 'none', show ? 'flex' : 'none', 'flex']}
-          alignItems='center'
+          alignItems="center"
           justifyContent={['center', 'center', 'flex-end']}
           flexGrow={[1, 1, 0]}
         >
           {body}
           <IconButton
-            size='md'
-            fontSize='lg'
+            size="md"
+            fontSize="lg"
             aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
-            variant='ghost'
-            color='current'
-            mr='2'
-            ml='4'
+            variant="ghost"
+            color="current"
+            mr="2"
+            ml="4"
             onClick={toggleColorMode}
             icon={isDark ? <SunIcon /> : <MoonIcon />}
           />

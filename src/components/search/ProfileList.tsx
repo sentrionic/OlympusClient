@@ -6,19 +6,17 @@ interface ProfileListItemProps {
   profile: ProfileResponse;
 }
 
-export const ProfileListItem: React.FC<ProfileListItemProps> = ({
-  profile,
-}) => {
+export const ProfileListItem: React.FC<ProfileListItemProps> = ({ profile }) => {
   return (
     <Stack isInline>
-      <Avatar name={profile.username} src={profile.image} size='lg' />
+      <Avatar name={profile.username} src={profile.image} size="lg" />
       <Box>
         <Link href={`/${profile.username}`}>
-          <Heading as='h3' size='md'>
+          <Heading as="h3" size="md">
             {profile.username}
           </Heading>
         </Link>
-        <Text mt='1' color='gray.700'>
+        <Text mt="1" color="gray.700">
           {profile.bio}
         </Text>
       </Box>

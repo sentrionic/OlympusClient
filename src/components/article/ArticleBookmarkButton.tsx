@@ -11,10 +11,7 @@ interface ArticleBookmarkButtonProps {
   mutate: Function;
 }
 
-export const ArticleBookmarkButton: React.FC<ArticleBookmarkButtonProps> = ({
-  article,
-  mutate,
-}) => {
+export const ArticleBookmarkButton: React.FC<ArticleBookmarkButtonProps> = ({ article, mutate }) => {
   const { user } = useGetCurrentUser();
   const router = useRouter();
 
@@ -41,9 +38,9 @@ export const ArticleBookmarkButton: React.FC<ArticleBookmarkButtonProps> = ({
 
   return (
     <IconButton
-      variant='ghost'
-      aria-label='Bookmark Article'
-      size='lg'
+      variant="ghost"
+      aria-label="Bookmark Article"
+      size="lg"
       icon={article.bookmarked ? <BsFillBookmarkFill /> : <BsBookmark />}
       onClick={() => {
         toggleBookmark();

@@ -10,18 +10,13 @@ interface ArticleFollowButtonProps {
   mutate: Function;
 }
 
-export const ArticleFollowButton: React.FC<ArticleFollowButtonProps> = ({
-  article,
-  mutate,
-}) => {
+export const ArticleFollowButton: React.FC<ArticleFollowButtonProps> = ({ article, mutate }) => {
   const { user } = useGetCurrentUser();
   const router = useRouter();
 
   const toggleFollow = () => {
     if (!user) {
-      return router.replace(
-        '/login?next=' + router.query.username + '/' + router.query.slug
-      );
+      return router.replace('/login?next=' + router.query.username + '/' + router.query.slug);
     }
 
     const isFollowing = article.author.following;
@@ -44,13 +39,7 @@ export const ArticleFollowButton: React.FC<ArticleFollowButtonProps> = ({
   if (user?.id === article.author.id) return null;
 
   return (
-    <Button
-      variant='outline'
-      size='xs'
-      rounded='true'
-      ml='3'
-      onClick={() => toggleFollow()}
-    >
+    <Button variant="outline" size="xs" rounded="true" ml="3" onClick={() => toggleFollow()}>
       {article.author.following ? 'Unfollow' : 'Follow'}
     </Button>
   );

@@ -5,17 +5,9 @@ interface ProfileTabHeaderProps {
   isNotSelectedTab?: boolean;
 }
 
-export const ProfileTabHeader: React.FC<ProfileTabHeaderProps> = ({
-  children,
-  isNotSelectedTab = false,
-}) => {
+export const ProfileTabHeader: React.FC<ProfileTabHeaderProps> = ({ children, isNotSelectedTab = false }) => {
   return (
-    <Text
-      fontWeight='bold'
-      fontSize='xl'
-      my='6'
-      height={isNotSelectedTab ? '80vh' : undefined}
-    >
+    <Text fontWeight="bold" fontSize="xl" my="6" height={isNotSelectedTab ? '80vh' : undefined}>
       {children}
     </Text>
   );

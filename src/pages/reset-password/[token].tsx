@@ -20,13 +20,7 @@ const ResetPassword = () => {
       <NextSeo title="Reset Password" />
       <NavBar />
       <Flex width="full" align="center" justifyContent="center" mt="10">
-        <Box
-          p={8}
-          maxWidth="500px"
-          borderWidth={1}
-          borderRadius={8}
-          boxShadow="lg"
-        >
+        <Box p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">
           <Box textAlign="center">
             <Heading>Reset Password</Heading>
           </Box>
@@ -36,10 +30,7 @@ const ResetPassword = () => {
               validationSchema={ResetPasswordSchema}
               onSubmit={async (values, { setErrors }) => {
                 try {
-                  const token =
-                    typeof router.query.token === 'string'
-                      ? router.query.token
-                      : '';
+                  const token = typeof router.query.token === 'string' ? router.query.token : '';
                   const { data } = await resetPassword({ ...values, token });
                   if (data) {
                     mutate('/users', data);
@@ -60,15 +51,8 @@ const ResetPassword = () => {
             >
               {({ isSubmitting }) => (
                 <Form>
-                  <PasswordField
-                    label="New Password"
-                    name="newPassword"
-                    autoComplete="new-password"
-                  />
-                  <PasswordField
-                    label="Confirm New Password"
-                    name="confirmNewPassword"
-                  />
+                  <PasswordField label="New Password" name="newPassword" autoComplete="new-password" />
+                  <PasswordField label="Confirm New Password" name="confirmNewPassword" />
                   <Button
                     colorScheme="blue"
                     variant="outline"

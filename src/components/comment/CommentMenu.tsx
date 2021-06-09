@@ -15,7 +15,7 @@ import {
 import React from 'react';
 import { mutate } from 'swr';
 import { deleteComment } from '../../api';
-import { ChevronDownIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon } from '@chakra-ui/icons';
 
 interface CommentMenuProps {
   slug: string;
@@ -37,37 +37,25 @@ export const CommentMenu: React.FC<CommentMenuProps> = ({ slug, id }) => {
   return (
     <>
       <Menu>
-        <IconButton
-          as={MenuButton}
-          variant='outline'
-          aria-label='Settings Menu'
-          icon={<ChevronDownIcon />}
-          size='sm'
-        />
+        <IconButton as={MenuButton} variant="outline" aria-label="Settings Menu" icon={<ChevronDownIcon />} size="sm" />
         <MenuList>
           <MenuItem onClick={() => setIsOpen(true)}>Delete</MenuItem>
         </MenuList>
       </Menu>
-      <AlertDialog
-        isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={() => setIsOpen(false)}
-      >
+      <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={() => setIsOpen(false)}>
         <AlertDialogOverlay />
         <AlertDialogContent>
-          <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+          <AlertDialogHeader fontSize="lg" fontWeight="bold">
             Delete Comment
           </AlertDialogHeader>
 
-          <AlertDialogBody>
-            Are you sure? You can't undo this action afterwards.
-          </AlertDialogBody>
+          <AlertDialogBody>Are you sure? You can't undo this action afterwards.</AlertDialogBody>
 
           <AlertDialogFooter>
             <Button ref={cancelRef} onClick={() => setIsOpen(false)}>
               Cancel
             </Button>
-            <Button colorScheme='red' onClick={() => onConfirm()} ml={3}>
+            <Button colorScheme="red" onClick={() => onConfirm()} ml={3}>
               Delete
             </Button>
           </AlertDialogFooter>

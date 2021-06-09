@@ -1,39 +1,22 @@
 import { Flex, IconButton, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
-import {
-  BsBookmark,
-  BsFillBookmarkFill,
-  BsStar,
-  BsStarFill,
-} from 'react-icons/bs';
-import {
-  bookmarkArticle,
-  favoriteArticle,
-  unbookmarkArticle,
-  unfavoriteArticle,
-} from '../../api';
+import { BsBookmark, BsFillBookmarkFill, BsStar, BsStarFill } from 'react-icons/bs';
+import { bookmarkArticle, favoriteArticle, unbookmarkArticle, unfavoriteArticle } from '../../api';
 import { ArticleResponse } from '../../api/models';
 import { useGetCurrentUser } from '../../api/useGetCurrentUser';
-import { ChatIcon } from "@chakra-ui/icons";
+import { ChatIcon } from '@chakra-ui/icons';
 
 interface ArticleActionsProps {
   article: ArticleResponse;
   setPreview: Function;
 }
 
-export const ArticleAction: React.FC<ArticleActionsProps> = ({
-  article,
-  setPreview,
-}) => {
+export const ArticleAction: React.FC<ArticleActionsProps> = ({ article, setPreview }) => {
   const { user } = useGetCurrentUser();
   const router = useRouter();
 
-  const handleFavorite = ({
-    slug,
-    favorited,
-    favoritesCount,
-  }: ArticleResponse) => {
+  const handleFavorite = ({ slug, favorited, favoritesCount }: ArticleResponse) => {
     if (!user) {
       return router.replace('/login?next=' + router.asPath);
     }
@@ -41,7 +24,7 @@ export const ArticleAction: React.FC<ArticleActionsProps> = ({
     setPreview({
       ...article,
       favorited: !favorited,
-      favoritesCount: favoritesCount += favorited ? -1 : 1,
+      favoritesCount: (favoritesCount += favorited ? -1 : 1),
     });
 
     if (favorited) {
@@ -73,37 +56,37 @@ export const ArticleAction: React.FC<ArticleActionsProps> = ({
   };
 
   return (
-    <Flex pt='4' justify='space-between'>
+    <Flex pt="4" justify="space-between">
       <Flex>
-        <Flex align='center'>
+        <Flex align="center">
           <IconButton
-            variant='ghost'
-            aria-label='Favorite Article'
+            variant="ghost"
+            aria-label="Favorite Article"
             icon={article.favorited ? <BsStarFill /> : <BsStar />}
-            size='lg'
+            size="lg"
             colorScheme={article.favorited ? 'yellow' : undefined}
             onClick={() => handleFavorite(article)}
           />
-          <Text ml='2' fontSize='sm'>
+          <Text ml="2" fontSize="sm">
             {article.favoritesCount}
           </Text>
         </Flex>
         <IconButton
-          variant='ghost'
-          aria-label='Favorite Article'
-          icon={<ChatIcon/>}
-          size='lg'
-          ml='2'
+          variant="ghost"
+          aria-label="Favorite Article"
+          icon={<ChatIcon />}
+          size="lg"
+          ml="2"
           onClick={() => handleComment()}
         />
       </Flex>
       <IconButton
-        variant='ghost'
-        aria-label='Bookmark Article'
+        variant="ghost"
+        aria-label="Bookmark Article"
         icon={article.bookmarked ? <BsFillBookmarkFill /> : <BsBookmark />}
-        size='lg'
+        size="lg"
         onClick={() => handleBookmark(article)}
       />
     </Flex>
   );
-}
+};

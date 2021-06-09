@@ -7,13 +7,10 @@ interface HomeTabsProps {
   tabIndex?: number;
 }
 
-export const HomeTabs: React.FC<HomeTabsProps> = ({
-  children,
-  tabIndex = 0,
-}) => {
+export const HomeTabs: React.FC<HomeTabsProps> = ({ children, tabIndex = 0 }) => {
   const { user } = useGetCurrentUser();
   return (
-    <Tabs align='center' variant='soft-rounded' defaultIndex={tabIndex}>
+    <Tabs align="center" variant="soft-rounded" defaultIndex={tabIndex}>
       <TabList>
         <Tab>
           <NextLink href={'/'}>Global</NextLink>

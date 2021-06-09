@@ -57,9 +57,7 @@ const Create = () => {
                 formData.append('description', values.description);
                 formData.append('body', values.body);
                 formData.append('image', values.image);
-                values.tagList.map((tag, i) =>
-                  formData.append(`tagList[${i}]`, tag.trim())
-                );
+                values.tagList.map((tag, i) => formData.append(`tagList[${i}]`, tag.trim()));
                 const { data } = await createArticle(formData);
                 if (data) {
                   await router.push('/');
@@ -72,14 +70,7 @@ const Create = () => {
               }
             }}
           >
-            {({
-              isSubmitting,
-              setFieldValue,
-              values,
-              errors,
-              touched,
-              handleChange,
-            }) => (
+            {({ isSubmitting, setFieldValue, values, errors, touched, handleChange }) => (
               <Form>
                 <input
                   type="file"
@@ -115,21 +106,13 @@ const Create = () => {
                   Choose Optional Splash Image
                 </Button>
                 <InputField placeholder="Title" label="Title" name="title" />
-                <InputField
-                  placeholder="What's this article about"
-                  label="Description"
-                  name="description"
-                />
+                <InputField placeholder="What's this article about" label="Description" name="description" />
                 <Box mt="6">
                   <FormControl mt={6} isInvalid={errors.body && touched.body}>
                     <Flex align="center" justify="space-between">
                       <FormLabel>Body</FormLabel>
                       <Flex align="center">
-                        <Switch
-                          id="preview"
-                          tabIndex={-1}
-                          onChange={() => togglePreview(!isPreview)}
-                        />
+                        <Switch id="preview" tabIndex={-1} onChange={() => togglePreview(!isPreview)} />
                         <Text ml="2">Preview</Text>
                       </Flex>
                     </Flex>
@@ -159,18 +142,10 @@ const Create = () => {
                   placeholder="A list of tags, seperated by commas"
                   label="Tags"
                   name="tagList"
-                  onChange={(e) =>
-                    setFieldValue('tagList', [...e.target.value.split(',')])
-                  }
+                  onChange={(e) => setFieldValue('tagList', [...e.target.value.split(',')])}
                 />
                 <Flex justify="flex-end">
-                  <Button
-                    colorScheme="blue"
-                    variant="outline"
-                    type="submit"
-                    mt={4}
-                    isLoading={isSubmitting}
-                  >
+                  <Button colorScheme="blue" variant="outline" type="submit" mt={4} isLoading={isSubmitting}>
                     Publish Article
                   </Button>
                 </Flex>

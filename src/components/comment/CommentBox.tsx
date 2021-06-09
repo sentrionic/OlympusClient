@@ -1,10 +1,4 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  FormErrorMessage,
-  Textarea,
-} from '@chakra-ui/react';
+import { Box, Button, FormControl, FormErrorMessage, Textarea } from '@chakra-ui/react';
 import { Formik } from 'formik';
 import React from 'react';
 import { createComment } from '../../api';
@@ -18,10 +12,7 @@ interface CommentBoxProps {
   addComment: Function;
 }
 
-export const CommentBox: React.FC<CommentBoxProps> = ({
-  article,
-  addComment,
-}) => {
+export const CommentBox: React.FC<CommentBoxProps> = ({ article, addComment }) => {
   const { user } = useGetCurrentUser();
   return (
     <Box>
@@ -32,10 +23,7 @@ export const CommentBox: React.FC<CommentBoxProps> = ({
         validationSchema={CommentSchema}
         onSubmit={async (values, { setErrors, resetForm }) => {
           try {
-            const { data: newComment } = await createComment(
-              article.slug,
-              values
-            );
+            const { data: newComment } = await createComment(article.slug, values);
 
             if (newComment) {
               addComment(newComment);
@@ -49,32 +37,23 @@ export const CommentBox: React.FC<CommentBoxProps> = ({
           }
         }}
       >
-        {({
-          isSubmitting,
-          handleChange,
-          errors,
-          touched,
-          values,
-          handleSubmit,
-        }) => (
+        {({ isSubmitting, handleChange, errors, touched, values, handleSubmit }) => (
           <>
-            <FormControl isInvalid={errors.body && touched.body} w='full'>
+            <FormControl isInvalid={errors.body && touched.body} w="full">
               <Textarea
                 value={values.body}
-                name='body'
+                name="body"
                 onChange={handleChange}
-                placeholder={`What are your thoughts?${
-                  !user ? '\nSign in to comment.' : ''
-                }`}
+                placeholder={`What are your thoughts?${!user ? '\nSign in to comment.' : ''}`}
               />
               <FormErrorMessage>{errors.body}</FormErrorMessage>
             </FormControl>
 
             <Button
-              colorScheme='blue'
-              variant='outline'
+              colorScheme="blue"
+              variant="outline"
               mt={4}
-              size='sm'
+              size="sm"
               isLoading={isSubmitting}
               isDisabled={!user}
               onClick={() => handleSubmit}
